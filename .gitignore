@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+# HyperFrames scratch output (snapshots, check reports); project history stays tracked
+hyperframes/.hyperframes/artifacts/
+hyperframes/.hyperframes/video-state-lock
+hyperframes/renders/
