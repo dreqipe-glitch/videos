@@ -1,0 +1,51 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      font-family: var(--font-display);
+    }
+    #title-bar {
+      width: 240px;
+      height: 12px;
+      border-radius: 6px;
+      background: var(--accent);
+      transform-origin: center center;
+    }
+    #title-headline {
+      color: var(--ink);
+      font-size: 128px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+    #title-subtitle {
+      color: var(--muted);
+      font-size: 44px;
+      font-weight: 400;
+    }
+  </style>
+  <div id="root" data-composition-id="title" data-width="1920" data-height="1080">
+    <div id="title-bar"></div>
+    <h1 id="title-headline" data-var-text="title">HyperFrames</h1>
+    <p id="title-subtitle" data-var-text="subtitle">5-second render test · 1080p60</p>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#title-bar", { scaleX: 0.3 }, { scaleX: 1, duration: 0.6, ease: "power3.out" }, 0);
+    tl.fromTo("#title-headline", { opacity: 0.35, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 0);
+    tl.fromTo("#title-subtitle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.6);
+    tl.fromTo("#title-headline", { scale: 1 }, { scale: 1.04, duration: 3.2, ease: "none" }, 1.0);
+    tl.fromTo(
+      ["#title-bar", "#title-headline", "#title-subtitle"],
+      { opacity: 1 },
+      { opacity: 0, duration: 0.4, ease: "power2.in", immediateRender: false },
+      4.5,
+    );
+    window.__timelines["title"] = tl;
+  </script>
+</template>

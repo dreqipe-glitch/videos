@@ -1,0 +1,19 @@
+{
+  "name": "videos",
+  "colors": {
+    "ground": "#0b1020",
+    "ink": "#f5f7ff",
+    "muted": "#9aa3c7",
+    "accent": "#ff5a36"
+  },
+  "font": {
+    "family": "Inter",
+    "weights": [400, 700, 900]
+  },
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "loudnessTargetLUFS": -14
+  }
+}
