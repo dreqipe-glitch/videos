@@ -5,6 +5,7 @@
     #si-scene { position: absolute; inset: 0; overflow: hidden; background: #05080F; font-family: var(--font-ar); }
     #si-bg { position: absolute; inset: -4%; background: radial-gradient(ellipse 75% 55% at 50% 38%, #13203A 0%, #0B1320 45%, #05080F 100%); }
     #si-cam { position: absolute; inset: 0; transform-origin: 50% 46%; }
+    #si-all { transform-origin: 50% 50%; }
     /* flag on its pole, soft focus, night-graded; the cloth is vertical strips displaced by a travelling wave */
     #si-flagwrap { left: 84px; top: 300px; width: 930px; height: 660px; filter: blur(2.6px) brightness(0.58) saturate(0.9); }
     #si-pole { position: absolute; left: 0; top: 0; width: 12px; height: 1120px; border-radius: 6px; background: linear-gradient(90deg, #3A4252, #8A93A3 45%, #2A303C); }
@@ -47,6 +48,7 @@
   </style>
   <div id="root" data-composition-id="intro" data-start="0" data-duration="3.2" data-width="1080" data-height="1920">
     <div id="si-scene">
+      <div id="si-all" class="pkg-layer">
       <div id="si-bg"></div>
       <div id="si-cam">
         <div id="si-shake" class="pkg-layer">
@@ -67,6 +69,7 @@
         <div id="si-name"><span id="si-n1">سْلَاامْ</span> <span id="si-n2">سْلَاحْ</span><div id="si-ul"></div></div>
       </div>
       <div class="si-abs" id="si-tag">#سلام_سلاح</div>
+      </div>
       <div class="pkg-vignette"></div>
       <div class="pkg-grain" id="si-grain"></div>
       <div id="si-flash"></div>
@@ -122,7 +125,7 @@
       tl.fromTo("#si-cam", { scale: 1.0 }, { scale: 1.06, duration: F(30), ease: "sine.inOut" }, 0);
       tl.to("#si-cam", { scale: 1.08, duration: F(58), ease: "none" }, F(30));
       [3, -2.5, 1.5, 0].forEach((d, i) => tl.to("#si-shake", { x: d, y: -d * 0.5, duration: F(1), ease: "none" }, F(33 + i)));
-      tl.to("#si-cam", { scale: 1.26, y: -70, filter: "blur(16px)", duration: F(7), ease: "expo.in" }, F(89));
+      tl.fromTo("#si-all", { scale: 1, y: 0, filter: "blur(0px)" }, { scale: 1.22, y: -60, filter: "blur(16px)", duration: F(7), ease: "expo.in", immediateRender: false }, F(89));
       tl.fromTo("#si-flash", { opacity: 0 }, { opacity: 0.95, duration: F(6), ease: "power2.in", immediateRender: false }, F(90));
 
       /* ---------- the drill: pose A (arme au pied) → pose B (présentez armes) ---------- */
@@ -133,6 +136,7 @@
         const E = [SL[0] - A * Math.sin(u), SL[1] + A * Math.cos(u)]; return [E[0] - B * Math.sin(f), E[1] + B * Math.cos(f)]; })();
       // rifle keys: centre x, y, rotation; right-hand grip along the rifle; left hand: 0 = at rest … 1 = on the handguard
       const KEYS = {
+        0: { x: 98, y: 637, a: 0, gr: -100, l: 0 },
         30: { x: 98, y: 637, a: 0, gr: -100, l: 0 },
         31: { x: 114, y: 606, a: 7, gr: -70, l: 0.15 },
         32: { x: 152, y: 548, a: 13, gr: -10, l: 0.55 },
