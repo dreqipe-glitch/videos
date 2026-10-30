@@ -1,0 +1,60 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; pointer-events: none; }
+    /* hashtag pill, top-left: «#» renders on the right of the Arabic word, as on Instagram / TikTok */
+    #br-tag { position: absolute; left: 90px; top: 292px; height: 76px; display: flex; align-items: center; padding: 0 26px 6px; border-radius: 38px;
+      background: rgba(11,19,32,0.45); box-shadow: 0 6px 20px rgba(0,0,0,0.25); overflow: hidden; direction: rtl; }
+    #br-tag .t { font-family: var(--font-ar); font-weight: 700; font-size: 44px; line-height: 1; color: var(--ink); white-space: nowrap; text-shadow: 0 2px 8px rgba(0,0,0,0.35); }
+    #br-tag .h { color: var(--pink); }
+    #br-tagshine { position: absolute; top: -20%; bottom: -20%; width: 40%; left: -45%; opacity: 0;
+      background: linear-gradient(100deg, rgba(255,222,228,0) 0%, rgba(255,222,228,0.45) 50%, rgba(255,222,228,0) 100%); }
+    /* page avatar: laid out at its largest size (360 px) and scaled down at rest, so it is never upscaled */
+    #br-av { position: absolute; left: 720px; top: 150px; width: 360px; height: 360px; border-radius: 50%; transform-origin: 50% 50%; }
+    #br-avglow { position: absolute; inset: -30px; border-radius: 50%; background: radial-gradient(circle, rgba(255,196,205,0.55) 55%, rgba(255,196,205,0) 72%); opacity: 0.35; }
+    #br-avimg { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; border: 12px solid var(--pink); background: #0B1320;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
+    #br-avimg img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    #br-avshine { position: absolute; inset: 0; border-radius: 50%; border: 12px solid #FFF0F3; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="brand" data-start="0" data-duration="78.4333" data-width="1080" data-height="1920">
+    <div id="br-tag" data-layout-allow-overflow><span class="t"><span class="h">#</span>سلام_سلاح</span><div id="br-tagshine"></div></div>
+    <div id="br-av">
+      <div id="br-avglow"></div>
+      <div id="br-avimg"><img src="assets/avatar.png" alt="" /></div>
+      <div id="br-avshine"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      // local time 0 = source 0.9667 s (first footage frame after the title card)
+      const T0 = 29 / 30;
+      const at = (t) => t - T0;
+      const FOLLOW = 70 + 1 / 30 + 167 / 30; // «تابع» in GAP 3 (local frame 167)
+      const tl = gsap.timeline({ paused: true });
+      const SMALL = 1 / 3;
+
+      // entrances
+      tl.fromTo("#br-tag", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0);
+      tl.fromTo("#br-av", { opacity: 0, scale: SMALL * 0.8 }, { opacity: 1, scale: SMALL, duration: 0.4, ease: "back.out(2.2)" }, 0.03);
+
+      // a very subtle shine every ~6 s
+      for (let t = 5.5; t < at(FOLLOW) - 1; t += 6) {
+        tl.fromTo("#br-tagshine", { xPercent: 0, opacity: 1 }, { xPercent: 380, opacity: 1, duration: 0.7, ease: "power2.inOut", immediateRender: false }, t);
+        tl.set("#br-tagshine", { opacity: 0 }, t + 0.7);
+        tl.fromTo("#br-avshine", { opacity: 0 }, { opacity: 0.6, duration: 0.25, ease: "sine.out", immediateRender: false }, t + 0.2);
+        tl.to("#br-avshine", { opacity: 0, duration: 0.4, ease: "sine.in" }, t + 0.45);
+      }
+
+      // «تابع الصفحة»: the hashtag fades out; the same avatar flies to the centre and grows to 360 px
+      tl.to("#br-tag", { opacity: 0, x: -30, duration: 0.3, ease: "power2.in" }, at(FOLLOW));
+      tl.to("#br-av", { x: -360, y: 230, scale: 1, duration: 0.6, ease: "expo.inOut" }, at(FOLLOW));
+      tl.fromTo("#br-avglow", { opacity: 0.35, scale: 1 }, { opacity: 1, scale: 1.18, duration: 0.25, ease: "sine.out", immediateRender: false }, at(FOLLOW) + 0.5);
+      tl.to("#br-avglow", { opacity: 0.55, scale: 1, duration: 0.5, ease: "sine.inOut" }, at(FOLLOW) + 0.75);
+      // gentle float once it has landed
+      tl.to("#br-av", { y: 222, duration: 1.4, ease: "sine.inOut" }, at(FOLLOW) + 0.7);
+      tl.to("#br-av", { y: 230, duration: 1.4, ease: "sine.inOut" }, at(FOLLOW) + 2.1);
+
+      window.__timelines["brand"] = tl;
+    })();
+  </script>
+</template>

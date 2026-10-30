@@ -39,7 +39,7 @@
         w.forEach(([s, e], i) => {
           const el = "#cap-w" + g + "-" + i;
           const off = i + 1 < w.length ? w[i + 1][0] : Math.min(e + 0.25, cl);
-          tl.fromTo(el, { color: "#F4F1EA" }, { color: "#C9A227", duration: 0.06, ease: "none", immediateRender: false }, s);
+          tl.fromTo(el, { color: "#F4F1EA" }, { color: "#FF95A5", duration: 0.06, ease: "none", immediateRender: false }, s);
           tl.to(el, { color: "#F4F1EA", duration: 0.06, ease: "none" }, Math.max(s + 0.06, off - 0.03));
         });
       });

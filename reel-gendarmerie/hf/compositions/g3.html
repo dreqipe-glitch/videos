@@ -2,30 +2,47 @@
   <style>
     #root { position: absolute; inset: 0; }
     .g3-abs { position: absolute; }
-    #g3-logo { left: 480px; top: 280px; width: 120px; height: 176px; }
+    #g3-logo { left: 480px; top: 300px; width: 120px; height: 176px; }
     .g3-row { position: absolute; left: 90px; width: 870px; display: flex; align-items: center; gap: 40px; direction: rtl; }
-    .g3-tile { flex: none; width: 170px; height: 170px; border-radius: 40px; background: rgba(20,30,46,0.92); border: 3px solid rgba(201,162,39,0.55); color: var(--gold-lit); padding: 30px; position: relative; }
+    .g3-tile { flex: none; width: 170px; height: 170px; border-radius: 40px; background: rgba(20,30,46,0.92); border: 4px solid rgba(255,149,165,0.7); color: var(--pink); padding: 30px; position: relative; }
     .g3-tile svg { width: 100%; height: 100%; }
     .g3-txt { font-weight: 900; font-size: 74px; line-height: 1.2; color: var(--ink); white-space: nowrap; }
-    .g3-txt .gold { color: var(--gold-lit); }
+    .g3-txt .accent { color: var(--pink); }
     #g3-r1 { top: 520px; }
     #g3-r2 { top: 800px; }
-    .g3-dot { position: absolute; top: 58px; width: 15px; height: 15px; border-radius: 50%; background: var(--gold-lit); }
+    .g3-dot { position: absolute; top: 58px; width: 15px; height: 15px; border-radius: 50%; background: var(--pink); }
     #g3-share-ar { position: absolute; inset: 30px; }
-    #g3-follow { left: 240px; top: 1090px; width: 600px; height: 150px; border-radius: 80px; background: var(--gold); color: #0B1320; display: flex; align-items: center; justify-content: center; gap: 26px; box-shadow: 0 18px 50px rgba(201,162,39,0.35); }
-    #g3-follow .ic { width: 84px; height: 84px; }
-    #g3-follow .ic svg { width: 100%; height: 100%; stroke-width: 10; }
-    #g3-follow .lb { font-weight: 900; font-size: 76px; line-height: 1; padding-bottom: 10px; }
-    #g3-done { position: absolute; inset: 0; border-radius: 80px; background: var(--green); border: 4px solid #2FBF73; color: #fff; display: flex; align-items: center; justify-content: center; gap: 20px; font-weight: 900; font-size: 72px; padding-bottom: 8px; }
-    #g3-done .ic { width: 76px; height: 76px; }
-    #g3-done .ic svg { width: 100%; height: 100%; stroke-width: 13; }
-    #g3-ripple { left: 470px; top: 1095px; width: 140px; height: 140px; border-radius: 50%; border: 6px solid #FFF6D8; }
-    .g3-spark { position: absolute; width: 14px; height: 40px; border-radius: 7px; background: var(--gold-lit); left: 533px; top: 1145px; transform-origin: 50% 50%; }
 
-    #g3-lockglow { left: 40px; top: 700px; width: 1000px; height: 560px; border-radius: 50%; background: radial-gradient(ellipse, rgba(201,162,39,0.22), rgba(201,162,39,0) 65%); }
-    #g3-lock { left: 90px; right: 120px; top: 790px; text-align: center; font-weight: 900; font-size: 138px; line-height: 1.3; color: var(--ink); white-space: nowrap;
+    /* follow button, under the avatar (the avatar itself lives in the brand overlay) */
+    #g3-follow { left: 280px; top: 790px; width: 520px; height: 128px; border-radius: 70px; background: var(--pink); color: #0B1320; display: flex; align-items: center; justify-content: center; gap: 24px;
+      box-shadow: 0 16px 44px rgba(229,103,125,0.45); }
+    #g3-follow .ic { width: 76px; height: 76px; }
+    #g3-follow .ic svg { width: 100%; height: 100%; stroke-width: 10; }
+    #g3-follow .lb { font-weight: 900; font-size: 70px; line-height: 1; padding-bottom: 10px; }
+    #g3-done { position: absolute; inset: 0; border-radius: 70px; background: var(--pink-dk); border: 4px solid var(--pink-lt); color: #fff; display: flex; align-items: center; justify-content: center; gap: 18px; font-weight: 900; font-size: 66px; padding-bottom: 8px; }
+    #g3-done .ic { width: 70px; height: 70px; }
+    #g3-done .ic svg { width: 100%; height: 100%; stroke-width: 13; }
+    #g3-ripple { left: 470px; top: 784px; width: 140px; height: 140px; border-radius: 50%; border: 6px solid #FFF0F3; }
+    .g3-spark { position: absolute; width: 14px; height: 40px; border-radius: 7px; background: var(--pink); left: 533px; top: 834px; }
+    #g3-cursor { left: 540px; top: 850px; width: 92px; height: 110px; }
+    #g3-cursor svg { width: 100%; height: 100%; overflow: visible; }
+
+    /* social row */
+    #g3-social { left: 90px; width: 870px; top: 962px; height: 112px; overflow: hidden; }
+    .g3-sb { position: absolute; top: 0; width: 110px; height: 110px; border-radius: 50%; background: #FFFFFF; border: 4px solid var(--pink); display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.35); }
+    .g3-sb svg { width: 58px; height: 58px; }
+    #g3-fb { left: 240px; } #g3-tt { left: 395px; } #g3-ig { left: 550px; }
+    #g3-socsweep { position: absolute; top: -10%; bottom: -10%; width: 26%; left: -30%; opacity: 0;
+      background: linear-gradient(100deg, rgba(255,222,228,0) 0%, rgba(255,222,228,0.75) 50%, rgba(255,222,228,0) 100%); mix-blend-mode: screen; }
+
+    /* page-name lockup: never shown with the Gendarmerie logo */
+    #g3-lockglow { left: 40px; top: 1000px; width: 1000px; height: 440px; border-radius: 50%; background: radial-gradient(ellipse, rgba(255,149,165,0.2), rgba(255,149,165,0) 65%); }
+    #g3-lock { left: 90px; right: 120px; top: 1090px; text-align: center; font-weight: 900; font-size: 128px; line-height: 1.3; color: var(--ink); white-space: nowrap;
       text-shadow: 0 0 40px rgba(244,241,234,0.25); }
-    #g3-uline { left: 215px; width: 620px; top: 1035px; height: 14px; border-radius: 7px; background: linear-gradient(90deg, rgba(201,162,39,0), var(--gold) 15%, #F6DE8A 50%, var(--gold) 85%, rgba(201,162,39,0)); box-shadow: 0 0 26px rgba(233,203,98,0.6); transform-origin: 100% 50%; }
+    #g3-uline { left: 250px; width: 560px; top: 1296px; height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--pink), var(--pink-lt) 50%, var(--pink)); -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent); mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent); transform-origin: 100% 50%; }
+    #g3-tag { left: 90px; right: 120px; top: 1322px; text-align: center; direction: rtl; font-weight: 700; font-size: 52px; color: var(--ink-2); }
+    #g3-tag .h { color: var(--pink); }
   </style>
   <div id="root" data-composition-id="g3" data-start="0" data-duration="9.3667" data-width="1080" data-height="1920">
     <div class="pkg-scene">
@@ -38,11 +55,11 @@
           <div class="g3-tile" id="g3-t1"><span data-icon="comment"></span>
             <div class="g3-dot" id="g3-d1" style="left:56px"></div><div class="g3-dot" id="g3-d2" style="left:78px"></div><div class="g3-dot" id="g3-d3" style="left:100px"></div>
           </div>
-          <div class="g3-txt"><div><span class="w" id="g3-a1">خلّيو</span> <span class="w" id="g3-a2">لينا</span> <span class="w" id="g3-a3">آراءكم</span></div><div><span class="w" id="g3-a4">في</span> <span class="w gold" id="g3-a5">التعاليق</span></div></div>
+          <div class="g3-txt"><div><span class="w" id="g3-a1">خلّيو</span> <span class="w" id="g3-a2">لينا</span> <span class="w" id="g3-a3">آراءكم</span></div><div><span class="w" id="g3-a4">في</span> <span class="w accent" id="g3-a5">التعاليق</span></div></div>
         </div>
         <div class="g3-row" id="g3-r2">
           <div class="g3-tile" id="g3-t2"><div id="g3-share-ar" data-icon="share"></div></div>
-          <div class="g3-txt"><span class="w" id="g3-b1">بارتاجيو</span> <span class="w gold" id="g3-b2">الفيديو</span></div>
+          <div class="g3-txt"><span class="w" id="g3-b1">بارتاجيو</span> <span class="w accent" id="g3-b2">الفيديو</span></div>
         </div>
 
         <div class="g3-abs" id="g3-follow" data-layout-allow-overlap>
@@ -53,11 +70,20 @@
         <div class="g3-spark" id="g3-s1"></div><div class="g3-spark" id="g3-s2"></div><div class="g3-spark" id="g3-s3"></div>
         <div class="g3-spark" id="g3-s4"></div><div class="g3-spark" id="g3-s5"></div><div class="g3-spark" id="g3-s6"></div>
 
-        <!-- page-name lockup: never shown with the Gendarmerie logo -->
+        <div class="g3-abs" id="g3-social">
+          <div class="g3-sb" id="g3-fb"><svg viewBox="0 0 24 24"><path fill="#0866FF" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></div>
+          <div class="g3-sb" id="g3-tt"><svg viewBox="0 0 24 24"><path fill="#000000" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></div>
+          <div class="g3-sb" id="g3-ig"><svg viewBox="0 0 24 24"><path fill="#FF0069" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></div>
+          <div id="g3-socsweep"></div>
+        </div>
+
         <div class="g3-abs" id="g3-lockglow"></div>
         <div class="g3-abs" id="g3-lock"><span class="w" id="g3-n1">سْلَاامْ</span> <span class="w" id="g3-n2">سْلَاحْ</span></div>
         <div class="g3-abs" id="g3-uline"></div>
+        <div class="g3-abs" id="g3-tag"><span class="h">#</span>سلام_سلاح</div>
       </div>
+      <!-- tapping finger, above the camera layer so it stays crisp -->
+      <div class="g3-abs" id="g3-cursor"><svg viewBox="0 0 100 120"><path d="M38,8 C44,8 48,12 48,18 L48,52 L52,52 C52,46 64,46 64,52 L64,56 C64,50 76,50 76,56 L76,60 C76,54 88,54 88,60 L88,86 C88,104 76,114 60,114 L50,114 C40,114 32,108 26,98 L12,72 C8,66 16,58 24,64 L28,68 L28,18 C28,12 32,8 38,8 Z" fill="#FFFFFF" stroke="#0B1320" stroke-width="5" stroke-linejoin="round"/></svg></div>
       <div class="pkg-vignette"></div>
       <div class="pkg-grain" id="g3-grain"></div>
       <div class="pkg-bridge" id="g3-in" style="background-image: url('assets/bridge/f2100.jpg')"></div>
@@ -74,8 +100,8 @@
       const DUR = F(281);
       Pkg.shell(tl, "g3", DUR, { exit: false });
 
-      gsap.set(["#g3-r1", "#g3-r2", "#g3-follow", "#g3-ripple", "#g3-lockglow", "#g3-n1", "#g3-n2", "#g3-done", ".g3-spark",
-              "#g3-a1", "#g3-a2", "#g3-a3", "#g3-a4", "#g3-a5", "#g3-b1", "#g3-b2", "#g3-uline"], { opacity: 0 });
+      gsap.set(["#g3-r1", "#g3-r2", "#g3-follow", "#g3-ripple", "#g3-lockglow", "#g3-n1", "#g3-n2", "#g3-done", ".g3-spark", "#g3-cursor",
+                "#g3-a1", "#g3-a2", "#g3-a3", "#g3-a4", "#g3-a5", "#g3-b1", "#g3-b2", "#g3-uline", "#g3-tag", "#g3-fb", "#g3-tt", "#g3-ig"], { opacity: 0 });
 
       // the small emblem opens the CTA, then leaves long before the page name
       tl.fromTo("#g3-logo", { opacity: 0, scale: 0.85 }, { opacity: 0.9, scale: 1, duration: L(10), ease: "back.out(2)" }, L(4));
@@ -85,9 +111,8 @@
       tl.fromTo("#g3-r1", { opacity: 0 }, { opacity: 1, duration: L(4) }, L(8));
       tl.fromTo("#g3-t1", { scale: 0.5, rotation: -12 }, { scale: 1, rotation: 0, duration: L(10), ease: "back.out(2.4)" }, L(8));
       [["#g3-a1", 10], ["#g3-a2", 20], ["#g3-a3", 28], ["#g3-a4", 39], ["#g3-a5", 41]].forEach(([s, f]) => Pkg.revealWord(tl, s, L(f), { dur: L(9) }));
-      tl.fromTo("#g3-t1", { borderColor: "rgba(201,162,39,0.55)" }, { borderColor: "rgba(246,222,138,1)", duration: L(6), yoyo: true, repeat: 1 }, L(41));
-      // typing dots
-      for (let f = 41, k = 0; f < 236; f += 6, k++) {
+      tl.fromTo("#g3-t1", { borderColor: "rgba(255,149,165,0.7)" }, { borderColor: "rgba(255,196,205,1)", duration: L(6), yoyo: true, repeat: 1 }, L(41));
+      for (let f = 41, k = 0; f < 158; f += 6, k++) {
         const d = ["#g3-d1", "#g3-d2", "#g3-d3"][k % 3];
         tl.to(d, { y: -12, duration: L(3), ease: "sine.out" }, L(f));
         tl.to(d, { y: 0, duration: L(3), ease: "sine.in" }, L(f + 3));
@@ -103,31 +128,40 @@
         tl.to("#g3-share-ar", { y: 0, duration: L(8), ease: "back.out(3)" }, L(f + 6));
       });
 
-      // متنساش.. (L142): the first two asks step back for the follow button
-      tl.to(["#g3-r1", "#g3-r2"], { opacity: 0.45, y: -30, duration: L(14), ease: "expo.out" }, L(142));
-      // تابع (L167) الصفحة (L176): button arrives, gets tapped, turns into «✓ متابَع»
-      tl.fromTo("#g3-follow", { opacity: 0, scale: 0.6, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: L(9), ease: "back.out(2.4)" }, L(165));
-      tl.to("#g3-follow", { scale: 0.92, duration: L(3), ease: "power2.in" }, L(175));
-      tl.fromTo("#g3-ripple", { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 2.4, duration: L(14), ease: "expo.out", immediateRender: false }, L(176));
-      tl.to("#g3-follow", { scale: 1, duration: L(8), ease: "back.out(3)" }, L(178));
-      tl.to("#g3-follow .lb, #g3-follow > .ic", { opacity: 0, duration: L(3) }, L(178));
-      tl.fromTo("#g3-done", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: L(6), ease: "back.out(2)" }, L(178));
+      // متنساش.. (L142): the asks step back, then clear before the avatar arrives on تابع (L167)
+      tl.to(["#g3-r1", "#g3-r2"], { opacity: 0.45, y: -30, duration: L(12), ease: "expo.out" }, L(142));
+      tl.to(["#g3-r1", "#g3-r2"], { opacity: 0, y: -90, filter: "blur(10px)", duration: L(9), ease: "power2.in", stagger: L(2) }, L(156));
+
+      // الصفحة (L176): follow button pops in under the avatar; the finger taps it
+      tl.fromTo("#g3-follow", { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: L(9), ease: "back.out(2.4)" }, L(174));
+      tl.fromTo("#g3-cursor", { opacity: 0, x: 230, y: 260, rotation: 14 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: L(10), ease: "power3.out" }, L(177));
+      tl.to("#g3-cursor", { scale: 0.86, duration: L(3), ease: "power2.in" }, L(187));
+      tl.to("#g3-follow", { scale: 0.93, duration: L(3), ease: "power2.in" }, L(187));
+      tl.fromTo("#g3-ripple", { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 2.4, duration: L(14), ease: "expo.out", immediateRender: false }, L(189));
+      tl.to("#g3-cursor", { scale: 1, duration: L(4), ease: "power2.out" }, L(190));
+      tl.to("#g3-follow", { scale: 1, duration: L(8), ease: "back.out(3)" }, L(190));
+      tl.to("#g3-follow .lb, #g3-follow > .ic", { opacity: 0, duration: L(3) }, L(189));
+      tl.fromTo("#g3-done", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: L(6), ease: "back.out(2)" }, L(189));
       [0, 60, 120, 180, 240, 300].forEach((a, i) => {
         const r = (a * Math.PI) / 180;
         tl.fromTo("#g3-s" + (i + 1), { opacity: 1, x: 0, y: 0, rotation: a + 90, scale: 0.6 },
-          { opacity: 0, x: Math.cos(r) * 260, y: Math.sin(r) * 120, scale: 1, duration: L(14), ease: "expo.out", immediateRender: false }, L(178));
+          { opacity: 0, x: Math.cos(r) * 250, y: Math.sin(r) * 110, scale: 1, duration: L(14), ease: "expo.out", immediateRender: false }, L(189));
       });
+      tl.to("#g3-cursor", { opacity: 0, x: 120, y: 160, duration: L(8), ease: "power2.in" }, L(198));
 
-      // مع (L238): the asks clear; the button collapses into the lockup's underline
-      tl.to(["#g3-r1", "#g3-r2"], { opacity: 0, y: -80, filter: "blur(10px)", duration: L(8), ease: "power2.in", stagger: L(2) }, L(234));
-      tl.to("#g3-follow", { scaleY: 0.09, scaleX: 1.1, y: -100, opacity: 0, duration: L(10), ease: "expo.inOut" }, L(236));
+      // social row: Facebook, TikTok, Instagram, 3 frames apart, then a pink sweep
+      ["#g3-fb", "#g3-tt", "#g3-ig"].forEach((s, i) =>
+        tl.fromTo(s, { opacity: 0, scale: 0.4, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: L(8), ease: "back.out(2.6)" }, L(196 + i * 3)));
+      tl.fromTo("#g3-socsweep", { xPercent: 0, opacity: 1 }, { xPercent: 520, duration: L(18), ease: "power2.inOut", immediateRender: false }, L(210));
+      tl.set("#g3-socsweep", { opacity: 0 }, L(228));
+
+      // سْلَاامْ (L245) · سْلَاحْ (L262): the page name, exactly on the spoken words
       tl.fromTo("#g3-lockglow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: L(20), ease: "expo.out" }, L(240));
-      // سْلَاامْ (L245) · سْلَاحْ (L262)
       tl.fromTo("#g3-n1", { opacity: 0, scale: 1.3, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: L(9), ease: "expo.out" }, L(245));
       tl.fromTo("#g3-n2", { opacity: 0, scale: 1.3, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: L(9), ease: "expo.out" }, L(262));
       tl.fromTo("#g3-uline", { opacity: 1, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: L(12), ease: "expo.out", immediateRender: false }, L(262));
-      tl.fromTo("#g3-lock", { textShadow: "0 0 40px rgba(244,241,234,0.25)" }, { textShadow: "0 0 60px rgba(233,203,98,0.55)", duration: L(14), ease: "sine.out" }, L(264));
-      tl.fromTo("#g3-lock", { scale: 1 }, { scale: 1.03, duration: L(36), ease: "sine.out", immediateRender: false }, L(245));
+      tl.fromTo("#g3-tag", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: L(8), ease: "power3.out" }, L(268));
+      tl.fromTo("#g3-lock", { textShadow: "0 0 40px rgba(244,241,234,0.25)" }, { textShadow: "0 0 60px rgba(255,196,205,0.55)", duration: L(14), ease: "sine.out" }, L(264));
 
       window.__timelines["g3"] = tl;
     })();

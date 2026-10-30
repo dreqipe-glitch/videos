@@ -37,7 +37,7 @@
     };
     return `<svg class="pkg-zellige" id="${id}" xmlns="http://www.w3.org/2000/svg">
       <defs><pattern id="${id}-pat" width="180" height="180" patternUnits="userSpaceOnUse">
-        <g fill="none" stroke="#E9CB62" stroke-width="2.2">
+        <g fill="none" stroke="#FF95A5" stroke-width="2.2">
           ${star(90, 90, 52)}
           <rect x="62" y="62" width="56" height="56" transform="rotate(45 90 90)"/>
           <rect x="62" y="62" width="56" height="56"/>
@@ -84,7 +84,7 @@
     }
   }
 
-  // a gold light band crossing an element (the "search" motif)
+  // a pink light band crossing an element (the "search" motif)
   function sweep(tl, el, t, dur = 0.6) {
     tl.fromTo(el, { xPercent: 0, opacity: 1 }, { xPercent: 470, duration: dur, ease: "power2.inOut", immediateRender: false }, t);
     tl.set(el, { opacity: 0 }, t + dur);
