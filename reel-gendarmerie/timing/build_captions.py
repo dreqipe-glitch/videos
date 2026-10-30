@@ -1,13 +1,13 @@
 """Builds hf/compositions/captions.html from the forced-aligned words (timing/words-aligned-full.json).
-Captions only cover the real footage: 0–5.2333, 6.6667–19.8667, 55.8–70.0333 s. Spelling follows the reference script."""
+Captions only cover the real footage: 0.9667–5.2333 (after the title card), 6.6667–19.8667, 55.8–70.0333 s.
+Spelling follows the reference script; captions carry words only, no punctuation."""
 import json, html, pathlib
 here = pathlib.Path(__file__).parent
 A = {w["i"]: w for w in json.load(open(here / "words-aligned-full.json"))}
 
 # (script spelling, aligned word index or (index, share) for a word split across one spoken token)
 SECTIONS = [
-  (0.0, 157 / 30, [
-    [("سؤال", 0), ("اليوم:", 1)],
+  (29 / 30, 157 / 30, [
     [("واش", 2), ("عناصر", 3), ("الدرك", 4), ("الملكي", 5)],
     [("عندهن", 6), ("الحق", 7), ("يفتشوا", 8), ("امرأة؟", 9)],
   ]),
@@ -42,14 +42,17 @@ def span(ref):
         return (s, m) if b == 0 else (m, e)
     return A[a]["start"], A[b]["end"]
 
+PUNCT = "،,.:؛;!؟?…"
+strip = lambda t: "".join(ch for ch in t if ch not in PUNCT)
+
 groups = []
 for s0, s1, gs in SECTIONS:
     sec = []
     for g in gs:
-        words = [(t, *span(r)) for t, r in g]
+        words = [(strip(t), *span(r)) for t, r in g]
         sec.append(words)
     for k, words in enumerate(sec):
-        op = max(s0 + 0.1 if k == 0 and s0 == 0 else s0, words[0][1] - 0.08)
+        op = max(s0, words[0][1] - 0.08)
         nxt = sec[k + 1][0][1] - 0.08 if k + 1 < len(sec) else s1
         cl = min(nxt, words[-1][2] + 0.4, s1)
         groups.append((round(op, 3), round(cl, 3), words))
