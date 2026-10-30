@@ -9,6 +9,7 @@ INTRO_V=output/series-intro/intro_9x16.mp4
 INTRO_A=series-intro/hf/assets/audio/intro_mix.wav
 REEL_V=output/gendarmerie/reel_final.mp4
 OUT=output/salam_slah_FINAL.mp4
+END=81  # seconds: ends after «ديما», dropping the closing «مع سلام سلاح»
 TMP=$(mktemp -d)
 
 norm() { # $1 in, $2 out: two-pass loudnorm to -14 LUFS / -1.5 dBTP at 48 kHz
@@ -22,8 +23,8 @@ norm "$SRC" "$TMP/reel.wav"
 
 # video: intro (96 frames) then reel (2382 frames), re-encoded once; audio: the two normalised parts back to back
 ffmpeg -v error -y -i "$INTRO_V" -i "$REEL_V" -i "$TMP/intro.wav" -i "$TMP/reel.wav" -filter_complex \
-  "[0:v]fps=30,format=yuv420p,setsar=1[v0];[1:v]fps=30,format=yuv420p,setsar=1[v1];[v0][v1]concat=n=2:v=1:a=0[v];\
-   [2:a]atrim=0:3.2,apad=whole_dur=3.2[a0];[3:a]atrim=0:79.4,apad=whole_dur=79.4[a1];[a0][a1]concat=n=2:v=0:a=1[a]" \
+  "[0:v]fps=30,format=yuv420p,setsar=1[v0];[1:v]fps=30,format=yuv420p,setsar=1[v1];[v0][v1]concat=n=2:v=1:a=0,trim=end_frame=$((END*30))[v];\
+   [2:a]atrim=0:3.2,apad=whole_dur=3.2[a0];[3:a]atrim=0:79.4,apad=whole_dur=79.4[a1];[a0][a1]concat=n=2:v=0:a=1,atrim=0:$END,afade=t=out:st=$(awk "BEGIN{print $END-0.15}"):d=0.15[a]" \
   -map "[v]" -map "[a]" -c:v libx264 -preset slow -crf 14 -pix_fmt yuv420p -r 30 -c:a aac -b:a 256k -ar 48000 -movflags +faststart "$OUT"
 rm -rf "$TMP"
 ffprobe -v error -show_entries stream=codec_name,width,height,nb_frames,duration -of compact "$OUT"
