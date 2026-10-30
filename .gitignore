@@ -14,3 +14,6 @@ reel-gendarmerie/timing/.check.json
 series-intro/hf/.hyperframes/artifacts/
 series-intro/hf/.hyperframes/video-state-lock
 series-intro/hf/renders/
+series-intro/hf16/.hyperframes/artifacts/
+series-intro/hf16/.hyperframes/video-state-lock
+series-intro/hf16/renders/

@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "historyId": "cc00b29b-ea84-4f48-b26e-8d5aecdd4c0a",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "compositions/intro.html": {
+      "hash": "2b86a4be799705e7eb6b55fc93eb8875d81c6e2a0a1b1c003d72e812b38fa5aa",
+      "content": "/root/.cache/hyperframes/history/cc00b29b-ea84-4f48-b26e-8d5aecdd4c0a/blobs/2b/2b86a4be799705e7eb6b55fc93eb8875d81c6e2a0a1b1c003d72e812b38fa5aa"
+    },
+    "hyperframes.json": {
+      "hash": "35a6d4ea79ebe911f0d81705f7aace5d8ff0316b745b0311d56af50c9c237cb7",
+      "content": "/root/.cache/hyperframes/history/cc00b29b-ea84-4f48-b26e-8d5aecdd4c0a/blobs/35/35a6d4ea79ebe911f0d81705f7aace5d8ff0316b745b0311d56af50c9c237cb7"
+    },
+    "index.html": {
+      "hash": "2fd27a74134d79532d679a7029eb9456fe4e0cc2ed3284696434900b73762c13",
+      "content": "/root/.cache/hyperframes/history/cc00b29b-ea84-4f48-b26e-8d5aecdd4c0a/blobs/2f/2fd27a74134d79532d679a7029eb9456fe4e0cc2ed3284696434900b73762c13"
+    },
+    "package.json": {
+      "hash": "45e1b71b169f4a894781b2a0b2be29ee1f34cb27df4805352508e418d81d800c",
+      "content": "/root/.cache/hyperframes/history/cc00b29b-ea84-4f48-b26e-8d5aecdd4c0a/blobs/45/45e1b71b169f4a894781b2a0b2be29ee1f34cb27df4805352508e418d81d800c"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": {
+      "revision": null,
+      "id": "e2790921-997e-4bc2-8145-d19474689961-2"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "e2790921-997e-4bc2-8145-d19474689961-0",
+        "image": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/si16/frame-00-at-0.8s.png",
+        "time": 0.8,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1793373083563,
+        "contentHash": "137e0a9d20990732475d678b7e5cda55e29ee5adfb40b0f6497ade653d506fde",
+        "revision": null,
+        "inputFingerprint": "4d355bb4d113560f249291dc129bb8cdc7e2659b3d6095a36bb7a26b4b3d3e01",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "e2790921-997e-4bc2-8145-d19474689961-1",
+        "image": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/si16/frame-01-at-1.6s.png",
+        "time": 1.6,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1793373083563,
+        "contentHash": "396c43fd895b90e8ab7785cfb84f9f01ac30ad3f931552536fff38b3cc4f79c8",
+        "revision": null,
+        "inputFingerprint": "4d355bb4d113560f249291dc129bb8cdc7e2659b3d6095a36bb7a26b4b3d3e01",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "e2790921-997e-4bc2-8145-d19474689961-2",
+        "image": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/si16/frame-02-at-2.9s.png",
+        "time": 2.9,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1793373083563,
+        "contentHash": "7987d0f941b0a015eee3c78ef0a857af39b81a96a4265a8315ec354ef87ff846",
+        "revision": null,
+        "inputFingerprint": "4d355bb4d113560f249291dc129bb8cdc7e2659b3d6095a36bb7a26b4b3d3e01",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "565b11dd-b19e-4f2e-9ba7-f2b7a7dfdfd0",
+      "completedAt": 1793373200083,
+      "output": "/home/user/videos/output/series-intro/intro_16x9.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}
