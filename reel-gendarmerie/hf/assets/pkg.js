@@ -49,11 +49,13 @@
   }
 
   /* Scene shell. Expects, inside the scene: #p-bg, #p-zelhost, #p-cam, #p-grain, #p-in, #p-out (optional), #p-flash.
-     dur: scene length in seconds. exit: false for the last insert, which holds to the final frame. */
-  function shell(tl, p, dur, { exit = true } = {}) {
+     dur: scene length in seconds. exit: false for the last insert, which holds to the final frame.
+     entry: false for the opening intro (no previous footage, so no #p-in). push: camera scale range.
+     exitFrames: length of the exit whip. */
+  function shell(tl, p, dur, { exit = true, entry = true, push = [1.03, 1.08], exitFrames = 7 } = {}) {
     const $ = (s) => document.getElementById(p + "-" + s);
     $("zelhost").innerHTML = zellige(p + "-zel");
-    const exitAt = dur - F(7);
+    const exitAt = dur - F(exitFrames);
 
     // slow drift: background, texture and graphics move at different rates (parallax)
     tl.fromTo($("bg"), { scale: 1, x: 0 }, { scale: 1.05, x: -18, duration: dur, ease: "none" }, 0);
@@ -64,15 +66,18 @@
     for (let i = 0; i <= n; i++)
       tl.set($("grain"), { x: -Math.floor(hrand(i + p.length * 97) * 320), y: -Math.floor(hrand(i * 3.1 + 5) * 320) }, i / 15);
 
-    // entry: out of the previous footage frame with a zoom-blur and a warm flash
-    tl.set($("in"), { opacity: 1 }, 0);
-    tl.fromTo($("in"), { scale: 1.03, filter: "blur(2px)" }, { scale: 1.16, filter: "blur(20px)", duration: F(4), ease: "expo.in" }, 0);
-    tl.to($("in"), { opacity: 0, duration: F(2), ease: "none" }, F(3));
-    tl.fromTo($("flash"), { opacity: 0.25 }, { opacity: 0.92, duration: F(2), ease: "power2.in" }, 0);
-    tl.to($("flash"), { opacity: 0, duration: F(6), ease: "power2.out" }, F(2));
-    tl.fromTo($("cam"), { scale: 1.24, filter: "blur(16px)" }, { scale: 1.03, filter: "blur(0px)", duration: F(8), ease: "expo.out" }, F(1));
+    if (entry) {
+      // entry: out of the previous footage frame with a zoom-blur and a warm flash
+      tl.set($("in"), { opacity: 1 }, 0);
+      tl.fromTo($("in"), { scale: 1.03, filter: "blur(2px)" }, { scale: 1.16, filter: "blur(20px)", duration: F(4), ease: "expo.in" }, 0);
+      tl.to($("in"), { opacity: 0, duration: F(2), ease: "none" }, F(3));
+      tl.fromTo($("flash"), { opacity: 0.25 }, { opacity: 0.92, duration: F(2), ease: "power2.in" }, 0);
+      tl.to($("flash"), { opacity: 0, duration: F(6), ease: "power2.out" }, F(2));
+      tl.fromTo($("cam"), { scale: 1.24, filter: "blur(16px)" }, { scale: push[0], filter: "blur(0px)", duration: F(8), ease: "expo.out" }, F(1));
+    }
     // constant slow push-in
-    tl.fromTo($("cam"), { scale: 1.03 }, { scale: 1.08, duration: (exit ? exitAt : dur) - F(9), ease: "none", immediateRender: false }, F(9));
+    const p0 = entry ? F(9) : 0;
+    tl.fromTo($("cam"), { scale: push[0] }, { scale: push[1], duration: (exit ? exitAt : dur) - p0, ease: "none", immediateRender: !entry }, p0);
 
     if (exit) {
       // exit: whip up into a flash, landing on the next footage frame

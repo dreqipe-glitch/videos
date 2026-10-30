@@ -1,169 +1,129 @@
 <template>
   <style>
     #root { position: absolute; inset: 0; }
-    #t0-scene { position: absolute; inset: 0; overflow: hidden; background: #DDE7F2; }
-    .t0-group { position: absolute; inset: 0; transform-origin: 50% 50%; }
-    .t0-l { position: absolute; display: block; }
-    .t0-l img, img.t0-l { display: block; width: 100%; height: 100%; }
-    #t0-plate { left: 0; top: 0; width: 1080px; height: 1920px; }
-    #t0-sky { left: -30px; top: 0; width: 1080px; height: 800px; }
-    #t0-sil { left: 819px; top: 575px; width: 261px; height: 586px; }
-    #t0-silglow { left: 819px; top: 575px; width: 261px; height: 586px; mix-blend-mode: screen; }
-    #t0-wash { left: 787px; top: 542px; width: 293px; height: 651px; }
-    #t0-flag { left: 0; top: 14px; width: 618px; height: 708px; }
-    .t0-strip { position: absolute; top: 0; height: 708px; background-image: url("assets/title/flag.png"); background-size: 618px 708px; background-repeat: no-repeat; }
-    .t0-shade { position: absolute; inset: 0; background-image: url("assets/title/flag.png"); background-size: 618px 708px; background-repeat: no-repeat; filter: brightness(0); opacity: 0; }
-    #t0-q { left: 102px; top: 636px; width: 477px; height: 760px; transform-origin: 50% 100%; }
-    #t0-fig { left: 39px; top: 876px; width: 289px; height: 561px; transform-origin: 50% 100%; }
-    #t0-burst { left: 600px; top: 796px; width: 224px; height: 114px; transform-origin: 40% 100%; }
-    #t0-sual { left: 554px; top: 936px; width: 468px; height: 216px; transform-origin: 50% 60%; }
-    #t0-youm { left: 523px; top: 1104px; width: 431px; height: 261px; transform-origin: 50% 50%; }
-    /* reflections: mirrored copies below each object's floor contact */
-    .t0-refl { position: absolute; opacity: 0.2; -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 55%); mask-image: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 55%); filter: blur(6px); }
-    .t0-refl img { display: block; width: 100%; height: 100%; transform: scaleY(-1); }
-    #t0-rq { left: 102px; top: 1396px; width: 477px; height: 760px; transform-origin: 50% 0%; }
-    #t0-rfig { left: 39px; top: 1437px; width: 289px; height: 561px; transform-origin: 50% 0%; }
-    #t0-ryoum { left: 523px; top: 1365px; width: 431px; height: 261px; transform-origin: 50% 50%; }
-    #t0-rsual { left: 554px; top: 1578px; width: 468px; height: 216px; transform-origin: 50% 40%; opacity: 0.1; }
-    /* light sweep confined to the title letters */
-    #t0-tsweep { position: absolute; left: 523px; top: 936px; width: 499px; height: 429px; overflow: hidden;
-      -webkit-mask-image: url("assets/title/t_sual.png"), url("assets/title/t_youm.png"); mask-image: url("assets/title/t_sual.png"), url("assets/title/t_youm.png");
-      -webkit-mask-size: 468px 216px, 431px 261px; mask-size: 468px 216px, 431px 261px; -webkit-mask-position: 31px 0px, 0px 168px; mask-position: 31px 0px, 0px 168px;
-      -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
-    #t0-tsweep .band { position: absolute; top: -10%; bottom: -10%; width: 40%; left: -45%; opacity: 0;
-      background: linear-gradient(100deg, rgba(255,222,228,0) 0%, rgba(255,222,228,0.95) 45%, rgba(255,255,255,1) 50%, rgba(255,222,228,0.95) 55%, rgba(255,222,228,0) 100%); mix-blend-mode: screen; }
-    #t0-out { position: absolute; inset: 0; background-image: url("assets/bridge/f29.jpg"); background-size: cover; opacity: 0; }
-    #t0-flash { position: absolute; inset: 0; opacity: 0; mix-blend-mode: screen;
-      background: radial-gradient(ellipse 75% 60% at 50% 45%, #FFF4F6 0%, #FFC4CD 45%, rgba(229,103,125,0.8) 100%); }
+    .t0-abs { position: absolute; }
+    #t0-glow { left: 90px; top: 190px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(255,149,165,0.34) 0%, rgba(255,149,165,0.12) 40%, rgba(255,149,165,0) 70%); }
+    #t0-ring { left: 280px; top: 380px; width: 520px; height: 520px; border-radius: 50%; border: 6px solid var(--pink); box-shadow: 0 0 40px rgba(255,149,165,0.45), inset 0 0 40px rgba(255,149,165,0.25); }
+    #t0-ringb { left: 280px; top: 380px; width: 520px; height: 520px; border-radius: 50%; border: 10px solid var(--pink-lt); opacity: 0; }
+    /* rays: each wrapper is rotated by CSS once; only the inner line animates */
+    .t0-ray { position: absolute; left: 540px; top: 640px; width: 0; height: 0; }
+    .t0-rayl { position: absolute; left: 290px; top: -3px; width: 120px; height: 6px; border-radius: 3px; transform-origin: 0 50%;
+      background: linear-gradient(90deg, var(--pink-lt), rgba(255,149,165,0)); }
+    /* the hero «؟»: a deep-pink extrusion behind a light-to-deep gradient face */
+    #t0-q { left: 290px; top: 300px; width: 500px; height: 680px; transform-origin: 50% 50%; }
+    #t0-q .g { position: absolute; inset: 0; font-family: var(--font-ar); font-weight: 900; font-size: 560px; line-height: 680px; text-align: center; }
+    #t0-q .back { top: 16px; color: #B84459; text-shadow: 0 0 60px rgba(229,103,125,0.55); }
+    #t0-q .face { color: transparent; background: linear-gradient(170deg, #FFE1E6 0%, var(--pink-lt) 22%, var(--pink) 55%, var(--pink-dk) 100%); -webkit-background-clip: text; background-clip: text; }
+    /* Moroccan accent: a small flat flag between red and green hairlines */
+    #t0-acc { left: 90px; right: 120px; top: 906px; height: 64px; }
+    #t0-flag { position: absolute; left: 400px; top: 4px; width: 84px; height: 56px; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
+    #t0-flag svg { display: block; width: 100%; height: 100%; }
+    #t0-lnr { position: absolute; left: 240px; top: 30px; width: 140px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, rgba(193,39,45,0), #C1272D); transform-origin: 100% 50%; }
+    #t0-lng { position: absolute; left: 504px; top: 30px; width: 140px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #1F9A5A, rgba(31,154,90,0)); transform-origin: 0 50%; }
+    /* title */
+    .t0-word { position: absolute; left: 90px; right: 120px; text-align: center; font-family: var(--font-ar); font-weight: 900; font-size: 190px; line-height: 210px; white-space: nowrap; direction: rtl; }
+    #t0-w1, #t0-s1 { top: 990px; }
+    #t0-w2, #t0-s2 { top: 1196px; }
+    #t0-w1 { top: 990px; color: var(--ink); text-shadow: 0 8px 30px rgba(0,0,0,0.45); }
+    #t0-w2 { top: 1196px; color: var(--pink); text-shadow: 0 8px 30px rgba(0,0,0,0.45), 0 0 40px rgba(255,149,165,0.35); }
+    .t0-sw { color: transparent; text-shadow: none; background: linear-gradient(100deg, rgba(255,255,255,0) 38%, rgba(255,240,243,0.95) 50%, rgba(255,255,255,0) 62%);
+      background-size: 300% 100%; background-position: 100% 0; -webkit-background-clip: text; background-clip: text; opacity: 0; }
+    #t0-ul { left: 310px; width: 460px; top: 1420px; height: 12px; border-radius: 6px; transform-origin: 100% 50%;
+      background: linear-gradient(90deg, var(--pink), var(--pink-lt) 50%, var(--pink));
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
+    .t0-pt { position: absolute; border-radius: 50%; background: var(--pink-lt); box-shadow: 0 0 10px rgba(255,196,205,0.8); }
   </style>
   <div id="root" data-composition-id="t0" data-start="0" data-duration="0.9666" data-width="1080" data-height="1920">
-    <div id="t0-scene">
-      <div class="t0-group" id="t0-cam">
-        <div class="t0-group" id="t0-shake">
-          <div class="t0-group" id="t0-gbg">
-            <img class="t0-l" id="t0-plate" src="assets/title/plate.jpg" alt="" />
-            <img class="t0-l" id="t0-sky" src="assets/title/sky.png" alt="" />
+    <div class="pkg-scene">
+      <div class="pkg-bg" id="t0-bg"></div>
+      <div id="t0-zelhost"></div>
+      <div class="pkg-cam" id="t0-cam">
+        <div id="t0-shake" class="pkg-layer">
+          <div class="t0-abs" id="t0-glow"></div>
+          <div id="t0-pts"></div>
+          <div id="t0-rays"></div>
+          <div class="t0-abs" id="t0-ringb"></div>
+          <div class="t0-abs" id="t0-ring"></div>
+          <div class="t0-abs" id="t0-q"><div class="g back">؟</div><div class="g face">؟</div></div>
+          <div class="t0-abs" id="t0-acc">
+            <div id="t0-lnr"></div>
+            <div id="t0-flag"><svg viewBox="0 0 90 60"><rect width="90" height="60" fill="#C1272D"/><path d="M45,16 L51.2,35.1 L35,23.3 L55,23.3 L38.8,35.1 Z" fill="none" stroke="#006233" stroke-width="2.6" stroke-linejoin="miter"/></svg></div>
+            <div id="t0-lng"></div>
           </div>
-          <div class="t0-group" id="t0-gmid">
-            <img class="t0-l" id="t0-sil" src="assets/title/sil.png" alt="" />
-            <img class="t0-l" id="t0-wash" src="assets/title/sil_wash.png" alt="" />
-            <img class="t0-l" id="t0-silglow" src="assets/title/sil.png" alt="" />
-            <div class="t0-l" id="t0-flag"></div>
-          </div>
-          <div class="t0-group" id="t0-gfg">
-            <div class="t0-refl" id="t0-rsual"><img src="assets/title/t_sual.png" alt="" /></div>
-            <div class="t0-refl" id="t0-ryoum"><img src="assets/title/t_youm.png" alt="" /></div>
-            <div class="t0-refl" id="t0-rq"><img src="assets/title/qmark.png" alt="" /></div>
-            <div class="t0-refl" id="t0-rfig"><img src="assets/title/figure.png" alt="" /></div>
-            <div class="t0-l" id="t0-q"><img src="assets/title/qmark.png" alt="" /></div>
-            <div class="t0-l" id="t0-fig"><img src="assets/title/figure.png" alt="" /></div>
-            <div class="t0-l" id="t0-burst"><img src="assets/title/burst.png" alt="" /></div>
-            <div class="t0-l" id="t0-sual"><img src="assets/title/t_sual.png" alt="" /></div>
-            <div class="t0-l" id="t0-youm"><img src="assets/title/t_youm.png" alt="" /></div>
-            <div id="t0-tsweep"><div class="band" id="t0-band"></div></div>
-          </div>
+          <div class="t0-word" id="t0-w1">سؤال</div>
+          <div class="t0-word" id="t0-w2">اليوم</div>
+          <div class="t0-word t0-sw" id="t0-s1">سؤال</div>
+          <div class="t0-word t0-sw" id="t0-s2">اليوم</div>
+          <div class="t0-abs" id="t0-ul"></div>
         </div>
       </div>
-      <div id="t0-out"></div>
-      <div id="t0-flash"></div>
+      <div class="pkg-vignette"></div>
+      <div class="pkg-grain" id="t0-grain"></div>
+      <div class="pkg-bridge" id="t0-out" style="background-image: url('assets/bridge/f29.jpg')"></div>
+      <div class="pkg-flash" id="t0-flash"></div>
     </div>
   </div>
   <script>
     (function () {
-      const F = (n) => n / 30;
+      const { F, hrand } = Pkg;
       const tl = gsap.timeline({ paused: true });
-      const N = 29; // frames 0–28
-
-      // flag mesh: vertical strips, each displaced on a travelling sine; amplitude grows away from the hoist
-      const flag = document.getElementById("t0-flag");
-      const SW = 4, NS = Math.ceil(618 / SW);
-      const strips = [];
-      for (let i = 0; i < NS; i++) {
-        const s = document.createElement("div");
-        s.className = "t0-strip";
-        s.style.left = i * SW + "px";
-        s.style.width = SW + 1 + "px";
-        s.style.backgroundPosition = -i * SW + "px 0";
-        const sh = document.createElement("div");
-        sh.className = "t0-shade";
-        sh.style.backgroundPosition = -i * SW + "px 0";
-        s.appendChild(sh);
-        flag.appendChild(s);
-        strips.push([s, sh]);
+      const DUR = F(29); // frames 0–28, then the footage
+      // decorations (not timed elements): burst rays and light particles
+      const rays = document.getElementById("t0-rays");
+      for (let i = 0; i < 12; i++) {
+        const w = document.createElement("div");
+        w.className = "t0-ray";
+        w.style.transform = `rotate(${i * 30 + 15}deg)`;
+        w.innerHTML = `<div class="t0-rayl" id="t0-r${i}"></div>`;
+        rays.appendChild(w);
       }
-      for (let f = 0; f < N; f++) {
-        const t = f / 30;
-        strips.forEach(([s, sh], i) => {
-          const x = i * SW + SW / 2, k = x / 618;
-          const ph = 2 * Math.PI * (x / 420 - 1.7 * t);
-          const amp = 2 + 17 * Math.pow(k, 1.25);
-          tl.set(s, { y: amp * Math.sin(ph), x: -3 * k * Math.cos(ph) }, F(f));
-          tl.set(sh, { opacity: Math.max(0, 0.2 * Math.cos(ph)) * (0.3 + k) }, F(f));
-        });
+      const pts = document.getElementById("t0-pts");
+      for (let i = 0; i < 16; i++) {
+        const d = document.createElement("div");
+        const s = 5 + Math.round(hrand(i * 7 + 1) * 6);
+        d.className = "t0-pt";
+        d.id = "t0-p" + i;
+        Object.assign(d.style, { width: s + "px", height: s + "px", left: 120 + Math.round(hrand(i * 13 + 3) * 820) + "px", top: 260 + Math.round(hrand(i * 5 + 9) * 1180) + "px" });
+        pts.appendChild(d);
       }
 
-      // camera push 1.00 → 1.07 with depth: background slow, flag/silhouette medium, figure and text fast
-      tl.fromTo("#t0-cam", { scale: 1 }, { scale: 1.07, duration: F(22), ease: "none" }, 0);
-      tl.fromTo("#t0-gbg", { scale: 1.0 }, { scale: 0.975, duration: F(28), ease: "none" }, 0);
-      tl.fromTo("#t0-gmid", { scale: 1.0, x: 0 }, { scale: 0.995, x: 6, duration: F(28), ease: "none" }, 0);
-      tl.fromTo("#t0-gfg", { scale: 1.0 }, { scale: 1.02, duration: F(28), ease: "none" }, 0);
-      // clouds drift
-      tl.fromTo("#t0-sky", { x: 0 }, { x: -22, duration: F(28), ease: "none" }, 0);
+      Pkg.shell(tl, "t0", DUR, { entry: false, push: [1.0, 1.05], exitFrames: 5 });
 
-      // gendarme silhouette fades up behind a soft glow
-      tl.fromTo("#t0-wash", { opacity: 1 }, { opacity: 0, duration: F(14), ease: "sine.inOut" }, F(2));
-      tl.fromTo("#t0-silglow", { opacity: 0, filter: "blur(14px) brightness(1.8)" }, { opacity: 0.55, filter: "blur(10px) brightness(1.8)", duration: F(8), ease: "sine.out" }, F(6));
-      tl.to("#t0-silglow", { opacity: 0.18, duration: F(12), ease: "sine.inOut" }, F(14));
+      gsap.set(["#t0-w1", "#t0-w2", "#t0-acc"], { opacity: 0 });
+      gsap.set("#t0-ul", { scaleX: 0 });
 
-      // mirrored helper: the reflection moves the opposite way vertically and rotates the other way
-      const both = (obj, refl, from, to, at) => {
-        tl.fromTo(obj, from, to, at);
-        const m = (v) => {
-          const o = { ...v };
-          if ("y" in o) o.y = -o.y;
-          if ("rotation" in o) o.rotation = -o.rotation;
-          delete o.opacity;
-          return o;
-        };
-        tl.fromTo(refl, m(from), m(to), at);
-      };
+      // F0–F5: the «؟» scales in with a pink flash, a ring burst and rays shooting out (frame 0 is already full)
+      tl.fromTo("#t0-flash", { opacity: 0.38 }, { opacity: 0, duration: F(5), ease: "power2.out" }, 0);
+      tl.fromTo("#t0-q", { scale: 1.4, y: 0 }, { scale: 1, duration: F(5), ease: "back.out(2)" }, 0);
+      tl.fromTo("#t0-glow", { scale: 0.8, opacity: 0.6 }, { scale: 1, opacity: 1, duration: F(6), ease: "expo.out" }, 0);
+      tl.fromTo("#t0-ring", { scale: 0.72, opacity: 0.5 }, { scale: 1, opacity: 1, duration: F(6), ease: "back.out(2)" }, 0);
+      tl.fromTo("#t0-ringb", { scale: 0.85, opacity: 0.9 }, { scale: 1.6, opacity: 0, duration: F(10), ease: "expo.out" }, 0);
+      for (let i = 0; i < 12; i++) {
+        tl.fromTo("#t0-r" + i, { x: -40, scaleX: 0.2, opacity: 1 }, { x: 40 + (i % 3) * 14, scaleX: 1, duration: F(6), ease: "expo.out" }, F(1 + (i % 2)));
+        tl.to("#t0-r" + i, { x: 90 + (i % 3) * 14, opacity: 0.45, duration: F(20), ease: "sine.out" }, F(7 + (i % 2)));
+      }
 
-      // red «؟» drops in from above with a bounce (frames 0–8), then a small wobble
-      both("#t0-q", "#t0-rq", { y: -1150, rotation: -8 }, { y: 0, rotation: 0, duration: F(8), ease: "bounce.out" }, 0);
-      [[3, 8], [-2, 11], [1, 14], [0, 17]].forEach(([r, f], i, arr) =>
-        both("#t0-q", "#t0-rq", { rotation: i ? arr[i - 1][0] : 0 }, { rotation: r, duration: F(3), ease: "sine.inOut", immediateRender: false }, F(f)));
+      // «سؤال» (spoken 0.08–0.38 s): slam lands on frame 5, tiny shake
+      tl.fromTo("#t0-w1", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: F(4), ease: "back.out(2.4)" }, F(1));
+      [3, -2, 0].forEach((d, i) => tl.to("#t0-shake", { x: d, y: -d * 0.6, duration: F(1), ease: "none" }, F(5 + i)));
+      // «اليوم» (spoken 0.48–0.76 s): slam lands on frame 17, shake, underline sweep
+      tl.fromTo("#t0-w2", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: F(4), ease: "back.out(2.4)" }, F(13));
+      [3, -2, 0].forEach((d, i) => tl.to("#t0-shake", { x: d, y: -d * 0.6, duration: F(1), ease: "none" }, F(17 + i)));
+      tl.to("#t0-ul", { scaleX: 1, duration: F(6), ease: "expo.out" }, F(16));
 
-      // 3D figure: small scale-up and a thinking head-tilt
-      both("#t0-fig", "#t0-rfig", { scale: 0.92, rotation: 0 }, { scale: 1, rotation: -2.5, duration: F(12), ease: "back.out(2)" }, 0);
-      both("#t0-fig", "#t0-rfig", { rotation: -2.5 }, { rotation: 1.2, duration: F(16), ease: "sine.inOut", immediateRender: false }, F(12));
+      // F14–F22: the Moroccan accent glides in; the «؟» floats
+      tl.fromTo("#t0-acc", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: F(8), ease: "expo.out" }, F(14));
+      tl.fromTo(["#t0-lnr", "#t0-lng"], { scaleX: 0 }, { scaleX: 1, duration: F(8), ease: "expo.out" }, F(15));
+      tl.to("#t0-q", { y: -14, duration: F(22), ease: "sine.inOut" }, F(6));
 
-      // «سؤال» slams on its word (spoken 0.08–0.38 s): lands on frame 3
-      both("#t0-sual", "#t0-rsual", { scale: 1.3, opacity: 0 }, { scale: 1, opacity: 1, duration: F(5), ease: "back.out(2.6)" }, F(1));
-      // «اليوم» slams on its word (spoken 0.48–0.76 s): lands on frame 15
-      both("#t0-youm", "#t0-ryoum", { scale: 1.3, opacity: 0 }, { scale: 1, opacity: 1, duration: F(5), ease: "back.out(2.6)" }, F(13));
-      gsap.set(["#t0-rsual", "#t0-ryoum"], { opacity: 0 });
-      tl.set("#t0-rsual", { opacity: 0.1 }, F(3));
-      tl.set("#t0-ryoum", { opacity: 0.2 }, F(15));
-      // tiny camera shake on each hit
-      [[3, [9, -7, 5, -3, 0]], [15, [8, -6, 4, -2, 0]]].forEach(([f0, seq]) =>
-        seq.forEach((d, i) => tl.to("#t0-shake", { x: d, y: -d * 0.6, duration: F(1), ease: "none" }, F(f0 + i))));
+      // F18–F22: a white/pink light sweep across «سؤال اليوم»
+      tl.set(["#t0-s1", "#t0-s2"], { opacity: 1 }, F(18));
+      tl.fromTo(["#t0-s1", "#t0-s2"], { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: F(5), ease: "power2.inOut", immediateRender: false }, F(18));
+      tl.set(["#t0-s1", "#t0-s2"], { opacity: 0 }, F(23));
 
-      // red burst lines pop and flicker outward on «سؤال»
-      tl.fromTo("#t0-burst", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1.12, duration: F(4), ease: "expo.out" }, F(2));
-      tl.to("#t0-burst", { scale: 1, duration: F(4), ease: "sine.out" }, F(6));
-      [[8, 0.45], [9, 1], [11, 0.6], [12, 1], [20, 0.7], [21, 1]].forEach(([f, o]) => tl.set("#t0-burst", { opacity: o }, F(f)));
-      tl.to("#t0-burst", { scale: 1.08, duration: F(16), ease: "sine.inOut" }, F(10));
-
-      // pink/white light sweep across the title around frame 18
-      tl.fromTo("#t0-band", { xPercent: 0, opacity: 1 }, { xPercent: 420, duration: F(8), ease: "power2.inOut", immediateRender: false }, F(17));
-      tl.set("#t0-band", { opacity: 0 }, F(25));
-
-      // exit: zoom-blur and flash into the footage (frame 29)
-      tl.to("#t0-cam", { scale: 1.24, filter: "blur(16px)", duration: F(5), ease: "expo.in" }, F(22));
-      tl.fromTo("#t0-flash", { opacity: 0 }, { opacity: 0.88, duration: F(5), ease: "power2.in" }, F(22));
-      tl.set("#t0-out", { opacity: 1 }, F(27));
-      tl.fromTo("#t0-out", { scale: 1.14, filter: "blur(14px)" }, { scale: 1.015, filter: "blur(2px)", duration: F(2), ease: "expo.out", immediateRender: false }, F(27));
-      tl.to("#t0-flash", { opacity: 0.08, duration: F(2), ease: "power2.out" }, F(27));
+      // light particles drift up through the whole intro
+      for (let i = 0; i < 16; i++)
+        tl.fromTo("#t0-p" + i, { y: 0, opacity: 0.25 + hrand(i * 3) * 0.5 }, { y: -(40 + hrand(i * 11) * 70), opacity: 0.15 + hrand(i * 17) * 0.6, duration: DUR, ease: "none" }, 0);
 
       window.__timelines["t0"] = tl;
     })();
