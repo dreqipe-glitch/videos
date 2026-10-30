@@ -1,0 +1,189 @@
+{
+  "version": 1,
+  "historyId": "458de5e1-5789-44fa-b80b-01f6009f0078",
+  "currentRevision": "52cb54e7-8c7d-408d-a6b1-77ac20c50e2e",
+  "pendingChanges": false,
+  "files": {
+    "AGENTS.md": {
+      "hash": "1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/1b/1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060"
+    },
+    "CLAUDE.md": {
+      "hash": "1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/1b/1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060"
+    },
+    "assets/avatar.png": {
+      "hash": "8209854d21e613f5c4994acd36d9e3edfb4689a8b6b09cb7c410c56e35cba14f",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/82/8209854d21e613f5c4994acd36d9e3edfb4689a8b6b09cb7c410c56e35cba14f"
+    },
+    "assets/fonts/cairo-arabic-600.woff2": {
+      "hash": "7db1f16449e8c709a9663f077fb1ead2dd8cec168ecac2292b065783b041b617",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/7d/7db1f16449e8c709a9663f077fb1ead2dd8cec168ecac2292b065783b041b617"
+    },
+    "assets/fonts/cairo-arabic-700.woff2": {
+      "hash": "09147def57e55e626f58b97b08590c19130477db1b44c6410e8b2eaa4497fd3d",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/09/09147def57e55e626f58b97b08590c19130477db1b44c6410e8b2eaa4497fd3d"
+    },
+    "assets/fonts/cairo-arabic-800.woff2": {
+      "hash": "75f1a0a8fb96721a33848dd5d521f7afcb3519d59e213c3b5eecabdb960a6210",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/75/75f1a0a8fb96721a33848dd5d521f7afcb3519d59e213c3b5eecabdb960a6210"
+    },
+    "assets/fonts/cairo-arabic-900.woff2": {
+      "hash": "7b2c8098438580b8a316fae9b1444a128e0a00e868462a393285000e56a6e13f",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/7b/7b2c8098438580b8a316fae9b1444a128e0a00e868462a393285000e56a6e13f"
+    },
+    "assets/fonts/cairo-latin-600.woff2": {
+      "hash": "26400cd1ea38935ad4f1154941477d6dd1d57a6e0465d07654e91ad38f43128e",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/26/26400cd1ea38935ad4f1154941477d6dd1d57a6e0465d07654e91ad38f43128e"
+    },
+    "assets/fonts/cairo-latin-700.woff2": {
+      "hash": "2fdd535e5cf84aa96b0329bea21f6f060400a4fc699aba9fc3c651a63caa3d03",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/2f/2fdd535e5cf84aa96b0329bea21f6f060400a4fc699aba9fc3c651a63caa3d03"
+    },
+    "assets/fonts/cairo-latin-800.woff2": {
+      "hash": "4a74c5425b3bc5ba8a7efe4495f7addc8e41055f1246efae01992328f3e8db0a",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/4a/4a74c5425b3bc5ba8a7efe4495f7addc8e41055f1246efae01992328f3e8db0a"
+    },
+    "assets/fonts/cairo-latin-900.woff2": {
+      "hash": "b592cbd3146f76d70e35b1cb5807a0df441c83c29a5bc70d7b68c4269cc8444d",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/b5/b592cbd3146f76d70e35b1cb5807a0df441c83c29a5bc70d7b68c4269cc8444d"
+    },
+    "assets/gendarme.js": {
+      "hash": "1ed0f43282bba090b69f65b65dd960f1fff118ffd93793b721add1e5c51ab584",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/1e/1ed0f43282bba090b69f65b65dd960f1fff118ffd93793b721add1e5c51ab584"
+    },
+    "assets/grain.png": {
+      "hash": "08d96262c73320f46ab896b240002f600e53b7cf0e5140435f9c06c8ec3b33e3",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/08/08d96262c73320f46ab896b240002f600e53b7cf0e5140435f9c06c8ec3b33e3"
+    },
+    "assets/package.css": {
+      "hash": "a46fa833e09812f57c9526bb5d82fa5555170b5a6787c3689f26d14134881bdc",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/a4/a46fa833e09812f57c9526bb5d82fa5555170b5a6787c3689f26d14134881bdc"
+    },
+    "assets/pkg.js": {
+      "hash": "baec9b3998b18838ae39886c67c67b8036d94ee9ade77563cfe9be8bdd066e9a",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/ba/baec9b3998b18838ae39886c67c67b8036d94ee9ade77563cfe9be8bdd066e9a"
+    },
+    "assets/vendor/gsap.min.js": {
+      "hash": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/c1/c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280"
+    },
+    "compositions/intro.html": {
+      "hash": "dd0c420d8221d48f86c1a9ef172fac1a731c755307db7dca73e81c75e0ab8ac6",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/dd/dd0c420d8221d48f86c1a9ef172fac1a731c755307db7dca73e81c75e0ab8ac6"
+    },
+    "hyperframes.json": {
+      "hash": "53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/53/53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
+    },
+    "index.html": {
+      "hash": "6a49f58fc36bf0c69ac1d00b98a8bf713a3d4265eed00351da3467a9b685dd04",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/6a/6a49f58fc36bf0c69ac1d00b98a8bf713a3d4265eed00351da3467a9b685dd04"
+    },
+    "meta.json": {
+      "hash": "752f2aa343b91f2854b5374f7bc862a801cb1003af7b18aebef42a492548609f",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/75/752f2aa343b91f2854b5374f7bc862a801cb1003af7b18aebef42a492548609f"
+    },
+    "package.json": {
+      "hash": "45e1b71b169f4a894781b2a0b2be29ee1f34cb27df4805352508e418d81d800c",
+      "content": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/45/45e1b71b169f4a894781b2a0b2be29ee1f34cb27df4805352508e418d81d800c"
+    }
+  },
+  "revisions": {
+    "52cb54e7-8c7d-408d-a6b1-77ac20c50e2e": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793371306665,
+      "endedAt": 1793371306678,
+      "files": {
+        "assets/gendarme.js": {
+          "before": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/ca/cab9634bd9ec081d1f59abbac6953d35e01d5537aab7717667ca9ed75d0a2b98",
+          "after": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/1e/1ed0f43282bba090b69f65b65dd960f1fff118ffd93793b721add1e5c51ab584"
+        },
+        "compositions/intro.html": {
+          "before": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/37/37257f81c6eab7ea7b4ed0bbadf9e32c7d3858d06fced4822f637d2e957d539f",
+          "after": "/root/.cache/hyperframes/history/458de5e1-5789-44fa-b80b-01f6009f0078/blobs/dd/dd0c420d8221d48f86c1a9ef172fac1a731c755307db7dca73e81c75e0ab8ac6"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "52cb54e7-8c7d-408d-a6b1-77ac20c50e2e",
+      "id": "27c010a3-7ccb-4a93-a0f3-fe149f099a37-2"
+    },
+    "revisions": {
+      "52cb54e7-8c7d-408d-a6b1-77ac20c50e2e": [
+        {
+          "scope": "full",
+          "id": "27c010a3-7ccb-4a93-a0f3-fe149f099a37-0",
+          "image": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/si1/frame-00-at-0.8s.png",
+          "time": 0.8,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793371313967,
+          "contentHash": "0941113a567c07edb8f6f7bae0dc5c9a88f6bfa43f573a32e7c3919a877eb40d",
+          "revision": "52cb54e7-8c7d-408d-a6b1-77ac20c50e2e",
+          "inputFingerprint": "240e97cb61bf06242888368bcdb8d9baf3122903ffd87bb4bd05fa6a7be660c5",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "27c010a3-7ccb-4a93-a0f3-fe149f099a37-1",
+          "image": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/si1/frame-01-at-1.6s.png",
+          "time": 1.6,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793371313967,
+          "contentHash": "502c63bb0b0ce219f3ff8d6d8bf83849882e6b77b76f18ae7a19c13034748477",
+          "revision": "52cb54e7-8c7d-408d-a6b1-77ac20c50e2e",
+          "inputFingerprint": "240e97cb61bf06242888368bcdb8d9baf3122903ffd87bb4bd05fa6a7be660c5",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "27c010a3-7ccb-4a93-a0f3-fe149f099a37-2",
+          "image": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/si1/frame-02-at-2.9s.png",
+          "time": 2.9,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793371313967,
+          "contentHash": "ff6cdeeeea2dc9d6f7179c20aeb7729b57f8832c3aa93068503a2cc070a6df7e",
+          "revision": "52cb54e7-8c7d-408d-a6b1-77ac20c50e2e",
+          "inputFingerprint": "240e97cb61bf06242888368bcdb8d9baf3122903ffd87bb4bd05fa6a7be660c5",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": []
+  }
+}

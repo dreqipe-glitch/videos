@@ -1,0 +1,209 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    .si-abs { position: absolute; }
+    #si-scene { position: absolute; inset: 0; overflow: hidden; background: #05080F; font-family: var(--font-ar); }
+    #si-bg { position: absolute; inset: -4%; background: radial-gradient(ellipse 75% 55% at 50% 38%, #13203A 0%, #0B1320 45%, #05080F 100%); }
+    #si-cam { position: absolute; inset: 0; transform-origin: 50% 46%; }
+    /* flag on its pole, soft focus, night-graded; the cloth is vertical strips displaced by a travelling wave */
+    #si-flagwrap { left: 84px; top: 300px; width: 930px; height: 660px; filter: blur(2.6px) brightness(0.58) saturate(0.9); }
+    #si-pole { position: absolute; left: 0; top: 0; width: 12px; height: 1120px; border-radius: 6px; background: linear-gradient(90deg, #3A4252, #8A93A3 45%, #2A303C); }
+    #si-finial { position: absolute; left: -9px; top: -26px; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #B8C0CC, #5A6272); }
+    #si-flag { position: absolute; left: 12px; top: 20px; width: 900px; height: 600px; }
+    .si-strip { position: absolute; top: 0; height: 600px; background-size: 900px 600px; background-repeat: no-repeat; }
+    #si-folds { position: absolute; left: 12px; top: 0; width: 900px; height: 660px; mix-blend-mode: multiply; opacity: 0.55;
+      background: repeating-linear-gradient(90deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0.55) 110px, rgba(0,0,0,0) 220px, rgba(255,255,255,0) 330px); background-size: 330px 100%; }
+    #si-rim { position: absolute; left: 12px; top: 0; width: 900px; height: 660px; mix-blend-mode: screen;
+      background: linear-gradient(180deg, rgba(255,214,222,0.28) 0%, rgba(255,214,222,0) 30%); }
+    /* light */
+    .si-beam { position: absolute; top: -60px; height: 1700px; mix-blend-mode: screen; transform-origin: 50% 0;
+      background: linear-gradient(180deg, rgba(255,236,240,0.38) 0%, rgba(255,214,222,0.12) 45%, rgba(255,214,222,0) 85%); }
+    #si-b1 { left: 300px; width: 480px; clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%); opacity: 0.55; }
+    #si-b2 { left: 40px; width: 420px; clip-path: polygon(70% 0, 78% 0, 62% 100%, 0 100%); opacity: 0.32; }
+    #si-b3 { left: 620px; width: 420px; clip-path: polygon(22% 0, 30% 0, 100% 100%, 38% 100%); opacity: 0.32; }
+    #si-glow { left: 90px; top: 380px; width: 900px; height: 1000px; border-radius: 50%; background: radial-gradient(ellipse, rgba(255,149,165,0.2) 0%, rgba(255,149,165,0.06) 45%, rgba(255,149,165,0) 70%); }
+    #si-floor { left: 0; top: 1380px; width: 1080px; height: 540px; background: linear-gradient(180deg, rgba(5,8,15,0) 0%, #070B14 22%, #04060B 100%); }
+    #si-pool { left: 170px; top: 1440px; width: 740px; height: 170px; border-radius: 50%; background: radial-gradient(ellipse, rgba(255,226,232,0.32) 0%, rgba(255,149,165,0.12) 45%, rgba(255,149,165,0) 72%); }
+    .si-dust { position: absolute; border-radius: 50%; background: #FFE9EE; }
+    /* character: rig viewBox 420×924 at 1.5× */
+    #si-gd { left: 225px; top: 210px; width: 630px; height: 1386px; }
+    #si-gd svg { width: 100%; height: 100%; overflow: visible; }
+    #si-ring { left: 290px; top: 560px; width: 500px; height: 500px; border-radius: 50%; border: 8px solid #FFF0F3; box-shadow: 0 0 40px rgba(255,149,165,0.7), inset 0 0 30px rgba(255,149,165,0.5); }
+    #si-sweepwrap { left: 225px; top: 230px; width: 630px; height: 1300px; overflow: hidden; mix-blend-mode: soft-light; opacity: 0.6;
+      -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 80%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 80%, transparent 100%); }
+    #si-sweep { position: absolute; top: -10%; bottom: -10%; width: 34%; left: -40%; opacity: 0; transform: skewX(-14deg);
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.95) 50%, rgba(255,255,255,0)); }
+    /* page-name lockup */
+    #si-scrim { left: 0; top: 1130px; width: 1080px; height: 520px; background: linear-gradient(180deg, rgba(5,8,15,0) 0%, rgba(5,8,15,0.82) 38%, rgba(5,8,15,0.9) 100%); }
+    #si-lock { left: 90px; right: 120px; top: 1262px; height: 190px; display: flex; align-items: center; justify-content: center; gap: 30px; direction: rtl; }
+    #si-av { position: relative; width: 150px; height: 150px; flex: none; border-radius: 50%; border: 5px solid var(--pink); overflow: hidden; background: #0B1320; box-shadow: 0 0 26px rgba(255,196,205,0.45), 0 12px 30px rgba(0,0,0,0.5); }
+    #si-av img { display: block; width: 100%; height: 100%; }
+    #si-name { position: relative; font-weight: 900; font-size: 118px; line-height: 160px; color: var(--ink); white-space: nowrap; text-shadow: 0 6px 24px rgba(0,0,0,0.5); }
+    #si-ul { position: absolute; left: 4px; right: 4px; bottom: 6px; height: 10px; border-radius: 5px; transform-origin: 100% 50%;
+      background: linear-gradient(90deg, var(--pink-dk), var(--pink), var(--pink-lt)); }
+    #si-tag { left: 90px; right: 120px; top: 1458px; text-align: center; direction: rtl; font-weight: 700; font-size: 46px; color: #FFFFFF; text-shadow: 0 2px 6px rgba(0,0,0,0.35); }
+    #si-black { position: absolute; inset: 0; background: #000; }
+    #si-flash { position: absolute; inset: 0; opacity: 0; mix-blend-mode: screen; background: radial-gradient(ellipse 75% 60% at 50% 45%, #FFFFFF 0%, #FFD3DA 50%, rgba(229,103,125,0.9) 100%); }
+  </style>
+  <div id="root" data-composition-id="intro" data-start="0" data-duration="3.2" data-width="1080" data-height="1920">
+    <div id="si-scene">
+      <div id="si-bg"></div>
+      <div id="si-cam">
+        <div id="si-shake" class="pkg-layer">
+          <div class="si-abs" id="si-flagwrap"><div id="si-pole"></div><div id="si-finial"></div><div id="si-flag"></div><div id="si-folds"></div><div id="si-rim"></div></div>
+          <div class="si-abs" id="si-glow"></div>
+          <div class="si-beam" id="si-b2"></div><div class="si-beam" id="si-b3"></div><div class="si-beam" id="si-b1"></div>
+          <div class="si-abs" id="si-floor"></div>
+          <div class="si-abs" id="si-pool"></div>
+          <div id="si-dusts"></div>
+          <div class="si-abs" id="si-ring"></div>
+          <div class="si-abs" id="si-gd"></div>
+          <div class="si-abs" id="si-sweepwrap"><div id="si-sweep"></div></div>
+        </div>
+      </div>
+      <div class="si-abs" id="si-scrim"></div>
+      <div class="si-abs" id="si-lock">
+        <div id="si-av"><img src="assets/avatar.png" alt="" /></div>
+        <div id="si-name"><span id="si-n1">سْلَاامْ</span> <span id="si-n2">سْلَاحْ</span><div id="si-ul"></div></div>
+      </div>
+      <div class="si-abs" id="si-tag">#سلام_سلاح</div>
+      <div class="pkg-vignette"></div>
+      <div class="pkg-grain" id="si-grain"></div>
+      <div id="si-flash"></div>
+      <div id="si-black"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const F = (n) => n / 30;
+      const hr = (n) => { const x = Math.sin(n * 91.7 + 17.3) * 43758.5453; return x - Math.floor(x); };
+      const tl = gsap.timeline({ paused: true });
+      const N = 96;
+      const P = "g"; // rig id prefix
+      document.getElementById("si-gd").innerHTML = Gendarme.svg(P);
+      const el = (s) => document.getElementById(P + "-" + s);
+
+      /* ---------- flag cloth: strips displaced by a travelling wave (a gust after «سلاح!») ---------- */
+      const flagSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600"><rect width="900" height="600" fill="#C1272D"/><path d="M450,140 L522,362 L334,225 L566,225 L378,362 Z" fill="none" stroke="#006233" stroke-width="30" stroke-linejoin="miter"/></svg>`;
+      const url = `url("data:image/svg+xml;utf8,${encodeURIComponent(flagSVG)}")`;
+      const flag = document.getElementById("si-flag");
+      const SW = 8, NS = Math.ceil(900 / SW), strips = [];
+      for (let i = 0; i < NS; i++) {
+        const s = document.createElement("div");
+        s.className = "si-strip";
+        Object.assign(s.style, { left: i * SW + "px", width: SW + 1 + "px", backgroundImage: url, backgroundPosition: -i * SW + "px 0" });
+        flag.appendChild(s);
+        strips.push(s);
+      }
+      for (let f = 0; f < N; f++) {
+        const t = f / 30, gust = f >= 31 ? 1 + 0.9 * Math.exp(-(f - 31) / 14) : 1;
+        strips.forEach((s, i) => {
+          const k = (i * SW) / 900;
+          tl.set(s, { y: (3 + 22 * Math.pow(k, 1.2)) * gust * Math.sin(2 * Math.PI * ((i * SW) / 520 - 0.9 * t)) }, F(f));
+        });
+      }
+      tl.fromTo("#si-folds", { backgroundPositionX: "0px" }, { backgroundPositionX: "-180px", duration: F(N), ease: "none" }, 0);
+
+      /* ---------- light: beams breathe, dust drifts ---------- */
+      tl.fromTo("#si-b1", { opacity: 0.45, rotation: -1 }, { opacity: 0.6, rotation: 1, duration: F(N), ease: "sine.inOut" }, 0);
+      tl.fromTo("#si-b2", { opacity: 0.25, rotation: 1.5 }, { opacity: 0.38, rotation: -1, duration: F(N), ease: "sine.inOut" }, 0);
+      tl.fromTo("#si-b3", { opacity: 0.36, rotation: -1.5 }, { opacity: 0.24, rotation: 1, duration: F(N), ease: "sine.inOut" }, 0);
+      const dusts = document.getElementById("si-dusts");
+      for (let i = 0; i < 34; i++) {
+        const d = document.createElement("div"), s = 2 + Math.round(hr(i * 3 + 1) * 4);
+        d.className = "si-dust"; d.id = "si-d" + i;
+        Object.assign(d.style, { width: s + "px", height: s + "px", left: 260 + Math.round(hr(i * 7 + 2) * 560) + "px", top: 120 + Math.round(hr(i * 5 + 4) * 1250) + "px", opacity: 0 });
+        dusts.appendChild(d);
+        tl.fromTo(d, { x: 0, y: 0, opacity: 0.15 + hr(i) * 0.45 }, { x: (hr(i * 11) - 0.5) * 60, y: 30 + hr(i * 13) * 60, opacity: 0.1 + hr(i * 17) * 0.4, duration: F(N), ease: "none" }, 0);
+      }
+
+      /* ---------- camera: fade up, slow push-in, tiny shake on the snap, exit whip ---------- */
+      tl.fromTo("#si-black", { opacity: 1 }, { opacity: 0, duration: F(3), ease: "power1.out" }, 0);
+      tl.fromTo("#si-cam", { scale: 1.0 }, { scale: 1.06, duration: F(30), ease: "sine.inOut" }, 0);
+      tl.to("#si-cam", { scale: 1.08, duration: F(58), ease: "none" }, F(30));
+      [3, -2.5, 1.5, 0].forEach((d, i) => tl.to("#si-shake", { x: d, y: -d * 0.5, duration: F(1), ease: "none" }, F(33 + i)));
+      tl.to("#si-cam", { scale: 1.26, y: -70, filter: "blur(16px)", duration: F(7), ease: "expo.in" }, F(89));
+      tl.fromTo("#si-flash", { opacity: 0 }, { opacity: 0.95, duration: F(6), ease: "power2.in", immediateRender: false }, F(90));
+
+      /* ---------- the drill: pose A (arme au pied) → pose B (présentez armes) ---------- */
+      const SR = [128, 312], SL = [292, 312], A = 112, B = 120;
+      const rot = (x, y, a, lx, ly) => { const r = (a * Math.PI) / 180; return [x + lx * Math.cos(r) - ly * Math.sin(r), y + lx * Math.sin(r) + ly * Math.cos(r)]; };
+      const REST_L = { up: -4, fore: 2 };
+      const restL = (() => { const u = (REST_L.up * Math.PI) / 180, f = ((REST_L.up + REST_L.fore) * Math.PI) / 180;
+        const E = [SL[0] - A * Math.sin(u), SL[1] + A * Math.cos(u)]; return [E[0] - B * Math.sin(f), E[1] + B * Math.cos(f)]; })();
+      // rifle keys: centre x, y, rotation; right-hand grip along the rifle; left hand: 0 = at rest … 1 = on the handguard
+      const KEYS = {
+        30: { x: 98, y: 637, a: 0, gr: -100, l: 0 },
+        31: { x: 114, y: 606, a: 7, gr: -70, l: 0.15 },
+        32: { x: 152, y: 548, a: 13, gr: -10, l: 0.55 },
+        33: { x: 194, y: 494, a: 6, gr: 40, l: 0.92 },
+        34: { x: 209, y: 465, a: -1, gr: 58, l: 1 },
+        35: { x: 210, y: 463, a: 0.4, gr: 58, l: 1 },
+        36: { x: 210, y: 466, a: 0, gr: 58, l: 1 },
+      };
+      const tf = (k) => `translate(${k.x},${k.y}) rotate(${k.a})`;
+      const pose = (f, k) => {
+        const R = rot(k.x, k.y, k.a, 0, k.gr);
+        const Lgrip = rot(k.x, k.y, k.a, 0, -90);
+        const LT = [restL[0] + (Lgrip[0] - restL[0]) * k.l, restL[1] + (Lgrip[1] - restL[1]) * k.l];
+        const r = Gendarme.solve(SR, R, A, B, -1);
+        const l = k.l === 0 ? REST_L : Gendarme.solve(SL, LT, A, B, 1);
+        tl.set(el("rifle"), { attr: { transform: tf(k) } }, F(f));
+        tl.set(el("armR"), { attr: { transform: `rotate(${r.up})` } }, F(f));
+        tl.set(el("foreR"), { attr: { transform: `translate(0,112) rotate(${r.fore})` } }, F(f));
+        tl.set(el("armL"), { attr: { transform: `rotate(${l.up})` } }, F(f));
+        tl.set(el("foreL"), { attr: { transform: `translate(0,112) rotate(${l.fore})` } }, F(f));
+      };
+      // hands: right hand always grips; left hand opens at rest and closes on the handguard
+      gsap.set([el("Rhopen"), el("Lhopen")], { opacity: 0 });
+      gsap.set(el("Rhgrip"), { opacity: 1 });
+      gsap.set(el("Lhopen"), { opacity: 1 });
+      Object.entries(KEYS).forEach(([f, k]) => pose(+f, k));
+      tl.set(el("Lhopen"), { opacity: 0 }, F(33));
+      tl.set(el("Lhgrip"), { opacity: 1 }, F(33));
+      // smear frames: two trailing copies of the rifle and a short blur while it travels
+      [[31, 30, null], [32, 31, 30], [33, 32, 31]].forEach(([f, p1, p2]) => {
+        tl.set(el("rifleGhost1"), { opacity: 0.38, attr: { transform: tf(KEYS[p1]) } }, F(f));
+        if (p2 !== null) tl.set(el("rifleGhost2"), { opacity: 0.18, attr: { transform: tf(KEYS[p2]) } }, F(f));
+      });
+      tl.set([el("rifleGhost1"), el("rifleGhost2")], { opacity: 0 }, F(34));
+      tl.set(el("rifle"), { filter: "blur(2.5px)" }, F(32));
+      tl.set(el("rifle"), { filter: "blur(0px)" }, F(34));
+
+      // stillness with a very subtle breath, chin lifts at F24, heel stomp on the snap
+      const torso = (sy) => `translate(210,590) scale(1,${sy}) translate(-210,-590)`;
+      tl.fromTo(el("torso"), { attr: { transform: torso(1) } }, { attr: { transform: torso(1.008) }, duration: F(22), ease: "sine.inOut" }, 0);
+      tl.to(el("torso"), { attr: { transform: torso(1) }, duration: F(8), ease: "sine.inOut" }, F(22));
+      tl.to(el("headB"), { attr: { transform: "translate(0,-5)" }, duration: F(6), ease: "power2.out" }, F(24));
+      tl.to(el("brows"), { attr: { transform: "translate(0,-2)" }, duration: F(6), ease: "power2.out" }, F(24));
+      const body = (y) => `translate(0,${y}) translate(210,880) scale(1,1) translate(-210,-880)`;
+      tl.to(el("body"), { attr: { transform: body(4) }, duration: F(1), ease: "power2.in" }, F(33));
+      tl.to(el("body"), { attr: { transform: body(0) }, duration: F(3), ease: "power2.out" }, F(34));
+      tl.to(el("torso"), { attr: { transform: torso(1.006) }, duration: F(30), ease: "sine.inOut" }, F(40));
+
+      // the snap's light: a white → pink ring behind her
+      tl.fromTo("#si-ring", { opacity: 0, scale: 0.4, borderColor: "#FFFFFF" }, { opacity: 0.9, scale: 1, borderColor: "#FF95A5", duration: F(5), ease: "expo.out", immediateRender: false }, F(33));
+      tl.to("#si-ring", { opacity: 0, scale: 1.5, duration: F(10), ease: "power2.out" }, F(38));
+      gsap.set("#si-ring", { opacity: 0 });
+
+      // a light sweep over her and the rifle
+      tl.fromTo("#si-sweep", { xPercent: 0, opacity: 1 }, { xPercent: 420, opacity: 1, duration: F(14), ease: "power2.inOut", immediateRender: false }, F(41));
+      tl.set("#si-sweep", { opacity: 0 }, F(55));
+
+      /* ---------- page name ---------- */
+      gsap.set(["#si-scrim", "#si-n1", "#si-n2", "#si-av", "#si-tag"], { opacity: 0 });
+      gsap.set("#si-ul", { scaleX: 0 });
+      tl.to("#si-scrim", { opacity: 1, duration: F(12), ease: "power2.out" }, F(48));
+      tl.fromTo("#si-av", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: F(8), ease: "back.out(2)" }, F(50));
+      tl.fromTo("#si-n1", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: F(8), ease: "expo.out" }, F(52));
+      tl.fromTo("#si-n2", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: F(8), ease: "expo.out" }, F(57));
+      tl.to("#si-ul", { scaleX: 1, duration: F(10), ease: "expo.out" }, F(60));
+      tl.fromTo("#si-tag", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: F(8), ease: "power3.out" }, F(66));
+
+      // grain
+      for (let f = 0; f < N; f += 2) tl.set("#si-grain", { x: -Math.floor(hr(f + 3) * 320), y: -Math.floor(hr(f * 2.3 + 1) * 320) }, F(f));
+
+      window.__timelines["intro"] = tl;
+    })();
+  </script>
+</template>

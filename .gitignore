@@ -10,3 +10,7 @@ reel-gendarmerie/hf/.hyperframes/video-state-lock
 reel-gendarmerie/hf/renders/
 reel-gendarmerie/hf/assets/media/
 reel-gendarmerie/timing/.check.json
+# Series intro: scratch output
+series-intro/hf/.hyperframes/artifacts/
+series-intro/hf/.hyperframes/video-state-lock
+series-intro/hf/renders/
