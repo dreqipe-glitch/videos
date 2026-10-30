@@ -1,0 +1,135 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    .g3-abs { position: absolute; }
+    #g3-logo { left: 480px; top: 280px; width: 120px; height: 176px; }
+    .g3-row { position: absolute; left: 90px; width: 870px; display: flex; align-items: center; gap: 40px; direction: rtl; }
+    .g3-tile { flex: none; width: 170px; height: 170px; border-radius: 40px; background: rgba(20,30,46,0.92); border: 3px solid rgba(201,162,39,0.55); color: var(--gold-lit); padding: 30px; position: relative; }
+    .g3-tile svg { width: 100%; height: 100%; }
+    .g3-txt { font-weight: 900; font-size: 74px; line-height: 1.2; color: var(--ink); white-space: nowrap; }
+    .g3-txt .gold { color: var(--gold-lit); }
+    #g3-r1 { top: 520px; }
+    #g3-r2 { top: 800px; }
+    .g3-dot { position: absolute; top: 58px; width: 15px; height: 15px; border-radius: 50%; background: var(--gold-lit); }
+    #g3-share-ar { position: absolute; inset: 30px; }
+    #g3-follow { left: 240px; top: 1090px; width: 600px; height: 150px; border-radius: 80px; background: var(--gold); color: #0B1320; display: flex; align-items: center; justify-content: center; gap: 26px; box-shadow: 0 18px 50px rgba(201,162,39,0.35); }
+    #g3-follow .ic { width: 84px; height: 84px; }
+    #g3-follow .ic svg { width: 100%; height: 100%; stroke-width: 10; }
+    #g3-follow .lb { font-weight: 900; font-size: 76px; line-height: 1; padding-bottom: 10px; }
+    #g3-done { position: absolute; inset: 0; border-radius: 80px; background: var(--green); border: 4px solid #2FBF73; color: #fff; display: flex; align-items: center; justify-content: center; gap: 20px; font-weight: 900; font-size: 72px; padding-bottom: 8px; }
+    #g3-done .ic { width: 76px; height: 76px; }
+    #g3-done .ic svg { width: 100%; height: 100%; stroke-width: 13; }
+    #g3-ripple { left: 470px; top: 1095px; width: 140px; height: 140px; border-radius: 50%; border: 6px solid #FFF6D8; }
+    .g3-spark { position: absolute; width: 14px; height: 40px; border-radius: 7px; background: var(--gold-lit); left: 533px; top: 1145px; transform-origin: 50% 50%; }
+
+    #g3-lockglow { left: 40px; top: 700px; width: 1000px; height: 560px; border-radius: 50%; background: radial-gradient(ellipse, rgba(201,162,39,0.22), rgba(201,162,39,0) 65%); }
+    #g3-lock { left: 90px; right: 120px; top: 790px; text-align: center; font-weight: 900; font-size: 138px; line-height: 1.3; color: var(--ink); white-space: nowrap;
+      text-shadow: 0 0 40px rgba(244,241,234,0.25); }
+    #g3-uline { left: 215px; width: 620px; top: 1035px; height: 14px; border-radius: 7px; background: linear-gradient(90deg, rgba(201,162,39,0), var(--gold) 15%, #F6DE8A 50%, var(--gold) 85%, rgba(201,162,39,0)); box-shadow: 0 0 26px rgba(233,203,98,0.6); transform-origin: 100% 50%; }
+  </style>
+  <div id="root" data-composition-id="g3" data-start="0" data-duration="9.3667" data-width="1080" data-height="1920">
+    <div class="pkg-scene">
+      <div class="pkg-bg" id="g3-bg"></div>
+      <div id="g3-zelhost"></div>
+      <div class="pkg-cam" id="g3-cam">
+        <div class="logo g3-abs" id="g3-logo"><img src="assets/logo.png" alt="" /></div>
+
+        <div class="g3-row" id="g3-r1">
+          <div class="g3-tile" id="g3-t1"><span data-icon="comment"></span>
+            <div class="g3-dot" id="g3-d1" style="left:56px"></div><div class="g3-dot" id="g3-d2" style="left:78px"></div><div class="g3-dot" id="g3-d3" style="left:100px"></div>
+          </div>
+          <div class="g3-txt"><div><span class="w" id="g3-a1">خلّيو</span> <span class="w" id="g3-a2">لينا</span> <span class="w" id="g3-a3">آراءكم</span></div><div><span class="w" id="g3-a4">في</span> <span class="w gold" id="g3-a5">التعاليق</span></div></div>
+        </div>
+        <div class="g3-row" id="g3-r2">
+          <div class="g3-tile" id="g3-t2"><div id="g3-share-ar" data-icon="share"></div></div>
+          <div class="g3-txt"><span class="w" id="g3-b1">بارتاجيو</span> <span class="w gold" id="g3-b2">الفيديو</span></div>
+        </div>
+
+        <div class="g3-abs" id="g3-follow" data-layout-allow-overlap>
+          <div class="ic" data-icon="follow"></div><div class="lb">تابع</div>
+          <div id="g3-done"><div class="ic" data-icon="check"></div><div>متابَع</div></div>
+        </div>
+        <div class="g3-abs" id="g3-ripple"></div>
+        <div class="g3-spark" id="g3-s1"></div><div class="g3-spark" id="g3-s2"></div><div class="g3-spark" id="g3-s3"></div>
+        <div class="g3-spark" id="g3-s4"></div><div class="g3-spark" id="g3-s5"></div><div class="g3-spark" id="g3-s6"></div>
+
+        <!-- page-name lockup: never shown with the Gendarmerie logo -->
+        <div class="g3-abs" id="g3-lockglow"></div>
+        <div class="g3-abs" id="g3-lock"><span class="w" id="g3-n1">سْلَاامْ</span> <span class="w" id="g3-n2">سْلَاحْ</span></div>
+        <div class="g3-abs" id="g3-uline"></div>
+      </div>
+      <div class="pkg-vignette"></div>
+      <div class="pkg-grain" id="g3-grain"></div>
+      <div class="pkg-bridge" id="g3-in" style="background-image: url('assets/bridge/f2100.jpg')"></div>
+      <div class="pkg-flash" id="g3-flash"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const { F } = Pkg;
+      const L = (n) => F(n);
+      const root = document.querySelector('[data-composition-id="g3"]');
+      Pkg.mountIcons(root);
+      const tl = gsap.timeline({ paused: true });
+      const DUR = F(281);
+      Pkg.shell(tl, "g3", DUR, { exit: false });
+
+      gsap.set(["#g3-r1", "#g3-r2", "#g3-follow", "#g3-ripple", "#g3-lockglow", "#g3-n1", "#g3-n2", "#g3-done", ".g3-spark",
+              "#g3-a1", "#g3-a2", "#g3-a3", "#g3-a4", "#g3-a5", "#g3-b1", "#g3-b2", "#g3-uline"], { opacity: 0 });
+
+      // the small emblem opens the CTA, then leaves long before the page name
+      tl.fromTo("#g3-logo", { opacity: 0, scale: 0.85 }, { opacity: 0.9, scale: 1, duration: L(10), ease: "back.out(2)" }, L(4));
+      tl.to("#g3-logo", { opacity: 0, y: -40, scale: 0.9, duration: L(10), ease: "power2.in" }, L(34));
+
+      // خلّيو (L10) لينا (L20) آراءكم (L28) في (L39) التعاليق (L41)
+      tl.fromTo("#g3-r1", { opacity: 0 }, { opacity: 1, duration: L(4) }, L(8));
+      tl.fromTo("#g3-t1", { scale: 0.5, rotation: -12 }, { scale: 1, rotation: 0, duration: L(10), ease: "back.out(2.4)" }, L(8));
+      [["#g3-a1", 10], ["#g3-a2", 20], ["#g3-a3", 28], ["#g3-a4", 39], ["#g3-a5", 41]].forEach(([s, f]) => Pkg.revealWord(tl, s, L(f), { dur: L(9) }));
+      tl.fromTo("#g3-t1", { borderColor: "rgba(201,162,39,0.55)" }, { borderColor: "rgba(246,222,138,1)", duration: L(6), yoyo: true, repeat: 1 }, L(41));
+      // typing dots
+      for (let f = 41, k = 0; f < 236; f += 6, k++) {
+        const d = ["#g3-d1", "#g3-d2", "#g3-d3"][k % 3];
+        tl.to(d, { y: -12, duration: L(3), ease: "sine.out" }, L(f));
+        tl.to(d, { y: 0, duration: L(3), ease: "sine.in" }, L(f + 3));
+      }
+
+      // وبارتاجيو (L67) الفيديو (L85)
+      tl.fromTo("#g3-r2", { opacity: 0 }, { opacity: 1, duration: L(4) }, L(65));
+      tl.fromTo("#g3-t2", { scale: 0.5, rotation: 12 }, { scale: 1, rotation: 0, duration: L(10), ease: "back.out(2.4)" }, L(65));
+      Pkg.revealWord(tl, "#g3-b1", L(67), { dur: L(9) });
+      Pkg.revealWord(tl, "#g3-b2", L(85), { dur: L(9) });
+      [70, 98, 126].forEach((f) => {
+        tl.to("#g3-share-ar", { y: -22, duration: L(6), ease: "power2.out" }, L(f));
+        tl.to("#g3-share-ar", { y: 0, duration: L(8), ease: "back.out(3)" }, L(f + 6));
+      });
+
+      // متنساش.. (L142): the first two asks step back for the follow button
+      tl.to(["#g3-r1", "#g3-r2"], { opacity: 0.45, y: -30, duration: L(14), ease: "expo.out" }, L(142));
+      // تابع (L167) الصفحة (L176): button arrives, gets tapped, turns into «✓ متابَع»
+      tl.fromTo("#g3-follow", { opacity: 0, scale: 0.6, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: L(9), ease: "back.out(2.4)" }, L(165));
+      tl.to("#g3-follow", { scale: 0.92, duration: L(3), ease: "power2.in" }, L(175));
+      tl.fromTo("#g3-ripple", { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 2.4, duration: L(14), ease: "expo.out", immediateRender: false }, L(176));
+      tl.to("#g3-follow", { scale: 1, duration: L(8), ease: "back.out(3)" }, L(178));
+      tl.to("#g3-follow .lb, #g3-follow > .ic", { opacity: 0, duration: L(3) }, L(178));
+      tl.fromTo("#g3-done", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: L(6), ease: "back.out(2)" }, L(178));
+      [0, 60, 120, 180, 240, 300].forEach((a, i) => {
+        const r = (a * Math.PI) / 180;
+        tl.fromTo("#g3-s" + (i + 1), { opacity: 1, x: 0, y: 0, rotation: a + 90, scale: 0.6 },
+          { opacity: 0, x: Math.cos(r) * 260, y: Math.sin(r) * 120, scale: 1, duration: L(14), ease: "expo.out", immediateRender: false }, L(178));
+      });
+
+      // مع (L238): the asks clear; the button collapses into the lockup's underline
+      tl.to(["#g3-r1", "#g3-r2"], { opacity: 0, y: -80, filter: "blur(10px)", duration: L(8), ease: "power2.in", stagger: L(2) }, L(234));
+      tl.to("#g3-follow", { scaleY: 0.09, scaleX: 1.1, y: -100, opacity: 0, duration: L(10), ease: "expo.inOut" }, L(236));
+      tl.fromTo("#g3-lockglow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: L(20), ease: "expo.out" }, L(240));
+      // سْلَاامْ (L245) · سْلَاحْ (L262)
+      tl.fromTo("#g3-n1", { opacity: 0, scale: 1.3, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: L(9), ease: "expo.out" }, L(245));
+      tl.fromTo("#g3-n2", { opacity: 0, scale: 1.3, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: L(9), ease: "expo.out" }, L(262));
+      tl.fromTo("#g3-uline", { opacity: 1, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: L(12), ease: "expo.out", immediateRender: false }, L(262));
+      tl.fromTo("#g3-lock", { textShadow: "0 0 40px rgba(244,241,234,0.25)" }, { textShadow: "0 0 60px rgba(233,203,98,0.55)", duration: L(14), ease: "sine.out" }, L(264));
+      tl.fromTo("#g3-lock", { scale: 1 }, { scale: 1.03, duration: L(36), ease: "sine.out", immediateRender: false }, L(245));
+
+      window.__timelines["g3"] = tl;
+    })();
+  </script>
+</template>

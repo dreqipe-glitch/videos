@@ -4,3 +4,9 @@ node_modules/
 hyperframes/.hyperframes/artifacts/
 hyperframes/.hyperframes/video-state-lock
 hyperframes/renders/
+# Gendarmerie reel: scratch output and the source footage (kept local, too large for git)
+reel-gendarmerie/hf/.hyperframes/artifacts/
+reel-gendarmerie/hf/.hyperframes/video-state-lock
+reel-gendarmerie/hf/renders/
+reel-gendarmerie/hf/assets/media/
+reel-gendarmerie/timing/.check.json

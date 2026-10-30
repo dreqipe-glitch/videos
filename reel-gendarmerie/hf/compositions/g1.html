@@ -1,0 +1,77 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #g1-head { position: absolute; left: 90px; right: 120px; top: 470px; text-align: center; }
+    #g1-head .l1 { font-weight: 900; font-size: 108px; line-height: 1.2; color: var(--ink); }
+    #g1-head .l2 { position: relative; display: inline-block; white-space: nowrap; font-weight: 900; font-size: 124px; line-height: 1.25; color: var(--gold-lit); }
+    #g1-uline { position: absolute; left: 4%; right: 4%; bottom: 2px; height: 8px; border-radius: 4px; background: linear-gradient(90deg, rgba(201,162,39,0), var(--gold) 20%, #F6DE8A 50%, var(--gold) 80%, rgba(201,162,39,0)); transform-origin: 100% 50%; }
+    #g1-crowd { position: absolute; left: 90px; width: 870px; top: 900px; height: 560px; transform-origin: 50% 40%; scale: 1.22; }
+    .g1-p { position: absolute; color: var(--ink-2); }
+    .g1-p svg { width: 100%; height: 100%; }
+    .g1-p.front { color: var(--ink); }
+    .g1-q { position: absolute; width: 104px; height: 104px; color: var(--gold); }
+    .g1-q svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: rgba(201,162,39,0.14); }
+    .g1-q b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding-bottom: 14px; font-weight: 900; font-size: 58px; color: var(--gold-lit); }
+  </style>
+  <div id="root" data-composition-id="g1" data-start="0" data-duration="1.4333" data-width="1080" data-height="1920">
+    <div class="pkg-scene">
+      <div class="pkg-bg" id="g1-bg"></div>
+      <div id="g1-zelhost"></div>
+      <div class="pkg-cam" id="g1-cam">
+        <div id="g1-head">
+          <div class="l1"><span class="w" id="g1-w1">بزاف</span> <span class="w" id="g1-w2">ديال</span> <span class="w" id="g1-w3">الناس</span></div>
+          <div class="l2"><span class="w" id="g1-w4">كيحساب</span> <span class="w" id="g1-w5">ليهم…</span><div id="g1-uline"></div></div>
+        </div>
+        <div id="g1-crowd">
+          <div class="g1-p" id="g1-p1" style="left:330px;top:150px;width:210px;height:210px" data-icon="person"></div>
+          <div class="g1-p" id="g1-p2" style="left:160px;top:100px;width:170px;height:170px" data-icon="person"></div>
+          <div class="g1-p" id="g1-p3" style="left:540px;top:100px;width:170px;height:170px" data-icon="woman"></div>
+          <div class="g1-p" id="g1-p4" style="left:20px;top:60px;width:140px;height:140px" data-icon="woman"></div>
+          <div class="g1-p" id="g1-p5" style="left:710px;top:60px;width:140px;height:140px" data-icon="person"></div>
+          <div class="g1-p front" id="g1-p6" style="left:230px;top:300px;width:180px;height:180px" data-icon="woman"></div>
+          <div class="g1-p front" id="g1-p7" style="left:460px;top:300px;width:180px;height:180px" data-icon="person"></div>
+          <div class="g1-q" id="g1-q1" style="left:385px;top:20px"><span data-icon="comment"></span><b>؟</b></div>
+          <div class="g1-q" id="g1-q2" style="left:150px;top:-20px"><span data-icon="comment"></span><b>؟</b></div>
+          <div class="g1-q" id="g1-q3" style="left:610px;top:-20px"><span data-icon="comment"></span><b>؟</b></div>
+        </div>
+      </div>
+      <div class="pkg-vignette"></div>
+      <div class="pkg-grain" id="g1-grain"></div>
+      <div class="pkg-bridge" id="g1-in" style="background-image: url('assets/bridge/f156.jpg')"></div>
+      <div class="pkg-bridge" id="g1-out" style="background-image: url('assets/bridge/f200.jpg')"></div>
+      <div class="pkg-flash" id="g1-flash"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const { F } = Pkg;
+      const root = document.querySelector('[data-composition-id="g1"]');
+      Pkg.mountIcons(root);
+      const tl = gsap.timeline({ paused: true });
+      const DUR = F(43);
+      Pkg.shell(tl, "g1", DUR);
+
+      // headline is fully readable by frame 10 (بزاف is already spoken as the gap opens)
+      ["#g1-w1", "#g1-w2", "#g1-w3", "#g1-w4", "#g1-w5"].forEach((s, i) =>
+        Pkg.revealWord(tl, s, F(1 + i * 1.6), { dy: 34, blur: 8, dur: F(6) }));
+      // كيحساب (L25): gold underline sweeps under the second line
+      tl.fromTo("#g1-uline", { scaleX: 0 }, { scaleX: 1, duration: F(7), ease: "expo.out" }, F(25));
+
+      // crowd pops from the centre outwards, 2-frame stagger
+      ["#g1-p1", "#g1-p6", "#g1-p7", "#g1-p2", "#g1-p3", "#g1-p4", "#g1-p5"].forEach((s, i) =>
+        tl.fromTo(s, { scale: 0.2, opacity: 0, y: 40 }, { scale: 1, opacity: 1, y: 0, duration: F(9), ease: "back.out(2.2)" }, F(2 + i * 1.5)));
+      // gentle sway so nothing holds still
+      ["#g1-p1", "#g1-p2", "#g1-p3", "#g1-p4", "#g1-p5", "#g1-p6", "#g1-p7"].forEach((s, i) =>
+        tl.to(s, { y: i % 2 ? -10 : -6, rotation: i % 2 ? 2 : -2, duration: F(20), ease: "sine.inOut" }, F(14)));
+
+      // ؟ bubbles bounce in on كيحساب, then bob
+      ["#g1-q1", "#g1-q2", "#g1-q3"].forEach((s, i) => {
+        tl.fromTo(s, { scale: 0, y: 30, rotation: i ? (i === 1 ? -14 : 14) : 0 }, { scale: 1, y: 0, rotation: i ? (i === 1 ? -6 : 6) : 0, duration: F(8), ease: "back.out(3)" }, F(21 + i * 2));
+        tl.to(s, { y: -14, duration: F(5), ease: "sine.out" }, F(30 + i));
+        tl.to(s, { y: 0, duration: F(5), ease: "sine.in" }, F(35 + i));
+      });
+
+      window.__timelines["g1"] = tl;
+    })();
+  </script>
+</template>
