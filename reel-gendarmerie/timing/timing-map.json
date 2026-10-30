@@ -1,0 +1,891 @@
+{
+ "fps": 30,
+ "source": "MMS_FA forced alignment over whisper large-v3 transcript",
+ "gaps": [
+  {
+   "name": "GAP1",
+   "first_frame": 157,
+   "last_frame": 199,
+   "frames": 43,
+   "start": 5.2333,
+   "end": 6.6667,
+   "words": [
+    {
+     "text": "بزاف",
+     "start": 5.141,
+     "end": 5.481,
+     "frame": 154,
+     "end_frame": 164,
+     "local_frame": -3,
+     "local_end_frame": 7
+    },
+    {
+     "text": "ديال",
+     "start": 5.541,
+     "end": 5.721,
+     "frame": 166,
+     "end_frame": 172,
+     "local_frame": 9,
+     "local_end_frame": 15
+    },
+    {
+     "text": "الناس",
+     "start": 5.721,
+     "end": 6.041,
+     "frame": 172,
+     "end_frame": 181,
+     "local_frame": 15,
+     "local_end_frame": 24
+    },
+    {
+     "text": "كيحساب",
+     "start": 6.081,
+     "end": 6.461,
+     "frame": 182,
+     "end_frame": 194,
+     "local_frame": 25,
+     "local_end_frame": 37
+    },
+    {
+     "text": "ليهم",
+     "start": 6.521,
+     "end": 6.761,
+     "frame": 196,
+     "end_frame": 203,
+     "local_frame": 39,
+     "local_end_frame": 46
+    }
+   ]
+  },
+  {
+   "name": "GAP2",
+   "first_frame": 596,
+   "last_frame": 1673,
+   "frames": 1078,
+   "start": 19.8667,
+   "end": 55.8,
+   "words": [
+    {
+     "text": "ومن",
+     "start": 19.983,
+     "end": 20.163,
+     "frame": 599,
+     "end_frame": 605,
+     "local_frame": 3,
+     "local_end_frame": 9
+    },
+    {
+     "text": "بين",
+     "start": 20.223,
+     "end": 20.383,
+     "frame": 607,
+     "end_frame": 611,
+     "local_frame": 11,
+     "local_end_frame": 15
+    },
+    {
+     "text": "أهم",
+     "start": 20.483,
+     "end": 20.763,
+     "frame": 614,
+     "end_frame": 623,
+     "local_frame": 18,
+     "local_end_frame": 27
+    },
+    {
+     "text": "المهام",
+     "start": 20.803,
+     "end": 21.223,
+     "frame": 624,
+     "end_frame": 637,
+     "local_frame": 28,
+     "local_end_frame": 41
+    },
+    {
+     "text": "اللي",
+     "start": 21.243,
+     "end": 21.383,
+     "frame": 637,
+     "end_frame": 641,
+     "local_frame": 41,
+     "local_end_frame": 45
+    },
+    {
+     "text": "كيقوموا",
+     "start": 21.423,
+     "end": 21.823,
+     "frame": 643,
+     "end_frame": 655,
+     "local_frame": 47,
+     "local_end_frame": 59
+    },
+    {
+     "text": "بها",
+     "start": 21.843,
+     "end": 22.063,
+     "frame": 655,
+     "end_frame": 662,
+     "local_frame": 59,
+     "local_end_frame": 66
+    },
+    {
+     "text": "التفتيش",
+     "start": 22.503,
+     "end": 23.064,
+     "frame": 675,
+     "end_frame": 692,
+     "local_frame": 79,
+     "local_end_frame": 96
+    },
+    {
+     "text": "الجسدي",
+     "start": 23.104,
+     "end": 23.584,
+     "frame": 693,
+     "end_frame": 708,
+     "local_frame": 97,
+     "local_end_frame": 112
+    },
+    {
+     "text": "وهنا",
+     "start": 23.964,
+     "end": 24.224,
+     "frame": 719,
+     "end_frame": 727,
+     "local_frame": 123,
+     "local_end_frame": 131
+    },
+    {
+     "text": "القانون",
+     "start": 24.624,
+     "end": 25.084,
+     "frame": 739,
+     "end_frame": 753,
+     "local_frame": 143,
+     "local_end_frame": 157
+    },
+    {
+     "text": "المغربي",
+     "start": 25.104,
+     "end": 25.584,
+     "frame": 753,
+     "end_frame": 768,
+     "local_frame": 157,
+     "local_end_frame": 172
+    },
+    {
+     "text": "واضح",
+     "start": 25.724,
+     "end": 26.124,
+     "frame": 772,
+     "end_frame": 784,
+     "local_frame": 176,
+     "local_end_frame": 188
+    },
+    {
+     "text": "وصريح",
+     "start": 26.184,
+     "end": 26.664,
+     "frame": 786,
+     "end_frame": 800,
+     "local_frame": 190,
+     "local_end_frame": 204
+    },
+    {
+     "text": "وبالتحديد",
+     "start": 26.984,
+     "end": 27.604,
+     "frame": 810,
+     "end_frame": 828,
+     "local_frame": 214,
+     "local_end_frame": 232
+    },
+    {
+     "text": "المادة",
+     "start": 27.924,
+     "end": 28.384,
+     "frame": 838,
+     "end_frame": 852,
+     "local_frame": 242,
+     "local_end_frame": 256
+    },
+    {
+     "text": "81",
+     "start": 28.444,
+     "end": 29.405,
+     "frame": 853,
+     "end_frame": 882,
+     "local_frame": 257,
+     "local_end_frame": 286
+    },
+    {
+     "text": "من",
+     "start": 29.465,
+     "end": 29.565,
+     "frame": 884,
+     "end_frame": 887,
+     "local_frame": 288,
+     "local_end_frame": 291
+    },
+    {
+     "text": "قانون",
+     "start": 29.645,
+     "end": 29.985,
+     "frame": 889,
+     "end_frame": 900,
+     "local_frame": 293,
+     "local_end_frame": 304
+    },
+    {
+     "text": "المسطرة",
+     "start": 30.005,
+     "end": 30.425,
+     "frame": 900,
+     "end_frame": 913,
+     "local_frame": 304,
+     "local_end_frame": 317
+    },
+    {
+     "text": "الجنائية",
+     "start": 30.465,
+     "end": 30.985,
+     "frame": 914,
+     "end_frame": 930,
+     "local_frame": 318,
+     "local_end_frame": 334
+    },
+    {
+     "text": "اللي",
+     "start": 31.285,
+     "end": 31.425,
+     "frame": 939,
+     "end_frame": 943,
+     "local_frame": 343,
+     "local_end_frame": 347
+    },
+    {
+     "text": "كتنص",
+     "start": 31.465,
+     "end": 31.825,
+     "frame": 944,
+     "end_frame": 955,
+     "local_frame": 348,
+     "local_end_frame": 359
+    },
+    {
+     "text": "صراحة",
+     "start": 31.865,
+     "end": 32.265,
+     "frame": 956,
+     "end_frame": 968,
+     "local_frame": 360,
+     "local_end_frame": 372
+    },
+    {
+     "text": "على",
+     "start": 32.565,
+     "end": 32.705,
+     "frame": 977,
+     "end_frame": 981,
+     "local_frame": 381,
+     "local_end_frame": 385
+    },
+    {
+     "text": "أن",
+     "start": 32.805,
+     "end": 32.925,
+     "frame": 984,
+     "end_frame": 988,
+     "local_frame": 388,
+     "local_end_frame": 392
+    },
+    {
+     "text": "تفتيش",
+     "start": 33.025,
+     "end": 33.385,
+     "frame": 991,
+     "end_frame": 1002,
+     "local_frame": 395,
+     "local_end_frame": 406
+    },
+    {
+     "text": "الأشخاص",
+     "start": 33.405,
+     "end": 33.965,
+     "frame": 1002,
+     "end_frame": 1019,
+     "local_frame": 406,
+     "local_end_frame": 423
+    },
+    {
+     "text": "يجب",
+     "start": 34.325,
+     "end": 34.645,
+     "frame": 1030,
+     "end_frame": 1039,
+     "local_frame": 434,
+     "local_end_frame": 443
+    },
+    {
+     "text": "أن",
+     "start": 34.765,
+     "end": 34.845,
+     "frame": 1043,
+     "end_frame": 1045,
+     "local_frame": 447,
+     "local_end_frame": 449
+    },
+    {
+     "text": "يتم",
+     "start": 34.885,
+     "end": 35.205,
+     "frame": 1047,
+     "end_frame": 1056,
+     "local_frame": 451,
+     "local_end_frame": 460
+    },
+    {
+     "text": "بواسطة",
+     "start": 35.305,
+     "end": 35.786,
+     "frame": 1059,
+     "end_frame": 1074,
+     "local_frame": 463,
+     "local_end_frame": 478
+    },
+    {
+     "text": "أشخاص",
+     "start": 35.946,
+     "end": 36.346,
+     "frame": 1078,
+     "end_frame": 1090,
+     "local_frame": 482,
+     "local_end_frame": 494
+    },
+    {
+     "text": "من",
+     "start": 36.426,
+     "end": 36.546,
+     "frame": 1093,
+     "end_frame": 1096,
+     "local_frame": 497,
+     "local_end_frame": 500
+    },
+    {
+     "text": "جنسهم",
+     "start": 36.606,
+     "end": 37.126,
+     "frame": 1098,
+     "end_frame": 1114,
+     "local_frame": 502,
+     "local_end_frame": 518
+    },
+    {
+     "text": "وفي",
+     "start": 37.486,
+     "end": 37.666,
+     "frame": 1125,
+     "end_frame": 1130,
+     "local_frame": 529,
+     "local_end_frame": 534
+    },
+    {
+     "text": "ظروف",
+     "start": 37.746,
+     "end": 38.126,
+     "frame": 1132,
+     "end_frame": 1144,
+     "local_frame": 536,
+     "local_end_frame": 548
+    },
+    {
+     "text": "تصان",
+     "start": 38.406,
+     "end": 38.806,
+     "frame": 1152,
+     "end_frame": 1164,
+     "local_frame": 556,
+     "local_end_frame": 568
+    },
+    {
+     "text": "فيها",
+     "start": 38.926,
+     "end": 39.186,
+     "frame": 1168,
+     "end_frame": 1176,
+     "local_frame": 572,
+     "local_end_frame": 580
+    },
+    {
+     "text": "كرامتهم",
+     "start": 39.306,
+     "end": 39.986,
+     "frame": 1179,
+     "end_frame": 1200,
+     "local_frame": 583,
+     "local_end_frame": 604
+    },
+    {
+     "text": "يعني",
+     "start": 40.366,
+     "end": 40.586,
+     "frame": 1211,
+     "end_frame": 1218,
+     "local_frame": 615,
+     "local_end_frame": 622
+    },
+    {
+     "text": "قانونياً",
+     "start": 40.686,
+     "end": 41.306,
+     "frame": 1221,
+     "end_frame": 1239,
+     "local_frame": 625,
+     "local_end_frame": 643
+    },
+    {
+     "text": "تفتيش",
+     "start": 41.666,
+     "end": 42.026,
+     "frame": 1250,
+     "end_frame": 1261,
+     "local_frame": 654,
+     "local_end_frame": 665
+    },
+    {
+     "text": "امرأة",
+     "start": 42.086,
+     "end": 42.367,
+     "frame": 1263,
+     "end_frame": 1271,
+     "local_frame": 667,
+     "local_end_frame": 675
+    },
+    {
+     "text": "لازم",
+     "start": 42.667,
+     "end": 43.007,
+     "frame": 1280,
+     "end_frame": 1290,
+     "local_frame": 684,
+     "local_end_frame": 694
+    },
+    {
+     "text": "ضروري",
+     "start": 43.087,
+     "end": 43.527,
+     "frame": 1293,
+     "end_frame": 1306,
+     "local_frame": 697,
+     "local_end_frame": 710
+    },
+    {
+     "text": "تقوم",
+     "start": 43.587,
+     "end": 43.847,
+     "frame": 1308,
+     "end_frame": 1315,
+     "local_frame": 712,
+     "local_end_frame": 719
+    },
+    {
+     "text": "بيه",
+     "start": 43.907,
+     "end": 44.067,
+     "frame": 1317,
+     "end_frame": 1322,
+     "local_frame": 721,
+     "local_end_frame": 726
+    },
+    {
+     "text": "عنصر",
+     "start": 44.167,
+     "end": 44.507,
+     "frame": 1325,
+     "end_frame": 1335,
+     "local_frame": 729,
+     "local_end_frame": 739
+    },
+    {
+     "text": "نسائية",
+     "start": 44.567,
+     "end": 45.047,
+     "frame": 1337,
+     "end_frame": 1351,
+     "local_frame": 741,
+     "local_end_frame": 755
+    },
+    {
+     "text": "هنا",
+     "start": 45.427,
+     "end": 45.587,
+     "frame": 1363,
+     "end_frame": 1368,
+     "local_frame": 767,
+     "local_end_frame": 772
+    },
+    {
+     "text": "فين",
+     "start": 45.647,
+     "end": 45.787,
+     "frame": 1369,
+     "end_frame": 1374,
+     "local_frame": 773,
+     "local_end_frame": 778
+    },
+    {
+     "text": "كيبان",
+     "start": 45.827,
+     "end": 46.287,
+     "frame": 1375,
+     "end_frame": 1389,
+     "local_frame": 779,
+     "local_end_frame": 793
+    },
+    {
+     "text": "الدور",
+     "start": 46.347,
+     "end": 46.547,
+     "frame": 1390,
+     "end_frame": 1396,
+     "local_frame": 794,
+     "local_end_frame": 800
+    },
+    {
+     "text": "الجوهري",
+     "start": 46.567,
+     "end": 47.087,
+     "frame": 1397,
+     "end_frame": 1413,
+     "local_frame": 801,
+     "local_end_frame": 817
+    },
+    {
+     "text": "ديال",
+     "start": 47.187,
+     "end": 47.347,
+     "frame": 1416,
+     "end_frame": 1420,
+     "local_frame": 820,
+     "local_end_frame": 824
+    },
+    {
+     "text": "الدركيات",
+     "start": 47.367,
+     "end": 48.047,
+     "frame": 1421,
+     "end_frame": 1441,
+     "local_frame": 825,
+     "local_end_frame": 845
+    },
+    {
+     "text": "ماشي",
+     "start": 48.427,
+     "end": 48.587,
+     "frame": 1453,
+     "end_frame": 1458,
+     "local_frame": 857,
+     "local_end_frame": 862
+    },
+    {
+     "text": "غير",
+     "start": 48.708,
+     "end": 48.848,
+     "frame": 1461,
+     "end_frame": 1465,
+     "local_frame": 865,
+     "local_end_frame": 869
+    },
+    {
+     "text": "تطبيق",
+     "start": 48.888,
+     "end": 49.208,
+     "frame": 1467,
+     "end_frame": 1476,
+     "local_frame": 871,
+     "local_end_frame": 880
+    },
+    {
+     "text": "القانون",
+     "start": 49.248,
+     "end": 49.728,
+     "frame": 1477,
+     "end_frame": 1492,
+     "local_frame": 881,
+     "local_end_frame": 896
+    },
+    {
+     "text": "ولكن",
+     "start": 50.128,
+     "end": 50.588,
+     "frame": 1504,
+     "end_frame": 1518,
+     "local_frame": 908,
+     "local_end_frame": 922
+    },
+    {
+     "text": "تطبيقه",
+     "start": 50.948,
+     "end": 51.468,
+     "frame": 1528,
+     "end_frame": 1544,
+     "local_frame": 932,
+     "local_end_frame": 948
+    },
+    {
+     "text": "باحترام",
+     "start": 51.588,
+     "end": 52.128,
+     "frame": 1548,
+     "end_frame": 1564,
+     "local_frame": 952,
+     "local_end_frame": 968
+    },
+    {
+     "text": "تام",
+     "start": 52.248,
+     "end": 52.528,
+     "frame": 1567,
+     "end_frame": 1576,
+     "local_frame": 971,
+     "local_end_frame": 980
+    },
+    {
+     "text": "للضوابط",
+     "start": 52.588,
+     "end": 53.168,
+     "frame": 1578,
+     "end_frame": 1595,
+     "local_frame": 982,
+     "local_end_frame": 999
+    },
+    {
+     "text": "القانونية",
+     "start": 53.208,
+     "end": 53.848,
+     "frame": 1596,
+     "end_frame": 1615,
+     "local_frame": 1000,
+     "local_end_frame": 1019
+    },
+    {
+     "text": "وكرامة",
+     "start": 54.168,
+     "end": 54.708,
+     "frame": 1625,
+     "end_frame": 1641,
+     "local_frame": 1029,
+     "local_end_frame": 1045
+    },
+    {
+     "text": "المواطنات",
+     "start": 54.748,
+     "end": 55.489,
+     "frame": 1642,
+     "end_frame": 1665,
+     "local_frame": 1046,
+     "local_end_frame": 1069
+    }
+   ]
+  },
+  {
+   "name": "GAP3",
+   "first_frame": 2101,
+   "last_frame": 2381,
+   "frames": 281,
+   "start": 70.0333,
+   "end": 79.4,
+   "words": [
+    {
+     "text": "الدرك",
+     "start": 69.691,
+     "end": 70.051,
+     "frame": 2091,
+     "end_frame": 2102,
+     "local_frame": -10,
+     "local_end_frame": 1
+    },
+    {
+     "text": "خلّيو",
+     "start": 70.371,
+     "end": 70.671,
+     "frame": 2111,
+     "end_frame": 2120,
+     "local_frame": 10,
+     "local_end_frame": 19
+    },
+    {
+     "text": "لينا",
+     "start": 70.691,
+     "end": 70.871,
+     "frame": 2121,
+     "end_frame": 2126,
+     "local_frame": 20,
+     "local_end_frame": 25
+    },
+    {
+     "text": "آراءكم",
+     "start": 70.951,
+     "end": 71.311,
+     "frame": 2129,
+     "end_frame": 2139,
+     "local_frame": 28,
+     "local_end_frame": 38
+    },
+    {
+     "text": "في",
+     "start": 71.331,
+     "end": 71.411,
+     "frame": 2140,
+     "end_frame": 2142,
+     "local_frame": 39,
+     "local_end_frame": 41
+    },
+    {
+     "text": "التعاليق",
+     "start": 71.411,
+     "end": 71.971,
+     "frame": 2142,
+     "end_frame": 2159,
+     "local_frame": 41,
+     "local_end_frame": 58
+    },
+    {
+     "text": "وبارتاجيو",
+     "start": 72.251,
+     "end": 72.851,
+     "frame": 2168,
+     "end_frame": 2186,
+     "local_frame": 67,
+     "local_end_frame": 85
+    },
+    {
+     "text": "الفيديو",
+     "start": 72.871,
+     "end": 73.211,
+     "frame": 2186,
+     "end_frame": 2196,
+     "local_frame": 85,
+     "local_end_frame": 95
+    },
+    {
+     "text": "باش",
+     "start": 73.291,
+     "end": 73.451,
+     "frame": 2199,
+     "end_frame": 2204,
+     "local_frame": 98,
+     "local_end_frame": 103
+    },
+    {
+     "text": "الكل",
+     "start": 73.511,
+     "end": 73.791,
+     "frame": 2205,
+     "end_frame": 2214,
+     "local_frame": 104,
+     "local_end_frame": 113
+    },
+    {
+     "text": "يستفد!",
+     "start": 73.831,
+     "end": 74.351,
+     "frame": 2215,
+     "end_frame": 2231,
+     "local_frame": 114,
+     "local_end_frame": 130
+    },
+    {
+     "text": "متنساش..",
+     "start": 74.772,
+     "end": 75.232,
+     "frame": 2243,
+     "end_frame": 2257,
+     "local_frame": 142,
+     "local_end_frame": 156
+    },
+    {
+     "text": "تابع",
+     "start": 75.592,
+     "end": 75.852,
+     "frame": 2268,
+     "end_frame": 2276,
+     "local_frame": 167,
+     "local_end_frame": 175
+    },
+    {
+     "text": "الصفحة",
+     "start": 75.912,
+     "end": 76.232,
+     "frame": 2277,
+     "end_frame": 2287,
+     "local_frame": 176,
+     "local_end_frame": 186
+    },
+    {
+     "text": "باش",
+     "start": 76.312,
+     "end": 76.452,
+     "frame": 2289,
+     "end_frame": 2294,
+     "local_frame": 188,
+     "local_end_frame": 193
+    },
+    {
+     "text": "يوصلك",
+     "start": 76.492,
+     "end": 76.792,
+     "frame": 2295,
+     "end_frame": 2304,
+     "local_frame": 194,
+     "local_end_frame": 203
+    },
+    {
+     "text": "الجديد",
+     "start": 76.832,
+     "end": 77.232,
+     "frame": 2305,
+     "end_frame": 2317,
+     "local_frame": 204,
+     "local_end_frame": 216
+    },
+    {
+     "text": "ديما",
+     "start": 77.332,
+     "end": 77.612,
+     "frame": 2320,
+     "end_frame": 2328,
+     "local_frame": 219,
+     "local_end_frame": 227
+    },
+    {
+     "text": "مع",
+     "start": 77.952,
+     "end": 78.072,
+     "frame": 2339,
+     "end_frame": 2342,
+     "local_frame": 238,
+     "local_end_frame": 241
+    },
+    {
+     "text": "سْلَاامْ",
+     "start": 78.212,
+     "end": 78.672,
+     "frame": 2346,
+     "end_frame": 2360,
+     "local_frame": 245,
+     "local_end_frame": 259
+    },
+    {
+     "text": "سْلَاحْ",
+     "start": 78.752,
+     "end": 79.092,
+     "frame": 2363,
+     "end_frame": 2373,
+     "local_frame": 262,
+     "local_end_frame": 272
+    }
+   ]
+  }
+ ]
+}
