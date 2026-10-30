@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "cccb1962-7cf8-4c11-847d-0dfb6bb9a67a",
-  "currentRevision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
+  "currentRevision": "95b19fa7-fe27-4263-9a89-ce3335be2f86",
   "pendingChanges": false,
   "files": {
     "AGENTS.md": {
@@ -93,8 +93,8 @@
       "content": "/root/.cache/hyperframes/history/cccb1962-7cf8-4c11-847d-0dfb6bb9a67a/blobs/22/226787fd6f9a421a526cf7c7d8599bd7e7fa2dd34becb5bbb4941be96a503aad"
     },
     "compositions/g1.html": {
-      "hash": "fc0282597d0152f8b0d64a8b7773578dca74a93b3448f68a6a08fd5b7b29675e",
-      "content": "/root/.cache/hyperframes/history/cccb1962-7cf8-4c11-847d-0dfb6bb9a67a/blobs/fc/fc0282597d0152f8b0d64a8b7773578dca74a93b3448f68a6a08fd5b7b29675e"
+      "hash": "f426f04a46162dbecb8c7e396dfdc8740070c17082b4196f868f64f54ef0e0c9",
+      "content": "/root/.cache/hyperframes/history/cccb1962-7cf8-4c11-847d-0dfb6bb9a67a/blobs/f4/f426f04a46162dbecb8c7e396dfdc8740070c17082b4196f868f64f54ef0e0c9"
     },
     "hyperframes.json": {
       "hash": "35a6d4ea79ebe911f0d81705f7aace5d8ff0316b745b0311d56af50c9c237cb7",
@@ -305,19 +305,30 @@
           "after": "/root/.cache/hyperframes/history/cccb1962-7cf8-4c11-847d-0dfb6bb9a67a/blobs/35/35a6d4ea79ebe911f0d81705f7aace5d8ff0316b745b0311d56af50c9c237cb7"
         }
       }
+    },
+    "95b19fa7-fe27-4263-9a89-ce3335be2f86": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793364589037,
+      "endedAt": 1793364589038,
+      "files": {
+        "compositions/g1.html": {
+          "before": "/root/.cache/hyperframes/history/cccb1962-7cf8-4c11-847d-0dfb6bb9a67a/blobs/fc/fc0282597d0152f8b0d64a8b7773578dca74a93b3448f68a6a08fd5b7b29675e",
+          "after": "/root/.cache/hyperframes/history/cccb1962-7cf8-4c11-847d-0dfb6bb9a67a/blobs/f4/f426f04a46162dbecb8c7e396dfdc8740070c17082b4196f868f64f54ef0e0c9"
+        }
+      }
     }
   },
   "checks": {
-    "latest": {
-      "revision": "7944229a-175b-45d9-b502-f6e91c2794c3",
-      "id": "07b22899-7107-4a9d-9de4-9f51cb33c815"
-    },
+    "latest": null,
     "revisions": {
       "5613119d-9254-485e-b494-6fc8727b8ce8": [
         {
           "id": "8a74c9c6-e913-4971-8c65-33f97bd3b77f",
           "scope": "project",
-          "report": "/home/user/videos/reel-gendarmerie/hf/.hyperframes/artifacts/checks/8a74c9c6-e913-4971-8c65-33f97bd3b77f.json",
           "metadata": {
             "ok": false,
             "browserSkipped": true,
@@ -339,14 +350,15 @@
           "revision": "5613119d-9254-485e-b494-6fc8727b8ce8",
           "inputFingerprint": "db408ad589531f765ad0d1a2d41db00a40250ea9491da45c0b7823b69a2a3988",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "ae5f87b0-79e0-4438-b880-4cd58e0cfa3a"
         }
       ],
       "fa4704b5-dee4-4ead-85f3-dbf5b83f9fcd": [
         {
           "id": "6c90f6ff-df91-435d-9aec-69578befafa8",
           "scope": "project",
-          "report": "/home/user/videos/reel-gendarmerie/hf/.hyperframes/artifacts/checks/6c90f6ff-df91-435d-9aec-69578befafa8.json",
           "metadata": {
             "ok": false,
             "browserSkipped": false,
@@ -368,14 +380,15 @@
           "revision": "fa4704b5-dee4-4ead-85f3-dbf5b83f9fcd",
           "inputFingerprint": "cdcad419e5f1e6f79074f0d0621ada03a7cb62cf807a8a219748fd515e2cdc9a",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "ae5f87b0-79e0-4438-b880-4cd58e0cfa3a"
         }
       ],
       "7944229a-175b-45d9-b502-f6e91c2794c3": [
         {
           "id": "07b22899-7107-4a9d-9de4-9f51cb33c815",
           "scope": "project",
-          "report": "/home/user/videos/reel-gendarmerie/hf/.hyperframes/artifacts/checks/07b22899-7107-4a9d-9de4-9f51cb33c815.json",
           "metadata": {
             "ok": true,
             "browserSkipped": false,
@@ -397,7 +410,9 @@
           "revision": "7944229a-175b-45d9-b502-f6e91c2794c3",
           "inputFingerprint": "3a4ac2aa3126678c489db981a3d1475e30598e1068dfdc5e741d312d1fd6b621",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "ae5f87b0-79e0-4438-b880-4cd58e0cfa3a"
         }
       ]
     },
@@ -405,8 +420,8 @@
   },
   "snapshots": {
     "latest": {
-      "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
-      "id": "7bdf0b9c-445f-465f-bffd-e63f3f581527-8"
+      "revision": "95b19fa7-fe27-4263-9a89-ce3335be2f86",
+      "id": "805fbce8-c993-413d-b83c-8005ce4b39df-0"
     },
     "revisions": {
       "2d86b36c-300a-456e-a0a2-bdd6dab8e08d": [
@@ -1039,11 +1054,12 @@
           "attribution": "recorded-revision"
         }
       ],
-      "68bb4055-1702-41a7-843d-9cb745abd8c1": [
+      "68bb4055-1702-41a7-843d-9cb745abd8c1": [],
+      "95b19fa7-fe27-4263-9a89-ce3335be2f86": [
         {
           "scope": "full",
-          "id": "7bdf0b9c-445f-465f-bffd-e63f3f581527-0",
-          "image": "/home/user/videos/reel-gendarmerie/review/frame-00-at-6.333s.png",
+          "id": "805fbce8-c993-413d-b83c-8005ce4b39df-0",
+          "image": "/home/user/videos/reel-gendarmerie/hf/.hyperframes/artifacts/snap-g1b/frame-00-at-6.333s.png",
           "time": 6.3333,
           "metadata": {
             "width": 1080,
@@ -1053,170 +1069,10 @@
             "warnings": [],
             "partial": false
           },
-          "createdAt": 1793364246709,
-          "contentHash": "f0ff056c0076f02db7ea1727a7e2ad716d743258cc3bbb772117ead94f61ef77",
-          "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
-          "inputFingerprint": "8b817dbd021cc595b9ce5c487c9d771ec46f602592ed17baa73c3af0fb87bb3f",
-          "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
-        },
-        {
-          "scope": "full",
-          "id": "7bdf0b9c-445f-465f-bffd-e63f3f581527-1",
-          "image": "/home/user/videos/reel-gendarmerie/review/frame-01-at-23.467s.png",
-          "time": 23.4666,
-          "metadata": {
-            "width": 1080,
-            "height": 1920,
-            "zoomScale": 1,
-            "browserGpuMode": "auto",
-            "warnings": [],
-            "partial": false
-          },
-          "createdAt": 1793364246709,
-          "contentHash": "42c8ac4597bdd204c50ae4418efbbaa4b77b3e46341c0ac33e9bd5bd7fa7b62a",
-          "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
-          "inputFingerprint": "8b817dbd021cc595b9ce5c487c9d771ec46f602592ed17baa73c3af0fb87bb3f",
-          "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
-        },
-        {
-          "scope": "full",
-          "id": "7bdf0b9c-445f-465f-bffd-e63f3f581527-2",
-          "image": "/home/user/videos/reel-gendarmerie/review/frame-02-at-29.867s.png",
-          "time": 29.8666,
-          "metadata": {
-            "width": 1080,
-            "height": 1920,
-            "zoomScale": 1,
-            "browserGpuMode": "auto",
-            "warnings": [],
-            "partial": false
-          },
-          "createdAt": 1793364246709,
-          "contentHash": "b4bbea8491126321d8dec0759e0b4354130947920bb1181df21ba6e27d960317",
-          "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
-          "inputFingerprint": "8b817dbd021cc595b9ce5c487c9d771ec46f602592ed17baa73c3af0fb87bb3f",
-          "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
-        },
-        {
-          "scope": "full",
-          "id": "7bdf0b9c-445f-465f-bffd-e63f3f581527-3",
-          "image": "/home/user/videos/reel-gendarmerie/review/frame-03-at-39.7s.png",
-          "time": 39.7,
-          "metadata": {
-            "width": 1080,
-            "height": 1920,
-            "zoomScale": 1,
-            "browserGpuMode": "auto",
-            "warnings": [],
-            "partial": false
-          },
-          "createdAt": 1793364246709,
-          "contentHash": "ce054ee21e8de31111c527662a3fd26ac787496d2f5bbb9b655191c10c2223b2",
-          "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
-          "inputFingerprint": "8b817dbd021cc595b9ce5c487c9d771ec46f602592ed17baa73c3af0fb87bb3f",
-          "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
-        },
-        {
-          "scope": "full",
-          "id": "7bdf0b9c-445f-465f-bffd-e63f3f581527-4",
-          "image": "/home/user/videos/reel-gendarmerie/review/frame-04-at-45.067s.png",
-          "time": 45.0666,
-          "metadata": {
-            "width": 1080,
-            "height": 1920,
-            "zoomScale": 1,
-            "browserGpuMode": "auto",
-            "warnings": [],
-            "partial": false
-          },
-          "createdAt": 1793364246710,
-          "contentHash": "d27d5ff43cf948ed07ac7acd2502d554be1da8488133047be847afcf0c7c05af",
-          "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
-          "inputFingerprint": "8b817dbd021cc595b9ce5c487c9d771ec46f602592ed17baa73c3af0fb87bb3f",
-          "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
-        },
-        {
-          "scope": "full",
-          "id": "7bdf0b9c-445f-465f-bffd-e63f3f581527-5",
-          "image": "/home/user/videos/reel-gendarmerie/review/frame-05-at-55.267s.png",
-          "time": 55.2666,
-          "metadata": {
-            "width": 1080,
-            "height": 1920,
-            "zoomScale": 1,
-            "browserGpuMode": "auto",
-            "warnings": [],
-            "partial": false
-          },
-          "createdAt": 1793364246710,
-          "contentHash": "8c8c28d3b50719cc566a5c5ce606a491d55b657bddf72ae9b6b60cce431ed50b",
-          "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
-          "inputFingerprint": "8b817dbd021cc595b9ce5c487c9d771ec46f602592ed17baa73c3af0fb87bb3f",
-          "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
-        },
-        {
-          "scope": "full",
-          "id": "7bdf0b9c-445f-465f-bffd-e63f3f581527-6",
-          "image": "/home/user/videos/reel-gendarmerie/review/frame-06-at-76.7s.png",
-          "time": 76.7,
-          "metadata": {
-            "width": 1080,
-            "height": 1920,
-            "zoomScale": 1,
-            "browserGpuMode": "auto",
-            "warnings": [],
-            "partial": false
-          },
-          "createdAt": 1793364246710,
-          "contentHash": "12e2c3e3f9411a5cc5ba6023b22948adf44bc25b12583d576325ed9e424c3e92",
-          "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
-          "inputFingerprint": "8b817dbd021cc595b9ce5c487c9d771ec46f602592ed17baa73c3af0fb87bb3f",
-          "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
-        },
-        {
-          "scope": "full",
-          "id": "7bdf0b9c-445f-465f-bffd-e63f3f581527-7",
-          "image": "/home/user/videos/reel-gendarmerie/review/frame-07-at-79.367s.png",
-          "time": 79.3666,
-          "metadata": {
-            "width": 1080,
-            "height": 1920,
-            "zoomScale": 1,
-            "browserGpuMode": "auto",
-            "warnings": [],
-            "partial": false
-          },
-          "createdAt": 1793364246710,
-          "contentHash": "27d5aad4fafe7dae28f9f93dec7c171180189482009afef1b1ddd0acd133d4d3",
-          "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
-          "inputFingerprint": "8b817dbd021cc595b9ce5c487c9d771ec46f602592ed17baa73c3af0fb87bb3f",
-          "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
-        },
-        {
-          "scope": "full",
-          "id": "7bdf0b9c-445f-465f-bffd-e63f3f581527-8",
-          "image": "/home/user/videos/reel-gendarmerie/review/frame-08-at-58.4s.png",
-          "time": 58.4,
-          "metadata": {
-            "width": 1080,
-            "height": 1920,
-            "zoomScale": 1,
-            "browserGpuMode": "auto",
-            "warnings": [],
-            "partial": false
-          },
-          "createdAt": 1793364246710,
-          "contentHash": "8527983bd17e45394bd57a3d426ac11347d1363bf5535542b0ce77c07f956dde",
-          "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1",
-          "inputFingerprint": "8b817dbd021cc595b9ce5c487c9d771ec46f602592ed17baa73c3af0fb87bb3f",
+          "createdAt": 1793364593146,
+          "contentHash": "b58ba71a227c0efcb62d952a7ae8dde07d1ecf9bd10a0befc9a68ed378c4686f",
+          "revision": "95b19fa7-fe27-4263-9a89-ce3335be2f86",
+          "inputFingerprint": "eb4a2ffb73502e4fc877d01d89b1ef24d1d2a76426ddb30bd2198fe52cfddf0f",
           "inputScope": "local-project-files",
           "attribution": "recorded-revision"
         }
@@ -1364,5 +1220,18 @@
         "attribution": "unversioned"
       }
     ]
-  }
+  },
+  "renders": {
+    "latest": {
+      "id": "ae5f87b0-79e0-4438-b880-4cd58e0cfa3a",
+      "completedAt": 1793364575446,
+      "output": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/preview_draft.mp4",
+      "status": "completed",
+      "revision": "68bb4055-1702-41a7-843d-9cb745abd8c1"
+    },
+    "retainedRevisions": [
+      "68bb4055-1702-41a7-843d-9cb745abd8c1"
+    ]
+  },
+  "pendingArtifactCleanup": []
 }
