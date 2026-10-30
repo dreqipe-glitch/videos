@@ -17,3 +17,7 @@ series-intro/hf/renders/
 series-intro/hf16/.hyperframes/artifacts/
 series-intro/hf16/.hyperframes/video-state-lock
 series-intro/hf16/renders/
+# End tag: scratch output
+end-tag/hf/.hyperframes/artifacts/
+end-tag/hf/.hyperframes/video-state-lock
+end-tag/hf/renders/

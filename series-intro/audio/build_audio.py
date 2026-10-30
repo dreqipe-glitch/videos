@@ -1,9 +1,11 @@
-"""Series intro sound: cleans the «سلام سلاح» command and builds the mix around it. Every effect is synthesised
-here (royalty-free by construction). Output: 48 kHz stereo, pre-master; master.sh brings it to -14 LUFS / -1 dBTP.
+"""Series intro sound: the female «سْلَاامْ… سْلَاحْ!» command with the effects built around it. Every effect is
+synthesised here (royalty-free by construction). Output: 48 kHz stereo, pre-master; master.sh brings it to
+-14 LUFS / -1 dBTP.
 
-Timing (seconds, 30 fps): «سلااام» 0.07-0.96, «سلاح!» attack 1.00 (F30); rifle lands F34 = 1.133;
-name reveal F52 = 1.733; exit whip F86-F95; total 3.2.
-Run: python -I build_audio.py <command.wav @48k stereo> <out.wav> [original|processed]
+Timing (seconds, 30 fps), measured on audio/intro_voice_female_final.wav: «سْلَاامْ» 0.165-0.635 (F5-F19), silence,
+«سْلَاحْ!» attack 1.160 (F35), loudest 1.333 (F40) = rifle lands + name slams + drum; exit whip F86-F95; total 3.2.
+Run: python -I build_audio.py <audio/intro_voice_female_final.wav> <out.wav> [original|processed]
+"original" (default) is used now: the voice master already carries its reverb tail, so it passes through untouched.
 "original" (default): the voice passes through untouched (no gain, no echo); only the effects bed is scaled so the
 sum never clips, and no mastering is applied afterwards. "processed": lowered voice + parade-ground echo, then
 master.sh to -14 LUFS / -1 dBTP.
@@ -69,21 +71,21 @@ voice_bus = v + wet if MODE == "processed" else v.copy()
 mix = np.zeros((N, 2))  # effects bed; the voice is added at the end
 
 # ---------- low boom swelling under «سلااام», released into the hit ----------
-n = int(SR * 1.6)
+ATK, HIT = 35 / 30, 40 / 30
+n = int(SR * 1.8)
 tt = np.arange(n) / SR
-swell = np.clip(tt / 1.0, 0, 1) ** 2.2 * np.where(tt < 1.0, 1.0, np.exp(-(tt - 1.0) / 0.22))
+swell = np.clip(tt / HIT, 0, 1) ** 2.2 * np.where(tt < HIT, 1.0, np.exp(-(tt - HIT) / 0.22))
 boom = (np.sin(2 * np.pi * 41 * tt) + 0.45 * np.sin(2 * np.pi * 82 * tt + 0.7)) * swell
 boom += band(rng.standard_normal(n), 25, 140) * swell * 0.9
 place(mix, stereo(boom), 0.0, 0.16)
 
-# ---------- rifle move whoosh (F30-F34) ----------
+# ---------- rifle move whoosh (F35-F40) ----------
 n = int(SR * 0.2)
 tt = np.arange(n) / SR
 wh = band(rng.standard_normal(n), 700, 4200) * np.sin(np.pi * np.clip(tt / 0.17, 0, 1)) ** 2
-place(mix, stereo(wh, 0.6, 3), 1.0, 0.07)
+place(mix, stereo(wh, 0.6, 3), ATK, 0.07)
 
-# ---------- rifle clack + heel stomp, landing on F34 ----------
-HIT = 34 / 30
+# ---------- rifle clack + heel stomp, landing on F40 ----------
 n = int(SR * 0.45)
 tt = np.arange(n) / SR
 click = np.zeros(n); click[:96] = np.hanning(192)[96:]
@@ -96,8 +98,8 @@ f_sweep = 95 * np.exp(-tt / 0.12) + 44
 stomp = np.sin(2 * np.pi * np.cumsum(f_sweep) / SR) * env_exp(n, 0.075) + band(rng.standard_normal(n), 40, 400) * env_exp(n, 0.03) * 0.8
 place(mix, stereo(stomp), HIT + 0.004, 0.6)
 
-# ---------- drum hit + brass sting on the page name (F52) ----------
-REV = 52 / 30
+# ---------- drum hit + brass sting on the page name, which slams in on the same frame (F40) ----------
+REV = HIT
 n = int(SR * 1.4)
 tt = np.arange(n) / SR
 f_t = 85 + 10 * np.exp(-tt / 0.05)
@@ -119,7 +121,7 @@ place(mix, brass_st / np.abs(brass_st).max() * 0.055 + brass_wet / np.abs(brass_
 wind = band(np.cumsum(rng.standard_normal((N, 2)), 0), 150, 1100)
 wind /= np.abs(wind).max()
 mod = 0.6 + 0.4 * np.sin(2 * np.pi * 0.35 * t_all + 1.0)
-gust = 1 + 1.2 * np.exp(-((t_all - 1.25) / 0.35) ** 2)
+gust = 1 + 1.2 * np.exp(-((t_all - (HIT + 0.2)) / 0.35) ** 2)
 mix += wind * (mod * gust)[:, None] * 0.03
 
 # ---------- exit whip (F86-F95) ----------
@@ -139,6 +141,15 @@ else:
     # the effects were balanced against a voice 3 dB lower; keep that balance, then lower only the effects
     # until the sum stays under the original's own peak
     mix *= 10 ** (3 / 20)
+    # keep the voice on top: the effects dip 6 dB wherever the voice is speaking (20 ms attack, 150 ms release)
+    venv = np.abs(voice_bus).max(1)
+    B0 = 240
+    lvl = np.repeat([venv[i:i + B0].max() for i in range(0, N, B0)], B0)[:N]
+    duck = np.where(lvl > 10 ** (-35 / 20), 10 ** (-6 / 20), 1.0)
+    sm = np.empty(N); g0 = 1.0
+    for i in range(0, N, B0):
+        tgt = duck[i]; c = 1 - np.exp(-B0 / SR / (0.02 if tgt < g0 else 0.15)); g0 += (tgt - g0) * c; sm[i:i + B0] = g0
+    mix *= sm[:, None]
     # duck the effects only where the sum would pass the original's own peak (5 ms blocks, look-ahead, smoothed)
     ceiling = max(np.abs(voice_bus).max(), 10 ** (-0.3 / 20))
     B = 240

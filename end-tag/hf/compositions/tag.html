@@ -1,0 +1,79 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #t-scene { position: absolute; inset: 0; overflow: hidden; background: var(--bg-edge); font-family: var(--font-ar); direction: rtl; }
+    #t-bg { position: absolute; inset: -6%; background: radial-gradient(ellipse 75% 55% at 50% 47%, #0B1320 0%, #08101B 55%, #05080F 100%); }
+    #t-shake { position: absolute; inset: 0; }
+    /* safe zone x 90–990, y 260–1540: both lines are centred inside it */
+    #t-stack { position: absolute; left: 90px; width: 900px; top: 260px; height: 1280px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+    .t-word { position: relative; font-weight: 900; font-size: 250px; line-height: 300px; white-space: nowrap; color: var(--ink); }
+    #t-w1 { transform-origin: 50% 50%; }
+    #t-w2 { transform-origin: 50% 55%; }
+    #t-glow { position: absolute; left: 50%; top: 50%; width: 820px; height: 420px; margin: -210px 0 0 -410px; border-radius: 50%; opacity: 0;
+      background: radial-gradient(ellipse, rgba(255,149,165,0.42) 0%, rgba(255,149,165,0.12) 45%, rgba(255,149,165,0) 70%); }
+    #t-w2txt { position: relative; }
+    #t-ul { position: absolute; left: 6%; right: 6%; bottom: 34px; height: 16px; border-radius: 8px; transform-origin: 100% 50%; transform: scaleX(0);
+      background: var(--pink); box-shadow: 0 0 18px rgba(255,149,165,0.6); }
+    #t-bridge { position: absolute; inset: 0; background: url("assets/outro_last_frame.png") center / cover no-repeat; }
+    #t-flash { position: absolute; inset: 0; background: #FFFFFF; opacity: 0; }
+    #t-black { position: absolute; inset: 0; background: #000; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="tag" data-width="1080" data-height="1920"
+    data-composition-variables='[{"id":"opt","type":"enum","label":"Colour option","default":"1","options":[{"value":"1","label":"1: «سْلَاحْ» pink"},{"value":"2","label":"2: off-white + pink underline"}]}]'>
+    <div id="t-scene">
+      <div id="t-bg"></div>
+      <div id="t-shake">
+        <div id="t-stack">
+          <div class="t-word" id="t-w1">سْلَاامْ</div>
+          <div class="t-word" id="t-w2"><div id="t-glow"></div><span id="t-w2txt">سْلَاحْ</span><div id="t-ul"></div></div>
+        </div>
+      </div>
+      <div class="pkg-vignette"></div>
+      <div class="pkg-grain" id="t-grain"></div>
+      <div id="t-bridge"></div>
+      <div id="t-flash"></div>
+      <div id="t-black"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      /* sync to the female voice, which starts at tag 0 s (= reel 79.40 s); 30 fps:
+         bridge F0–F4 · «سْلَاامْ» F5–F19 · silence F20–F34 · «سْلَاحْ!» attack F35 · loudest F40 · tail · black F71–F80 */
+      const F = (n) => n / 30;
+      const hr = (n) => { const x = Math.sin(n * 91.7 + 17.3) * 43758.5453; return x - Math.floor(x); };
+      const N = 81, W1 = 5, W1END = 19, ATK = 35, HIT = 40;
+      const opt = String((window.__hyperframes && window.__hyperframes.getVariables().opt) || "1");
+      const tl = gsap.timeline({ paused: true });
+
+      // option 1: «سْلَاحْ» pink; option 2: all off-white + a pink underline drawn on «سْلَاحْ»
+      gsap.set("#t-w2txt", { color: opt === "2" ? "#F4F1EA" : "#FF95A5" });
+      gsap.set("#t-ul", { display: opt === "2" ? "block" : "none" });
+
+      // bridge: the outro's last frame fades to navy in 4 frames
+      tl.fromTo("#t-bridge", { opacity: 1 }, { opacity: 0, duration: F(4), ease: "power1.in" }, 0);
+
+      // «سْلَاامْ» writes in right-to-left across the stretched vowel, its width easing from stretched to normal
+      // (a horizontal stretch: animated letter-spacing would break the Arabic joins and snap per frame)
+      tl.fromTo("#t-w1", { clipPath: "inset(-20% 0% -20% 100%)", scaleX: 1.2, opacity: 0.6 },
+        { clipPath: "inset(-20% 0% -20% 0%)", scaleX: 1, opacity: 1, duration: F(W1END - W1), ease: "sine.out" }, F(W1));
+      tl.set("#t-w1", { clipPath: "none" }, F(W1END));
+
+      // «سْلَاحْ!»: visible from the attack frame at 1.15, lands at 1.0 on the loudest frame
+      gsap.set("#t-w2", { opacity: 0 });
+      tl.fromTo("#t-w2", { opacity: 1, scale: 1.15 }, { opacity: 1, scale: 1, duration: F(HIT - ATK), ease: "power3.in", immediateRender: false }, F(ATK));
+      tl.set("#t-flash", { opacity: 0.6 }, F(HIT));
+      tl.set("#t-flash", { opacity: 0.25 }, F(HIT + 1));
+      tl.set("#t-flash", { opacity: 0 }, F(HIT + 2));
+      [5, -4, 2.5, -1, 0].forEach((d, i) => tl.to("#t-shake", { x: d, y: -d * 0.6, duration: F(1), ease: "none" }, F(HIT + i)));
+      if (opt === "2") tl.fromTo("#t-ul", { scaleX: 0 }, { scaleX: 1, duration: F(8), ease: "expo.out", immediateRender: false }, F(HIT));
+
+      // tail: one soft pink glow pulse, then black over the last 10 frames
+      tl.fromTo("#t-glow", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1.05, duration: F(9), ease: "sine.out", immediateRender: false }, F(HIT + 3));
+      tl.to("#t-glow", { opacity: 0, scale: 1.15, duration: F(14), ease: "sine.in" }, F(HIT + 12));
+      tl.fromTo("#t-black", { opacity: 0 }, { opacity: 1, duration: F(10), ease: "none", immediateRender: false }, F(N - 10));
+
+      for (let f = 0; f < N; f += 2) tl.set("#t-grain", { x: -Math.floor(hr(f + 3) * 320), y: -Math.floor(hr(f * 2.3 + 1) * 320) }, F(f));
+      window.__timelines["tag"] = tl;
+    })();
+  </script>
+</template>
