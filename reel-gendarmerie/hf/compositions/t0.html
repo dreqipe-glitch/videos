@@ -2,60 +2,45 @@
   <style>
     #root { position: absolute; inset: 0; }
     .t0-abs { position: absolute; }
-    #t0-glow { left: 90px; top: 190px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(255,149,165,0.34) 0%, rgba(255,149,165,0.12) 40%, rgba(255,149,165,0) 70%); }
-    #t0-ring { left: 280px; top: 380px; width: 520px; height: 520px; border-radius: 50%; border: 6px solid var(--pink); box-shadow: 0 0 40px rgba(255,149,165,0.45), inset 0 0 40px rgba(255,149,165,0.25); }
-    #t0-ringb { left: 280px; top: 380px; width: 520px; height: 520px; border-radius: 50%; border: 10px solid var(--pink-lt); opacity: 0; }
-    /* rays: each wrapper is rotated by CSS once; only the inner line animates */
-    .t0-ray { position: absolute; left: 540px; top: 640px; width: 0; height: 0; }
-    .t0-rayl { position: absolute; left: 290px; top: -3px; width: 120px; height: 6px; border-radius: 3px; transform-origin: 0 50%;
-      background: linear-gradient(90deg, var(--pink-lt), rgba(255,149,165,0)); }
-    /* the hero «؟»: a deep-pink extrusion behind a light-to-deep gradient face */
-    #t0-q { left: 290px; top: 300px; width: 500px; height: 680px; transform-origin: 50% 50%; }
-    #t0-q .g { position: absolute; inset: 0; font-family: var(--font-ar); font-weight: 900; font-size: 560px; line-height: 680px; text-align: center; }
-    #t0-q .back { top: 16px; color: #B84459; text-shadow: 0 0 60px rgba(229,103,125,0.55); }
-    #t0-q .face { color: transparent; background: linear-gradient(170deg, #FFE1E6 0%, var(--pink-lt) 22%, var(--pink) 55%, var(--pink-dk) 100%); -webkit-background-clip: text; background-clip: text; }
-    /* Moroccan accent: a small flat flag between red and green hairlines */
-    #t0-acc { left: 90px; right: 120px; top: 906px; height: 64px; }
-    #t0-flag { position: absolute; left: 400px; top: 4px; width: 84px; height: 56px; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
-    #t0-flag svg { display: block; width: 100%; height: 100%; }
-    #t0-lnr { position: absolute; left: 240px; top: 30px; width: 140px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, rgba(193,39,45,0), #C1272D); transform-origin: 100% 50%; }
-    #t0-lng { position: absolute; left: 504px; top: 30px; width: 140px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #1F9A5A, rgba(31,154,90,0)); transform-origin: 0 50%; }
-    /* title */
-    .t0-word { position: absolute; left: 90px; right: 120px; text-align: center; font-family: var(--font-ar); font-weight: 900; font-size: 190px; line-height: 210px; white-space: nowrap; direction: rtl; }
-    #t0-w1, #t0-s1 { top: 990px; }
-    #t0-w2, #t0-s2 { top: 1196px; }
-    #t0-w1 { top: 990px; color: var(--ink); text-shadow: 0 8px 30px rgba(0,0,0,0.45); }
-    #t0-w2 { top: 1196px; color: var(--pink); text-shadow: 0 8px 30px rgba(0,0,0,0.45), 0 0 40px rgba(255,149,165,0.35); }
-    .t0-sw { color: transparent; text-shadow: none; background: linear-gradient(100deg, rgba(255,255,255,0) 38%, rgba(255,240,243,0.95) 50%, rgba(255,255,255,0) 62%);
+    #t0-zel { opacity: 0.03; }
+    #t0-spot { left: 90px; top: 360px; width: 900px; height: 900px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,149,165,0.22) 0%, rgba(255,149,165,0.08) 42%, rgba(255,149,165,0) 70%); }
+    /* the bust rises through a fixed soft mask: the window stays put, the bust moves inside it */
+    #t0-win { left: 220px; top: 400px; width: 640px; height: 774px;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 80%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 80%, transparent 100%); }
+    #t0-bust { position: absolute; left: 0; top: 70px; width: 640px; height: 704px; transform-origin: 50% 100%; }
+    #t0-bust svg { width: 100%; height: 100%; display: block; }
+    /* «؟»: static tilt on the wrapper, animation on the inner element */
+    #t0-qw { left: 650px; top: 290px; width: 330px; height: 460px; transform: rotate(10deg); }
+    #t0-q { position: absolute; inset: 0; transform-origin: 40% 75%; }
+    #t0-q .g { position: absolute; inset: 0; font-family: var(--font-ar); font-weight: 900; font-size: 400px; line-height: 460px; text-align: center; }
+    #t0-q .glow { color: var(--pink); filter: blur(26px); opacity: 0.55; }
+    #t0-q .face { color: transparent; background: linear-gradient(165deg, var(--pink-lt) 0%, var(--pink) 45%, var(--pink-dk) 100%); -webkit-background-clip: text; background-clip: text; }
+    /* title: «سؤال اليوم» on one line, RTL; each word wipes in on its spoken word */
+    #t0-title { left: 90px; right: 120px; top: 1206px; height: 200px; display: flex; justify-content: center; gap: 40px; direction: rtl; }
+    .t0-w { position: relative; display: inline-block; font-family: var(--font-ar); font-weight: 900; font-size: 156px; line-height: 200px; white-space: nowrap; color: var(--ink); }
+    #t0-w2 { color: var(--pink); }
+    .t0-sw { position: absolute; inset: 0; color: transparent; background: linear-gradient(100deg, rgba(255,255,255,0) 38%, rgba(255,244,246,0.9) 50%, rgba(255,255,255,0) 62%);
       background-size: 300% 100%; background-position: 100% 0; -webkit-background-clip: text; background-clip: text; opacity: 0; }
-    #t0-ul { left: 310px; width: 460px; top: 1420px; height: 12px; border-radius: 6px; transform-origin: 100% 50%;
-      background: linear-gradient(90deg, var(--pink), var(--pink-lt) 50%, var(--pink));
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
-    .t0-pt { position: absolute; border-radius: 50%; background: var(--pink-lt); box-shadow: 0 0 10px rgba(255,196,205,0.8); }
+    #t0-ul { position: absolute; left: 6px; right: 6px; bottom: 6px; height: 10px; border-radius: 5px; background: linear-gradient(90deg, var(--pink-dk), var(--pink)); transform-origin: 100% 50%; }
+    #t0-acc { left: 450px; width: 180px; top: 1462px; height: 4px; display: flex; direction: ltr; }
+    #t0-acc i { flex: 1; display: block; }
+    #t0-acc i:first-child { background: linear-gradient(90deg, rgba(193,39,45,0), #C1272D); transform-origin: 100% 50%; }
+    #t0-acc i:last-child { background: linear-gradient(90deg, #1F9A5A, rgba(31,154,90,0)); transform-origin: 0 50%; }
   </style>
   <div id="root" data-composition-id="t0" data-start="0" data-duration="0.9666" data-width="1080" data-height="1920">
     <div class="pkg-scene">
       <div class="pkg-bg" id="t0-bg"></div>
       <div id="t0-zelhost"></div>
       <div class="pkg-cam" id="t0-cam">
-        <div id="t0-shake" class="pkg-layer">
-          <div class="t0-abs" id="t0-glow"></div>
-          <div id="t0-pts"></div>
-          <div id="t0-rays"></div>
-          <div class="t0-abs" id="t0-ringb"></div>
-          <div class="t0-abs" id="t0-ring"></div>
-          <div class="t0-abs" id="t0-q"><div class="g back">؟</div><div class="g face">؟</div></div>
-          <div class="t0-abs" id="t0-acc">
-            <div id="t0-lnr"></div>
-            <div id="t0-flag"><svg viewBox="0 0 90 60"><rect width="90" height="60" fill="#C1272D"/><path d="M45,16 L51.2,35.1 L35,23.3 L55,23.3 L38.8,35.1 Z" fill="none" stroke="#006233" stroke-width="2.6" stroke-linejoin="miter"/></svg></div>
-            <div id="t0-lng"></div>
-          </div>
-          <div class="t0-word" id="t0-w1">سؤال</div>
-          <div class="t0-word" id="t0-w2">اليوم</div>
-          <div class="t0-word t0-sw" id="t0-s1">سؤال</div>
-          <div class="t0-word t0-sw" id="t0-s2">اليوم</div>
-          <div class="t0-abs" id="t0-ul"></div>
+        <div class="t0-abs" id="t0-spot"></div>
+        <div class="t0-abs" id="t0-win"><div id="t0-bust"></div></div>
+        <div class="t0-abs" id="t0-qw"><div id="t0-q"><div class="g glow" id="t0-qglow">؟</div><div class="g face">؟</div></div></div>
+        <div class="t0-abs" id="t0-title">
+          <div class="t0-w" id="t0-w1">سؤال<div class="t0-sw" id="t0-s1">سؤال</div></div>
+          <div class="t0-w" id="t0-w2">اليوم<div class="t0-sw" id="t0-s2">اليوم</div><div id="t0-ul"></div></div>
         </div>
+        <div class="t0-abs" id="t0-acc"><i id="t0-ar"></i><i id="t0-ag"></i></div>
       </div>
       <div class="pkg-vignette"></div>
       <div class="pkg-grain" id="t0-grain"></div>
@@ -65,65 +50,39 @@
   </div>
   <script>
     (function () {
-      const { F, hrand } = Pkg;
+      const { F } = Pkg;
       const tl = gsap.timeline({ paused: true });
       const DUR = F(29); // frames 0–28, then the footage
-      // decorations (not timed elements): burst rays and light particles
-      const rays = document.getElementById("t0-rays");
-      for (let i = 0; i < 12; i++) {
-        const w = document.createElement("div");
-        w.className = "t0-ray";
-        w.style.transform = `rotate(${i * 30 + 15}deg)`;
-        w.innerHTML = `<div class="t0-rayl" id="t0-r${i}"></div>`;
-        rays.appendChild(w);
-      }
-      const pts = document.getElementById("t0-pts");
-      for (let i = 0; i < 16; i++) {
-        const d = document.createElement("div");
-        const s = 5 + Math.round(hrand(i * 7 + 1) * 6);
-        d.className = "t0-pt";
-        d.id = "t0-p" + i;
-        Object.assign(d.style, { width: s + "px", height: s + "px", left: 120 + Math.round(hrand(i * 13 + 3) * 820) + "px", top: 260 + Math.round(hrand(i * 5 + 9) * 1180) + "px" });
-        pts.appendChild(d);
-      }
+      document.getElementById("t0-bust").innerHTML = Bust.svg("soft", "t0b");
 
-      Pkg.shell(tl, "t0", DUR, { entry: false, push: [1.0, 1.05], exitFrames: 5 });
+      // background, grain, slow push-in 1.00 → 1.03, exit flash/zoom-blur over F25–F28
+      Pkg.shell(tl, "t0", DUR, { entry: false, push: [1.0, 1.03], exitFrames: 4 });
 
-      gsap.set(["#t0-w1", "#t0-w2", "#t0-acc"], { opacity: 0 });
-      gsap.set("#t0-ul", { scaleX: 0 });
+      gsap.set(["#t0-ul", "#t0-ar", "#t0-ag"], { scaleX: 0 });
 
-      // F0–F5: the «؟» scales in with a pink flash, a ring burst and rays shooting out (frame 0 is already full)
-      tl.fromTo("#t0-flash", { opacity: 0.38 }, { opacity: 0, duration: F(5), ease: "power2.out" }, 0);
-      tl.fromTo("#t0-q", { scale: 1.4, y: 0 }, { scale: 1, duration: F(5), ease: "back.out(2)" }, 0);
-      tl.fromTo("#t0-glow", { scale: 0.8, opacity: 0.6 }, { scale: 1, opacity: 1, duration: F(6), ease: "expo.out" }, 0);
-      tl.fromTo("#t0-ring", { scale: 0.72, opacity: 0.5 }, { scale: 1, opacity: 1, duration: F(6), ease: "back.out(2)" }, 0);
-      tl.fromTo("#t0-ringb", { scale: 0.85, opacity: 0.9 }, { scale: 1.6, opacity: 0, duration: F(10), ease: "expo.out" }, 0);
-      for (let i = 0; i < 12; i++) {
-        tl.fromTo("#t0-r" + i, { x: -40, scaleX: 0.2, opacity: 1 }, { x: 40 + (i % 3) * 14, scaleX: 1, duration: F(6), ease: "expo.out" }, F(1 + (i % 2)));
-        tl.to("#t0-r" + i, { x: 90 + (i % 3) * 14, opacity: 0.45, duration: F(20), ease: "sine.out" }, F(7 + (i % 2)));
-      }
+      // F0: not empty. The spotlight is up and the bust is already rising through its mask (F0–F8)
+      tl.fromTo("#t0-spot", { opacity: 0.55, scale: 0.92 }, { opacity: 1, scale: 1, duration: F(10), ease: "expo.out" }, 0);
+      tl.fromTo("#t0-bust", { y: 60, scale: 0.96, filter: "blur(3px)" }, { y: 0, scale: 1, filter: "blur(0px)", duration: F(8), ease: "expo.out" }, 0);
 
-      // «سؤال» (spoken 0.08–0.38 s): slam lands on frame 5, tiny shake
-      tl.fromTo("#t0-w1", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: F(4), ease: "back.out(2.4)" }, F(1));
-      [3, -2, 0].forEach((d, i) => tl.to("#t0-shake", { x: d, y: -d * 0.6, duration: F(1), ease: "none" }, F(5 + i)));
-      // «اليوم» (spoken 0.48–0.76 s): slam lands on frame 17, shake, underline sweep
-      tl.fromTo("#t0-w2", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: F(4), ease: "back.out(2.4)" }, F(13));
-      [3, -2, 0].forEach((d, i) => tl.to("#t0-shake", { x: d, y: -d * 0.6, duration: F(1), ease: "none" }, F(17 + i)));
-      tl.to("#t0-ul", { scaleX: 1, duration: F(6), ease: "expo.out" }, F(16));
+      // F2–F10: the «؟» pops (0 → 1.12 → 1), turning −12° → 0°, with a light motion blur and a glow pulse
+      tl.fromTo("#t0-q", { scale: 0, rotation: -12, filter: "blur(6px)" }, { scale: 1.12, rotation: 0, filter: "blur(0px)", duration: F(5), ease: "expo.out" }, F(2));
+      tl.to("#t0-q", { scale: 1, duration: F(4), ease: "back.out(2)" }, F(7));
+      tl.fromTo("#t0-qglow", { opacity: 0.3 }, { opacity: 0.9, duration: F(4), ease: "sine.out" }, F(5));
+      tl.to("#t0-qglow", { opacity: 0.55, duration: F(6), ease: "sine.inOut" }, F(9));
+      tl.to("#t0-q", { y: -8, duration: F(17), ease: "sine.inOut" }, F(11));
 
-      // F14–F22: the Moroccan accent glides in; the «؟» floats
-      tl.fromTo("#t0-acc", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: F(8), ease: "expo.out" }, F(14));
-      tl.fromTo(["#t0-lnr", "#t0-lng"], { scaleX: 0 }, { scaleX: 1, duration: F(8), ease: "expo.out" }, F(15));
-      tl.to("#t0-q", { y: -14, duration: F(22), ease: "sine.inOut" }, F(6));
+      // «سؤال» (spoken 0.08–0.38 s): right-to-left wipe F1–F10 with a slight settle 1.06 → 1
+      tl.fromTo("#t0-w1", { clipPath: "inset(-20% -2% -20% 100%)", scale: 1.06 }, { clipPath: "inset(-20% -2% -20% -2%)", scale: 1, duration: F(9), ease: "expo.out" }, F(1));
+      // «اليوم» (spoken 0.48–0.76 s): same wipe F13–F20, then the underline draws right to left
+      tl.fromTo("#t0-w2", { clipPath: "inset(-20% -2% -20% 100%)", scale: 1.06 }, { clipPath: "inset(-20% -2% -20% -2%)", scale: 1, duration: F(8), ease: "expo.out" }, F(13));
+      tl.to("#t0-ul", { scaleX: 1, duration: F(6), ease: "expo.out" }, F(18));
+      // the thin Moroccan accent opens from the centre
+      tl.to(["#t0-ar", "#t0-ag"], { scaleX: 1, duration: F(8), ease: "expo.out" }, F(18));
 
-      // F18–F22: a white/pink light sweep across «سؤال اليوم»
-      tl.set(["#t0-s1", "#t0-s2"], { opacity: 1 }, F(18));
-      tl.fromTo(["#t0-s1", "#t0-s2"], { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: F(5), ease: "power2.inOut", immediateRender: false }, F(18));
-      tl.set(["#t0-s1", "#t0-s2"], { opacity: 0 }, F(23));
-
-      // light particles drift up through the whole intro
-      for (let i = 0; i < 16; i++)
-        tl.fromTo("#t0-p" + i, { y: 0, opacity: 0.25 + hrand(i * 3) * 0.5 }, { y: -(40 + hrand(i * 11) * 70), opacity: 0.15 + hrand(i * 17) * 0.6, duration: DUR, ease: "none" }, 0);
+      // F16–F22: one clean light sweep across the title
+      tl.set(["#t0-s1", "#t0-s2"], { opacity: 1 }, F(16));
+      tl.fromTo(["#t0-s1", "#t0-s2"], { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: F(6), ease: "power2.inOut", immediateRender: false }, F(16));
+      tl.set(["#t0-s1", "#t0-s2"], { opacity: 0 }, F(22));
 
       window.__timelines["t0"] = tl;
     })();
