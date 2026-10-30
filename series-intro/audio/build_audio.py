@@ -3,7 +3,10 @@ here (royalty-free by construction). Output: 48 kHz stereo, pre-master; master.s
 
 Timing (seconds, 30 fps): «سلااام» 0.07-0.96, «سلاح!» attack 1.00 (F30); rifle lands F34 = 1.133;
 name reveal F52 = 1.733; exit whip F86-F95; total 3.2.
-Run: python -I build_audio.py <command.wav @48k stereo> <out.wav>
+Run: python -I build_audio.py <command.wav @48k stereo> <out.wav> [original|processed]
+"original" (default): the voice passes through untouched (no gain, no echo); only the effects bed is scaled so the
+sum never clips, and no mastering is applied afterwards. "processed": lowered voice + parade-ground echo, then
+master.sh to -14 LUFS / -1 dBTP.
 """
 import sys
 import numpy as np
@@ -46,9 +49,10 @@ def stereo(mono, width=0.0, seed=1):
 
 
 # ---------- the command: lower the clipped peak, add a parade-ground echo ----------
+MODE = sys.argv[3] if len(sys.argv) > 3 else "original"
 voice, sr = sf.read(sys.argv[1], always_2d=True)
 assert sr == SR
-voice = voice[:, :2] * 10 ** (-3 / 20)  # off the 0 dBFS ceiling before anything else
+voice = voice[:, :2] * (10 ** (-3 / 20) if MODE == "processed" else 1.0)
 v = np.zeros((N, 2)); v[:len(voice)] = voice[:N]
 
 ir_len = int(SR * 2.0)
@@ -61,7 +65,8 @@ ir /= np.sqrt((ir ** 2).sum(0, keepdims=True))
 wet = np.stack([np.fft.irfft(np.fft.rfft(v[:, c], 2 * N) * np.fft.rfft(ir[:, c], 2 * N))[:N] for c in range(2)], 1)
 wet = band(wet, 160, 7000)
 wet *= (np.sqrt((v ** 2).mean()) / (np.sqrt((wet ** 2).mean()) + 1e-12)) * 10 ** (-2 / 20)
-mix = v + wet
+voice_bus = v + wet if MODE == "processed" else v.copy()
+mix = np.zeros((N, 2))  # effects bed; the voice is added at the end
 
 # ---------- low boom swelling under «سلااام», released into the hit ----------
 n = int(SR * 1.6)
@@ -123,10 +128,33 @@ tt = np.arange(n) / SR
 rise = band(rng.standard_normal(n), 900, 7000) * (tt / tt[-1]) ** 2.5
 place(mix, stereo(rise, 0.7, 5), DUR - 0.42, 0.06)
 
-# soft edges: no click at the start, no abrupt stop at the end
+# soft edges on the effects bed: no click at the start, no abrupt stop at the end
 fade = np.ones(N); fade[:int(0.004 * SR)] = np.linspace(0, 1, int(0.004 * SR))
 fade[-int(0.06 * SR):] = np.linspace(1, 0, int(0.06 * SR)) ** 1.5
 mix *= fade[:, None]
-mix *= 0.89 / np.abs(mix).max()
-sf.write(sys.argv[2], mix.astype(np.float32), SR, subtype="FLOAT")
-print("pre-master peak dBFS", round(20 * np.log10(np.abs(mix).max()), 2))
+if MODE == "processed":
+    out = voice_bus + mix
+    out *= 0.89 / np.abs(out).max()
+else:
+    # the effects were balanced against a voice 3 dB lower; keep that balance, then lower only the effects
+    # until the sum stays under the original's own peak
+    mix *= 10 ** (3 / 20)
+    # duck the effects only where the sum would pass the original's own peak (5 ms blocks, look-ahead, smoothed)
+    ceiling = max(np.abs(voice_bus).max(), 10 ** (-0.3 / 20))
+    B = 240
+    g = np.ones(N)
+    for _ in range(6):
+        over = np.abs(voice_bus + mix * g[:, None]).max(1)
+        if over.max() <= ceiling:
+            break
+        room = np.clip(ceiling - np.abs(voice_bus).max(1), 0, None) / (np.abs(mix).max(1) + 1e-9)
+        nb = int(np.ceil(N / B))
+        gb = np.array([min(1.0, room[i * B:(i + 1) * B].min()) for i in range(nb)])
+        gb = np.minimum.reduce([np.roll(gb, k) for k in (-2, -1, 0, 1, 2)])  # look-ahead / hold
+        ker = np.hanning(9); ker /= ker.sum()
+        gb = np.minimum(gb, np.convolve(gb, ker, mode="same"))
+        g = np.minimum(g, np.repeat(gb, B)[:N] * 0.995)
+    out = voice_bus + mix * g[:, None]
+    print("effects ducked by up to", round(20 * np.log10(g.min() + 1e-9), 1), "dB on", round((g < 0.99).mean() * 100, 1), "% of the time")
+sf.write(sys.argv[2], out.astype(np.float32), SR, subtype="FLOAT")
+print("peak dBFS", round(20 * np.log10(np.abs(out).max()), 2))
