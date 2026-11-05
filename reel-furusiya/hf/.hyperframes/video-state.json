@@ -130,15 +130,14 @@
   },
   "checks": {
     "latest": {
-      "revision": "f0c15406-45ec-4c3f-976a-b64b2ceada58",
-      "id": "ed16d047-7242-4817-8ead-23621e72d2e9"
+      "revision": null,
+      "id": "d1cfc70b-6035-4759-9db5-7d3ae53e6742"
     },
     "revisions": {
       "f0c15406-45ec-4c3f-976a-b64b2ceada58": [
         {
           "id": "ed16d047-7242-4817-8ead-23621e72d2e9",
           "scope": "project",
-          "report": "/home/user/videos/reel-furusiya/hf/.hyperframes/artifacts/checks/ed16d047-7242-4817-8ead-23621e72d2e9.json",
           "metadata": {
             "ok": true,
             "browserSkipped": false,
@@ -160,7 +159,9 @@
           "revision": "f0c15406-45ec-4c3f-976a-b64b2ceada58",
           "inputFingerprint": "efb05a037b5971680b1a8fe800658a3e8993ccfcf00471d98f3f2d2215e3fea5",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "2db3e1fb-4f67-4e87-959c-9ab05fb89659"
         }
       ]
     },
@@ -197,7 +198,7 @@
   "snapshots": {
     "latest": {
       "revision": "be9d86b2-ba8e-4eb7-9539-58affd990e1b",
-      "id": "77ae3968-abee-4871-85c5-75937d667396-8"
+      "id": "9a97fe95-0154-478e-87ff-767b6f8dc592-1"
     },
     "revisions": {
       "3fa64002-d447-46e5-87f9-a10fea51e1e3": [
@@ -484,6 +485,116 @@
           "inputFingerprint": "4c9701382d276771f956e182eaa6bebca4a874d0c8fbe0fa99fa101a447c9278",
           "inputScope": "local-project-files",
           "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e33e4180-a6e0-4eb7-93b9-fa71ea9d81d5-0",
+          "image": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/fur/tag/frame-00-at-21.667s.png",
+          "time": 21.6667,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793877433759,
+          "contentHash": "1ad258c6e404dbb7fb2354b350aacefd62b00d8e457534e4ee3143c6f90c976a",
+          "revision": "be9d86b2-ba8e-4eb7-9539-58affd990e1b",
+          "inputFingerprint": "4c9701382d276771f956e182eaa6bebca4a874d0c8fbe0fa99fa101a447c9278",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e33e4180-a6e0-4eb7-93b9-fa71ea9d81d5-1",
+          "image": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/fur/tag/frame-01-at-13.333s.png",
+          "time": 13.3333,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793877433991,
+          "contentHash": "703da20231f546a21c0500e23c5a60379b71ab99f22808826ce60f830f7c07ad",
+          "revision": "be9d86b2-ba8e-4eb7-9539-58affd990e1b",
+          "inputFingerprint": "4c9701382d276771f956e182eaa6bebca4a874d0c8fbe0fa99fa101a447c9278",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "crop",
+          "id": "9a97fe95-0154-478e-87ff-767b6f8dc592-0",
+          "image": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/fur/tag/at-21.667s.png",
+          "time": 21.6667,
+          "metadata": {
+            "width": 840,
+            "height": 240,
+            "crop": {
+              "x": 40,
+              "y": 140,
+              "width": 420,
+              "height": 120
+            },
+            "zoom": {
+              "kind": "region",
+              "region": {
+                "x": 40,
+                "y": 140,
+                "width": 420,
+                "height": 120
+              }
+            },
+            "zoomScale": 2,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793877439854,
+          "contentHash": "03320c20cdb446602c4109e44c4e5151cc61bed6f3d5e8031ba885e042782df1",
+          "revision": "be9d86b2-ba8e-4eb7-9539-58affd990e1b",
+          "inputFingerprint": "4c9701382d276771f956e182eaa6bebca4a874d0c8fbe0fa99fa101a447c9278",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "crop",
+          "id": "9a97fe95-0154-478e-87ff-767b6f8dc592-1",
+          "image": "/tmp/claude-0/-home-user-videos/77d400a6-68bc-570e-9a81-f7ecae24df7f/scratchpad/fur/tag/at-13.333s.png",
+          "time": 13.3333,
+          "metadata": {
+            "width": 840,
+            "height": 240,
+            "crop": {
+              "x": 40,
+              "y": 140,
+              "width": 420,
+              "height": 120
+            },
+            "zoom": {
+              "kind": "region",
+              "region": {
+                "x": 40,
+                "y": 140,
+                "width": 420,
+                "height": 120
+              }
+            },
+            "zoomScale": 2,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793877439854,
+          "contentHash": "a2a19fa517f6fd3dfdb66493bc217707dceab8acdf7c5f28e169f6ebbdc5f4eb",
+          "revision": "be9d86b2-ba8e-4eb7-9539-58affd990e1b",
+          "inputFingerprint": "4c9701382d276771f956e182eaa6bebca4a874d0c8fbe0fa99fa101a447c9278",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
         }
       ]
     },
@@ -749,5 +860,18 @@
         "attribution": "unversioned"
       }
     ]
-  }
+  },
+  "renders": {
+    "latest": {
+      "id": "89f3ffd2-f5e6-47bc-9bd8-d2bed4e6adfa",
+      "completedAt": 1793878201501,
+      "output": "/home/user/videos/reel-furusiya/hf/renders/captions.mov",
+      "status": "completed",
+      "revision": "be9d86b2-ba8e-4eb7-9539-58affd990e1b"
+    },
+    "retainedRevisions": [
+      "be9d86b2-ba8e-4eb7-9539-58affd990e1b"
+    ]
+  },
+  "pendingArtifactCleanup": []
 }
