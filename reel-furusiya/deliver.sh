@@ -37,10 +37,19 @@ cut 848 917 insert_2.mp4
 cut 1100 1262 insert_3.mp4
 cut 1388 1997 insert_4.mp4
 
-# 4. final picture: intro + (footage + captions layer + inserts in the gaps) + end tag, one encode, no audio yet.
+# 3b. footage edit: source F301–F427 replaced by the first 127 frames of 1105.mp4 (4K, lanczos to 1080×1920; its last
+# 15 frames and its audio are not used). Lossless intermediate, so every other footage frame is the original's.
+FOOT=hf/renders/footage_edit.mkv
+ffmpeg -v error -y -i "$SRC" -i hf/assets/media/1105.mp4 -filter_complex \
+  "[0:v]split[s0][s1];[s0]trim=start_frame=0:end_frame=301,setpts=N/30/TB[a];[s1]trim=start_frame=428:end_frame=1998,setpts=N/30/TB[c];\
+   [1:v]trim=start_frame=0:end_frame=127,setpts=N/30/TB,scale=1080:1920:flags=lanczos,setsar=1,format=yuv420p[b];\
+   [a][b][c]concat=n=3:v=1:a=0,setpts=N/30/TB[v]" \
+  -map "[v]" -an -c:v ffv1 -level 3 -color_range tv -colorspace bt709 -color_trc bt709 -color_primaries bt709 "$FOOT"
+
+# 4. final picture: intro + (edited footage + captions layer + inserts in the gaps) + end tag, one encode, no audio yet.
 # Frames are renumbered (setpts) rather than resampled, so all 96 + 1998 + 81 frames are kept.
 GAPS="between(n,0,130)+between(n,848,917)+between(n,1100,1262)+between(n,1388,1997)"
-ffmpeg -v error -y -i "$ROOT/series-intro/hf/renders/intro_female.mp4" -i "$SRC" -i hf/renders/captions.mov -i hf/renders/inserts_full.mp4 \
+ffmpeg -v error -y -i "$ROOT/series-intro/hf/renders/intro_female.mp4" -i "$FOOT" -i hf/renders/captions.mov -i hf/renders/inserts_full.mp4 \
   -i "$ROOT/end-tag/hf/renders/tag_furusiya.mp4" -filter_complex \
   "[1:v][2:v]overlay=0:0:format=auto:eof_action=pass[r1];[r1][3:v]overlay=0:0:enable='$GAPS':eof_action=pass,trim=end_frame=1998[rv];\
    [0:v]setpts=N/30/TB,format=yuv420p,setsar=1[v0];[rv]setpts=N/30/TB,format=yuv420p,setsar=1[v1];[4:v]setpts=N/30/TB,format=yuv420p,setsar=1[v2];\
