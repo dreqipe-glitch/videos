@@ -27,3 +27,12 @@ reel-furusiya/hf/.hyperframes/artifacts/
 reel-furusiya/hf/.hyperframes/video-state-lock
 reel-furusiya/hf/renders/
 reel-furusiya/hf/assets/media/
+# HyperFrames preview-server state (any project)
+**/.hyperframes/preview/
+**/.hyperframes/hf-ids-stamped.json
+**/.hyperframes/render-outputs.json
+# Final MP4s over GitHub's 100 MB file limit (kept local; output/salam_slah_FINAL_web.mp4 is the committed copy)
+output/salam_slah_FINAL.mp4
+output/gendarmerie/reel_final.mp4
+output/gendarmerie/insert_2.mp4
+output/furusiya/reel_furusiya_final.mp4
