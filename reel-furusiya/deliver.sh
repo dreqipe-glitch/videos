@@ -34,7 +34,7 @@ cut() { ffmpeg -v error -y -i hf/renders/inserts_full.mp4 -vf "select='between(n
   -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p -movflags +faststart "$OUT/$3"; }
 cut 0 130 insert_1.mp4
 cut 848 917 insert_2.mp4
-cut 1100 1262 insert_3.mp4
+cut 1100 1387 insert_3.mp4  # GAP 3 + scene 3B (replaces the footage F1263–F1387)
 cut 1388 1997 insert_4.mp4
 
 # 3b. footage edit: source F301–F427 replaced by the first 127 frames of 1105.mp4 (4K, lanczos to 1080×1920; its last
@@ -48,7 +48,7 @@ ffmpeg -v error -y -i "$SRC" -i hf/assets/media/1105.mp4 -filter_complex \
 
 # 4. final picture: intro + (edited footage + captions layer + inserts in the gaps) + end tag, one encode, no audio yet.
 # Frames are renumbered (setpts) rather than resampled, so all 96 + 1998 + 81 frames are kept.
-GAPS="between(n,0,130)+between(n,848,917)+between(n,1100,1262)+between(n,1388,1997)"
+GAPS="between(n,0,130)+between(n,848,917)+between(n,1100,1997)"  # GAP 3 + 3B + GAP 4: one motion-graphics block
 ffmpeg -v error -y -i "$ROOT/series-intro/hf/renders/intro_female.mp4" -i "$FOOT" -i hf/renders/captions.mov -i hf/renders/inserts_full.mp4 \
   -i "$ROOT/end-tag/hf/renders/tag_furusiya.mp4" -filter_complex \
   "[1:v][2:v]overlay=0:0:format=auto:eof_action=pass[r1];[r1][3:v]overlay=0:0:enable='$GAPS':eof_action=pass,trim=end_frame=1998[rv];\

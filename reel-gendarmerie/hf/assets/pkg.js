@@ -63,15 +63,17 @@
   /* Scene shell. Expects, inside the scene: #p-bg, #p-zelhost, #p-cam, #p-grain, #p-in, #p-out (optional), #p-flash.
      dur: scene length in seconds. exit: false for the last insert, which holds to the final frame.
      entry: false for the opening intro (no previous footage, so no #p-in). push: camera scale range.
-     exitFrames: length of the exit whip. */
-  function shell(tl, p, dur, { exit = true, entry = true, push = [1.03, 1.08], exitFrames = 7 } = {}) {
+     exitFrames: length of the exit whip. drift: the share [from, to] of the background drift this scene covers, so
+     two scenes joined by a match-cut can continue one drift (and pass push ranges that meet). */
+  function shell(tl, p, dur, { exit = true, entry = true, push = [1.03, 1.08], exitFrames = 7, drift = [0, 1] } = {}) {
     const $ = (s) => document.getElementById(p + "-" + s);
     $("zelhost").innerHTML = zellige(p + "-zel");
     const exitAt = dur - F(exitFrames);
 
     // slow drift: background, texture and graphics move at different rates (parallax)
-    tl.fromTo($("bg"), { scale: 1, x: 0 }, { scale: 1.05, x: -18, duration: dur, ease: "none" }, 0);
-    tl.fromTo("#" + p + "-zel", { x: 0, y: 0, rotation: 0 }, { x: -110, y: -170, rotation: 2.5, duration: dur, ease: "none" }, 0);
+    const [d0, d1] = drift;
+    tl.fromTo($("bg"), { scale: 1 + 0.05 * d0, x: -18 * d0 }, { scale: 1 + 0.05 * d1, x: -18 * d1, duration: dur, ease: "none" }, 0);
+    tl.fromTo("#" + p + "-zel", { x: -110 * d0, y: -170 * d0, rotation: 2.5 * d0 }, { x: -110 * d1, y: -170 * d1, rotation: 2.5 * d1, duration: dur, ease: "none" }, 0);
 
     // grain: the noise tile jumps to a new seeded offset every other frame
     const n = Math.ceil(dur * 15);

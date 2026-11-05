@@ -27,7 +27,7 @@
     #g3-c3 { left: 580px; top: 1150px; } #g3-c4 { left: 90px; top: 1150px; }
     #g3-swz { left: 90px; width: 870px; top: 500px; height: 820px; overflow: hidden; }
   </style>
-  <div id="root" data-composition-id="g3" data-start="0" data-duration="5.4333" data-width="1080" data-height="1920">
+  <div id="root" data-composition-id="g3" data-start="0" data-duration="9.6" data-width="1080" data-height="1920">
     <div class="pkg-scene">
       <div class="pkg-bg" id="g3-bg"></div>
       <div id="g3-zelhost"></div>
@@ -49,11 +49,11 @@
         <div class="g3-card" id="g3-c3"><div class="ic" data-icon="target"></div><div class="lb">التركيز</div></div>
         <div class="g3-card" id="g3-c4"><div class="ic" data-icon="chevrons"></div><div class="lb">الانضباط</div></div>
         <div class="g3-abs" id="g3-swz"><div class="sweep" id="g3-sw"></div></div>
+        <div class="pkg-layer" id="g3-3b"></div>
       </div>
       <div class="pkg-vignette"></div>
       <div class="pkg-grain" id="g3-grain"></div>
       <div class="pkg-bridge" id="g3-in" style="background-image: url('assets/bridge/f1099.jpg')"></div>
-      <div class="pkg-bridge" id="g3-out" style="background-image: url('assets/bridge/f1263.jpg')"></div>
       <div class="pkg-flash" id="g3-flash"></div>
     </div>
   </div>
@@ -63,9 +63,13 @@
       const root = document.querySelector('[data-composition-id="g3"]');
       Pkg.mountIcons(root);
       document.getElementById("g3-bust").innerHTML = Bust.svg("soft", "g3b", "riding");
+      // 3B: badge, horse, connector, horseshoe and headline (shared with g4, which opens on their end state)
+      Scene3B.mount("g3", document.getElementById("g3-3b"));
+      document.getElementById("g3-win").before(document.getElementById("g3-zglow"));
+      const G = Scene3B.G;
       const tl = gsap.timeline({ paused: true });
-      const DUR = F(163); // F1100–F1262; local frame n = source frame 1100 + n
-      Pkg.shell(tl, "g3", DUR, { exitFrames: 6 });
+      const DUR = F(288); // F1100–F1387; local frame n = source frame 1100 + n. No exit: g4 continues the picture
+      Pkg.shell(tl, "g3", DUR, { exit: false, push: [1.03, 1.055], drift: [0, 0.32] });
 
       gsap.set("#g3-strike", { scaleX: 0 });
       gsap.set(["#g3-h1", "#g3-h2", "#g3-h3", "#g3-ring", "#g3-win", ".g3-card", "#g3-links circle"], { opacity: 0 });
@@ -98,16 +102,76 @@
       // «مجال» L83 · «كيجمع» L97 · «بين» L111
       [["#g3-h1", 83], ["#g3-h2", 97], ["#g3-h3", 111]].forEach(([s, f]) => Pkg.revealWord(tl, s, F(f), { dur: F(9) }));
 
-      // value cards: link draws from her, then the card pops. الصبر L117 · القوة L141 ·
-      // التركيز + الانضباط together at L150 (both spoken after the gap: F1267 and F1292)
+      // value cards: link draws from her, then the card pops, each on its spoken word:
+      // الصبر L117 · القوة L141 · التركيز L167 (F1267) · الانضباط L192 (F1292)
       function card(n, f) {
         tl.to("#g3-l" + n, { strokeDashoffset: 0, duration: F(5), ease: "power2.out" }, F(f));
         tl.to("#g3-n" + n, { opacity: 1, duration: F(2) }, F(f + 3));
         tl.fromTo("#g3-c" + n, { opacity: 0, scale: 0.6, y: n > 2 ? -30 : 30 }, { opacity: 1, scale: 1, y: 0, duration: F(7), ease: "back.out(2.2)" }, F(f + 1));
       }
-      card(1, 117); card(2, 141); card(3, 150); card(4, 150);
-      // one pink sweep across all four cards, then the exit whip at L157
-      Pkg.sweep(tl, "#g3-sw", F(150), F(7));
+      card(1, 117); card(2, 141); card(3, 167); card(4, 192);
+      tl.to("#g3-bust", { y: -6, duration: F(28), ease: "sine.inOut" }, F(148));
+      tl.to("#g3-bust", { y: 0, duration: F(28), ease: "sine.inOut" }, F(176));
+      // once «الانضباط» has landed: one pink sweep across all four cards
+      Pkg.sweep(tl, "#g3-sw", F(200), F(8));
+
+      // ---------- 3B (L206–L287): «وارتباط المرأة الدركية بهذا المجال» ----------
+      gsap.set(["#g3-zglow", "#g3-bring", "#g3-horse", "#g3-conn", "#g3-cdot", "#g3-fw", "#g3-shoeglow", "#g3-nl", "#g3-nr", "#g3-tl", "#g3-tr"], { opacity: 0 });
+      gsap.set("#g3-ful", { scaleX: 0 });
+      gsap.set(["#g3-m1", "#g3-m2", "#g3-m3", "#g3-m4"], { opacity: 0 });
+      // the old headline, links and glow ring leave; the bust slides left into the badge position
+      tl.to("#g3-h", { opacity: 0, y: -40, filter: "blur(10px)", duration: F(8), ease: "power2.in" }, F(206));
+      tl.to(["#g3-links", "#g3-ring"], { opacity: 0, duration: F(8), ease: "power2.in" }, F(206));
+      tl.to("#g3-win", { x: G.bust.x, y: G.bust.y, scale: G.bust.scale, duration: F(16), ease: "expo.inOut" }, F(206));
+      tl.fromTo("#g3-zglow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: F(14), ease: "expo.out", immediateRender: false }, F(212));
+      // the four cards shrink into medals that click into place on a pink ring around her
+      const cards = [[770, 595], [280, 595], [770, 1225], [280, 1225]];
+      cards.forEach(([x, y], i) => {
+        const [mx, my] = G.md[i], f = 208 + i * 3;
+        tl.to("#g3-c" + (i + 1), { x: mx - x, y: my - y, scale: 0.27, opacity: 0, duration: F(9), ease: "expo.in" }, F(f));
+        tl.fromTo("#g3-m" + (i + 1), { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: F(5), ease: "back.out(3)", immediateRender: false }, F(f + 7));
+        tl.fromTo("#g3-k" + (i + 1), { opacity: 1, scale: 0.7 }, { opacity: 0, scale: 1.7, duration: F(8), ease: "expo.out", immediateRender: false }, F(f + 8));
+      });
+      tl.fromTo("#g3-bring", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: F(10), ease: "back.out(2)", immediateRender: false }, F(213));
+      // «وارتباط» L225: the headline «الفروسية», then the horse-head icon draws on beside her
+      tl.to("#g3-fw", { opacity: 1, duration: F(1) }, F(225));
+      Pkg.revealWord(tl, "#g3-fh", F(225), { dur: F(9) });
+      tl.set("#g3-fh", { filter: "none" }, F(235)); // same text rendering as g4's static copy at the cut
+      tl.to("#g3-ful", { scaleX: 1, duration: F(8), ease: "expo.out" }, F(231));
+      tl.set("#g3-horse", { opacity: 1 }, F(225));
+      const hp = [...document.querySelectorAll("#g3-horse path")];
+      hp.forEach((el, i) => {
+        const len = el.getTotalLength();
+        gsap.set(el, { strokeDasharray: len, strokeDashoffset: len, opacity: 0 });
+        tl.set(el, { opacity: 1 }, F(225 + i * 3));
+        tl.to(el, { strokeDashoffset: 0, duration: F(16), ease: "power2.inOut" }, F(225 + i * 3));
+      });
+      tl.fromTo("#g3-horse circle", { opacity: 0 }, { opacity: 1, duration: F(4) }, F(241));
+      // the pink connector links her to the horse; a short glowing pulse travels along it, twice
+      const CL = G.conn[1] - G.conn[0];
+      // hidden dash starts just past the line (a zero-length dash with a round cap would show as a dot)
+      gsap.set("#g3-cl", { strokeDasharray: `${CL} ${CL + 40}`, strokeDashoffset: CL + 2 });
+      tl.set("#g3-conn", { opacity: 1 }, F(232));
+      tl.to("#g3-cl", { strokeDashoffset: 0, duration: F(8), ease: "power2.out" }, F(232));
+      [240, 258].forEach((f) => {
+        tl.fromTo("#g3-cdot", { opacity: 1, attr: { cx: G.conn[0] } }, { attr: { cx: G.conn[1] }, duration: F(12), ease: "sine.inOut", immediateRender: false }, F(f));
+        tl.to("#g3-cdot", { opacity: 0, duration: F(3) }, F(f + 11));
+      });
+      // floats: never still for a second, back at rest on the last frame (g4 opens there)
+      tl.to("#g3-bust", { y: -5, duration: F(30), ease: "sine.inOut" }, F(226));
+      tl.to("#g3-bust", { y: 0, duration: F(31), ease: "sine.inOut" }, F(256));
+      tl.to("#g3-horse", { y: -6, duration: F(21), ease: "sine.inOut" }, F(245));
+      tl.to("#g3-horse", { y: 0, duration: F(21), ease: "sine.inOut" }, F(266));
+      // «بهذا المجال» L267: the horseshoe draws around both of them from the top, with a soft glow pulse
+      ["#g3-sl", "#g3-sr"].forEach((s) => {
+        const len = document.querySelector(s).getTotalLength();
+        gsap.set(s, { strokeDasharray: `${len} ${len + 40}`, strokeDashoffset: len + 2 });
+        tl.to(s, { strokeDashoffset: 0, duration: F(16), ease: "power2.inOut" }, F(267));
+      });
+      tl.to(["#g3-tl", "#g3-tr"], { opacity: 1, duration: F(3) }, F(281));
+      tl.to(["#g3-nl", "#g3-nr"], { opacity: 1, duration: F(5) }, F(276));
+      tl.to("#g3-shoeglow", { opacity: 0.75, duration: F(5), ease: "sine.out" }, F(276));
+      tl.to("#g3-shoeglow", { opacity: 0.25, duration: F(6), ease: "sine.in" }, F(281));
 
       window.__timelines["g3"] = tl;
     })();

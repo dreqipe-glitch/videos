@@ -10,8 +10,10 @@
     /* 4A: constellation of the 7 duties + 4 values around her, then the Gendarmerie logo */
     #g4-ah { top: 300px; }
     #g4-aglow { left: 240px; top: 660px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(255,149,165,0.24), rgba(255,149,165,0) 66%); }
-    #g4-awin { left: 390px; top: 790px; width: 300px; height: 334px; }
-    #g4-orbit { left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 540px 960px; }
+    /* the bust window has g3's geometry, so 4A opens on 3B's exact picture */
+    #g4-awin { left: 370px; top: 700px; width: 340px; height: 380px; }
+    #g4-abust { inset: auto; left: 0; top: 6px; width: 340px; height: 374px; }
+    #g4-orbit, #g4-orbit2 { left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 540px 960px; }
     #g4-lines { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
     #g4-lines line { stroke: var(--pink); stroke-width: 3; stroke-linecap: round; opacity: 0.55; }
     .g4-bd { position: absolute; left: 0; top: 0; width: 104px; height: 104px; margin: -52px 0 0 -52px; border-radius: 50%; padding: 20px; color: var(--pink);
@@ -91,14 +93,15 @@
           <div id="g4-A" class="pkg-layer">
             <div class="g4-c" id="g4-ah"><div><span class="w" id="g4-a1">تنوع</span> <span class="w accent" id="g4-a2">المهارات</span></div><div><span class="w accent" id="g4-a3">والكفاءات</span></div></div>
             <div class="g4-abs" id="g4-aglow"></div>
-            <div class="g4-abs" id="g4-orbit">
-              <svg id="g4-lines" viewBox="0 0 1080 1920"></svg>
+            <div class="g4-abs" id="g4-orbit"><svg id="g4-lines" viewBox="0 0 1080 1920"></svg></div>
+            <div class="g4-abs g4-win" id="g4-awin"><div id="g4-abust"></div></div>
+            <div class="pkg-layer" id="g4-3b"></div>
+            <div class="g4-abs" id="g4-orbit2">
               <div class="g4-bd" data-icon="rider"></div><div class="g4-bd" data-icon="leaf"></div><div class="g4-bd" data-icon="magnifier"></div>
               <div class="g4-bd" data-icon="shield"></div><div class="g4-bd" data-icon="cone"></div><div class="g4-bd" data-icon="care"></div>
               <div class="g4-bd" data-icon="parade"></div><div class="g4-bd" data-icon="hourglass"></div><div class="g4-bd" data-icon="arm"></div>
               <div class="g4-bd" data-icon="target"></div><div class="g4-bd" data-icon="chevrons"></div>
             </div>
-            <div class="g4-abs g4-win" id="g4-awin"><div id="g4-abust"></div></div>
             <div class="g4-abs" id="g4-halo"></div>
             <div class="g4-abs" id="g4-ring"></div>
             <div class="logo g4-abs" id="g4-logo"><img src="assets/logo.png" alt="" /><div class="logo-shine"><div class="sweep" id="g4-lsw"></div></div></div>
@@ -158,7 +161,6 @@
       <div class="g4-abs" id="g4-cursor"><svg viewBox="0 0 100 120"><path d="M38,8 C44,8 48,12 48,18 L48,52 L52,52 C52,46 64,46 64,52 L64,56 C64,50 76,50 76,56 L76,60 C76,54 88,54 88,60 L88,86 C88,104 76,114 60,114 L50,114 C40,114 32,108 26,98 L12,72 C8,66 16,58 24,64 L28,68 L28,18 C28,12 32,8 38,8 Z" fill="#FFFFFF" stroke="#0B1320" stroke-width="5" stroke-linejoin="round"/></svg></div>
       <div class="pkg-vignette"></div>
       <div class="pkg-grain" id="g4-grain"></div>
-      <div class="pkg-bridge" id="g4-in" style="background-image: url('assets/bridge/f1387.jpg')"></div>
       <div class="pkg-flash" id="g4-flash"></div>
     </div>
   </div>
@@ -170,9 +172,13 @@
       Pkg.mountIcons(root);
       document.getElementById("g4-abust").innerHTML = Bust.svg("soft", "g4a", "riding");
       document.getElementById("g4-bbust").innerHTML = Bust.svg("soft", "g4b", "riding");
+      // 3B's end state (badge ring, horse, connector, horseshoe, «الفروسية»): 4A opens on it, no flash
+      Scene3B.mount("g4", document.getElementById("g4-3b"), { medals: false });
+      document.getElementById("g4-awin").before(document.getElementById("g4-zglow"));
+      const G = Scene3B.G;
       const tl = gsap.timeline({ paused: true });
       const DUR = F(610); // F1388–F1997, the last insert: holds to the final frame
-      Pkg.shell(tl, "g4", DUR, { exit: false });
+      Pkg.shell(tl, "g4", DUR, { exit: false, entry: false, push: [1.055, 1.08], drift: [0.32, 1] });
 
       // ---------- 4A (L0–L120): constellation, then the logo ----------
       const CX = 540, CY = 960, RX = 370, RY = 345;
@@ -185,21 +191,42 @@
       lines.innerHTML = pos.map(([x, y], i) => `<line id="g4-ln${i}" x1="${CX}" y1="${CY}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`).join("");
       gsap.set(["#g4-a1", "#g4-a2", "#g4-a3", "#g4-B", "#g4-C", "#g4-D", "#g4-logo", "#g4-halo", "#g4-ring", "#g4-cursor"], { opacity: 0 });
 
-      tl.fromTo("#g4-aglow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: L(12), ease: "expo.out" }, L(2));
-      tl.fromTo("#g4-awin", { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: L(9), ease: "back.out(2)" }, L(3));
-      // the eleven icons from GAP 2 and GAP 3 fly in from beyond the frame and settle on the ring
+      // L0–L8 = the pause before «كيعكس» (46.27–46.57 s): 3B's picture holds with only a subtle float
+      gsap.set("#g4-awin", { x: G.bust.x, y: G.bust.y, scale: G.bust.scale });
+      gsap.set("#g4-shoeglow", { opacity: 0.25 });
+      gsap.set(["#g4-cdot", "#g4-aglow"], { opacity: 0 });
+      tl.to("#g4-abust", { y: -4, duration: L(9), ease: "sine.inOut" }, 0);
+      tl.to("#g4-abust", { y: 0, duration: L(12), ease: "sine.inOut" }, L(9));
+      tl.to("#g4-horse", { y: -3, duration: L(9), ease: "sine.inOut" }, 0);
+      // «كيعكس» L9: the horseshoe opens (both arms swing out from the top), horse and connector fold away
+      tl.to("#g4-shoeL", { attr: { transform: "rotate(26 535 620)" }, opacity: 0, duration: L(12), ease: "expo.in" }, L(9));
+      tl.to("#g4-shoeR", { attr: { transform: "rotate(-26 535 620)" }, opacity: 0, duration: L(12), ease: "expo.in" }, L(9));
+      tl.to("#g4-shoeglow", { opacity: 0, duration: L(8) }, L(9));
+      tl.to("#g4-horse", { opacity: 0, scale: 0.6, duration: L(8), ease: "power2.in" }, L(9));
+      tl.to("#g4-conn", { opacity: 0, duration: L(6) }, L(9));
+      tl.to("#g4-fh", { opacity: 0, y: -40, filter: "blur(10px)", duration: L(8), ease: "power2.in" }, L(12));
+      tl.to("#g4-bring", { scale: 1.35, opacity: 0, duration: L(10), ease: "expo.out" }, L(12));
+      tl.to("#g4-zglow", { opacity: 0, duration: L(10) }, L(12));
+      // she glides to the centre while the eleven icons fly out of the badge into the constellation:
+      // the four value medals leave the ring, the seven duties burst out from her
+      tl.to("#g4-awin", { x: 0, y: 67, duration: L(14), ease: "expo.inOut" }, L(10));
+      tl.fromTo("#g4-aglow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: L(12), ease: "expo.out", immediateRender: false }, L(14));
       bds.forEach((b, i) => {
-        const [x, y, a] = pos[i];
-        const fx = CX + Math.cos(a) * 1100, fy = CY + Math.sin(a) * 1100;
+        const [x, y] = pos[i];
         const ln = "#g4-ln" + i;
         const len = Math.hypot(x - CX, y - CY);
-        gsap.set(ln, { strokeDasharray: len, strokeDashoffset: len });
-        tl.fromTo(b, { x: fx, y: fy, scale: 0.5, opacity: 0 }, { x, y, scale: 1, opacity: 1, duration: L(14), ease: "expo.out" }, L(4 + i * 1.5));
-        tl.to(ln, { strokeDashoffset: 0, duration: L(10), ease: "power2.out" }, L(12 + i * 1.5));
+        gsap.set(ln, { strokeDasharray: `${len} ${len + 40}`, strokeDashoffset: len + 2 }); // no round-cap dot before it draws
+        if (i < 7) {
+          tl.fromTo(b, { x: G.cx, y: G.cy, scale: 0.2, opacity: 0 }, { x, y, scale: 1, opacity: 1, duration: L(14), ease: "expo.out" }, L(12 + i * 1.2));
+        } else {
+          const [mx, my] = G.md[i - 7];
+          tl.fromTo(b, { x: mx, y: my, scale: 1, opacity: 1 }, { x, y, duration: L(14), ease: "expo.inOut" }, L(12 + (i - 7) * 1.5));
+        }
+        tl.to(ln, { strokeDashoffset: 0, duration: L(10), ease: "power2.out" }, L(20 + i * 1.2));
       });
-      // slow orbit: the ring turns, each badge counter-turns to stay upright
-      tl.fromTo("#g4-orbit", { rotation: 0 }, { rotation: 16, duration: L(78), ease: "none", immediateRender: false }, L(4));
-      tl.fromTo(bds, { rotation: 0 }, { rotation: -16, duration: L(78), ease: "none", immediateRender: false }, L(4));
+      // slow orbit once they have landed: lines and icons turn together, each icon counter-turns to stay upright
+      tl.fromTo(["#g4-orbit", "#g4-orbit2"], { rotation: 0 }, { rotation: 14, duration: L(58), ease: "none", immediateRender: false }, L(24));
+      tl.fromTo(bds, { rotation: 0 }, { rotation: -14, duration: L(58), ease: "none", immediateRender: false }, L(24));
       // تنوع L24 · المهارات L39 · والكفاءات L59 (the constellation pulses once)
       [["#g4-a1", 24], ["#g4-a2", 39], ["#g4-a3", 59]].forEach(([s, f]) => Pkg.revealWord(tl, s, L(f), { dur: L(9) }));
       tl.to(bds, { scale: 1.16, duration: L(4), ease: "sine.out", stagger: L(0.5) }, L(59));

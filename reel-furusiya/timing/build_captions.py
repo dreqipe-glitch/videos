@@ -1,5 +1,5 @@
 """Builds reel-furusiya/hf/compositions/captions.html from words-aligned.json (MMS alignment of the reference script).
-Captions only cover the footage: F131–F847, F918–F1099, F1263–F1387. The style is reel 1's (shared render_captions)."""
+Captions only cover the footage: F131–F847 and F918–F1099 (F1263–F1387 became motion graphics, scene 3B). The style is reel 1's (shared render_captions)."""
 import json, pathlib, sys
 here = pathlib.Path(__file__).parent
 sys.path.insert(0, str(here.parent.parent / "reel-gendarmerie/timing"))
@@ -18,9 +18,6 @@ SECTIONS = [
     ]),
     (918 / 30, 1100 / 30, [
         W(55, 56, 57), W(58, 59), W(60, 61), W(62, 63, 64), W(65, 66),
-    ]),
-    (1263 / 30, 1388 / 30, [
-        W(78, 79), W(80, 81, 82), W(83, 84),
     ]),
 ]
 
