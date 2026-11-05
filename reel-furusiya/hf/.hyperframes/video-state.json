@@ -226,8 +226,8 @@
   },
   "checks": {
     "latest": {
-      "revision": "6d4b881f-8959-4416-82a7-10c0d4cf6581",
-      "id": "3a3e6f88-6c5d-413d-bd57-600f80a5b6c6"
+      "revision": null,
+      "id": "d1cfc70b-6035-4759-9db5-7d3ae53e6742"
     },
     "revisions": {
       "f0c15406-45ec-4c3f-976a-b64b2ceada58": [
@@ -264,7 +264,6 @@
         {
           "id": "3a3e6f88-6c5d-413d-bd57-600f80a5b6c6",
           "scope": "project",
-          "report": "/home/user/videos/reel-furusiya/hf/.hyperframes/artifacts/checks/3a3e6f88-6c5d-413d-bd57-600f80a5b6c6.json",
           "metadata": {
             "ok": true,
             "browserSkipped": false,
@@ -286,7 +285,9 @@
           "revision": "6d4b881f-8959-4416-82a7-10c0d4cf6581",
           "inputFingerprint": "90a35ad62c33489e8b57dcd853f426116e77b4bd4517ef6cdea1638b1a3e8e52",
           "inputScope": "local-project-files",
-          "attribution": "recorded-revision"
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "60ac6f25-2222-4c8e-920d-6af64722bd29"
         }
       ]
     },
@@ -1796,13 +1797,14 @@
   },
   "renders": {
     "latest": {
-      "id": "89f3ffd2-f5e6-47bc-9bd8-d2bed4e6adfa",
-      "completedAt": 1793878201501,
-      "output": "/home/user/videos/reel-furusiya/hf/renders/captions.mov",
+      "id": "60ac6f25-2222-4c8e-920d-6af64722bd29",
+      "completedAt": 1793888486692,
+      "output": "/home/user/videos/reel-furusiya/hf/renders/inserts_full.mp4",
       "status": "completed",
-      "revision": "be9d86b2-ba8e-4eb7-9539-58affd990e1b"
+      "revision": "d33f16a5-3881-4a1c-b286-d47e00b61f71"
     },
     "retainedRevisions": [
+      "d33f16a5-3881-4a1c-b286-d47e00b61f71",
       "be9d86b2-ba8e-4eb7-9539-58affd990e1b"
     ]
   },
