@@ -2,6 +2,7 @@
 <html
   lang="ar"
   data-resolution="portrait"
+  data-composition-variables='[{"id":"bridge","type":"string","label":"Bridge: last frame of the reel (fades to navy over F0–F4)","default":"assets/outro_last_frame.png"}]'
 >
   <head>
     <meta charset="UTF-8" />
@@ -13,15 +14,20 @@
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #05080F; }
       #root { width: 100%; height: 100%; position: relative; }
+      #bridge { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="2.7" data-fps="30" data-width="1080" data-height="1920">
       <audio id="voice" src="assets/audio/tag_voice.wav" data-start="0" data-duration="2.7" data-track-index="2"></audio>
+      <img id="bridge" class="clip" data-var-src="bridge" src="assets/outro_last_frame.png" alt="" data-start="0" data-duration="0.1667" data-track-index="3" />
       <div id="tag" class="clip" data-composition-id="tag" data-composition-src="compositions/tag.html" data-variable-values='{"opt":"1"}' data-start="0" data-duration="2.7" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
     </div>
     <script>
-      window.__timelines["main"] = gsap.timeline({ paused: true });
+      // each reel passes its own last frame as "bridge"; it fades to navy over the tag's first 4 frames
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#bridge", { opacity: 1 }, { opacity: 0, duration: 4 / 30, ease: "power1.in" }, 0);
+      window.__timelines["main"] = tl;
     </script>
   </body>
 </html>

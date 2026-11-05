@@ -14,7 +14,6 @@
     #t-w2txt { position: relative; }
     #t-ul { position: absolute; left: 6%; right: 6%; bottom: 34px; height: 16px; border-radius: 8px; transform-origin: 100% 50%; transform: scaleX(0);
       background: var(--pink); box-shadow: 0 0 18px rgba(255,149,165,0.6); }
-    #t-bridge { position: absolute; inset: 0; background: url("assets/outro_last_frame.png") center / cover no-repeat; }
     #t-flash { position: absolute; inset: 0; background: #FFFFFF; opacity: 0; }
     #t-black { position: absolute; inset: 0; background: #000; opacity: 0; }
   </style>
@@ -30,7 +29,6 @@
       </div>
       <div class="pkg-vignette"></div>
       <div class="pkg-grain" id="t-grain"></div>
-      <div id="t-bridge"></div>
       <div id="t-flash"></div>
       <div id="t-black"></div>
     </div>
@@ -49,8 +47,7 @@
       gsap.set("#t-w2txt", { color: opt === "2" ? "#F4F1EA" : "#FF95A5" });
       gsap.set("#t-ul", { display: opt === "2" ? "block" : "none" });
 
-      // bridge: the outro's last frame fades to navy in 4 frames
-      tl.fromTo("#t-bridge", { opacity: 1 }, { opacity: 0, duration: F(4), ease: "power1.in" }, 0);
+      // bridge F0–F4: the reel's last frame fading to navy lives in index.html (its image is a per-reel variable)
 
       // «سْلَاامْ» writes in right-to-left across the stretched vowel, its width easing from stretched to normal
       // (a horizontal stretch: animated letter-spacing would break the Arabic joins and snap per frame)
