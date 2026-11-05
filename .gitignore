@@ -21,3 +21,9 @@ series-intro/hf16/renders/
 end-tag/hf/.hyperframes/artifacts/
 end-tag/hf/.hyperframes/video-state-lock
 end-tag/hf/renders/
+# Furusiya reel: scratch output, derived audio and the source footage (kept local)
+reel-furusiya/timing/vo16k.wav
+reel-furusiya/hf/.hyperframes/artifacts/
+reel-furusiya/hf/.hyperframes/video-state-lock
+reel-furusiya/hf/renders/
+reel-furusiya/hf/assets/media/

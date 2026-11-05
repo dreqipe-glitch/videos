@@ -1,6 +1,8 @@
 /* Female gendarme bust icon for the intro (head and shoulders, front view), drawn once in three treatments:
    "flat" (geometric, solid fills), "duo" (pink + off-white on navy), "soft" (gradients and soft shadows).
-   Bust.svg(style, id) returns an SVG string, viewBox 600 × 660. The cap badge is a simple dot, not the emblem. */
+   Bust.svg(style, id, outfit) returns an SVG string, viewBox 600 × 660. The cap badge is a simple dot, not the emblem.
+   outfit: "kepi" (default: kepi, jacket, cross strap) or "riding" (equestrian: riding helmet, crew-neck sweater, chest patch).
+   The head and face are the same in every outfit. */
 (function () {
   const PAL = {
     flat: {
@@ -21,9 +23,25 @@
     },
   };
   PAL.soft = PAL.flat;
+  const RIDE = {
+    flat: {
+      sweater: "#26335A", sweaterShade: "#121A2E", rib: "#1A2440", stripe: "#6F86AE", tape: "#D3DCEA", tapeLine: "#8D9AB0",
+      loop: "#1A2440", loopBtn: "#C9CFD9", patch: "#FF95A5", patchRing: "#D9DEE6",
+      helmet: "#1A1D24", peak: "#0B0D12", vent: "#D5DAE2", harness: "#0E1118",
+    },
+    duo: {
+      sweater: "#FF95A5", sweaterShade: "#E5677D", rib: "#E5677D", stripe: "#F4F1EA", tape: "#F4F1EA", tapeLine: "#E5677D",
+      loop: "#E5677D", loopBtn: "#F4F1EA", patch: "#0B1320", patchRing: "#F4F1EA",
+      helmet: "#0B1320", peak: "#0B1320", vent: "#FF95A5", harness: "#0B1320",
+    },
+  };
+  RIDE.soft = RIDE.flat;
+  const BODY = "M44,660 C44,566 96,504 178,480 L262,446 Q300,474 338,446 L422,480 C504,504 556,566 556,660 Z";
 
-  function svg(style, id) {
+  function svg(style, id, outfit = "kepi") {
     const c = PAL[style];
+    const riding = outfit === "riding";
+    const r = RIDE[style];
     const soft = style === "soft";
     const g = (name, a, b, x2 = 0.35, y2 = 1) => soft
       ? `<linearGradient id="${id}-${name}" x1="0" y1="0" x2="${x2}" y2="${y2}"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`
@@ -41,6 +59,9 @@
       ${g("hair", "#43301F", "#1E140E", 0.3, 1)}
       ${g("strap", "#FFFFFF", "#DAD5CB", 0.5, 1)}
       ${g("shirt", "#EEF3F9", "#C9D6E6", 0, 1)}
+      ${riding ? `${g("sweater", "#3A4C78", "#141C31")}
+      <radialGradient id="${id}-helmet" cx="0.36" cy="0.28" r="0.85"><stop offset="0" stop-color="#4A505E"/><stop offset="0.55" stop-color="#191C23"/><stop offset="1" stop-color="#08090C"/></radialGradient>
+      <radialGradient id="${id}-patch" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#FFE1E6"/><stop offset="0.6" stop-color="#FF95A5"/><stop offset="1" stop-color="#E5677D"/></radialGradient>` : ""}
       <radialGradient id="${id}-badge" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#FFE1E6"/><stop offset="0.6" stop-color="#FF95A5"/><stop offset="1" stop-color="#E5677D"/></radialGradient>
       <filter id="${id}-sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#05080F" flood-opacity="0.45"/></filter>
       <filter id="${id}-blur" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
@@ -50,6 +71,21 @@
     const sh2 = soft ? `filter="url(#${id}-sh2)"` : "";
     return `<svg viewBox="0 0 600 660" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${defs}
   <g id="${id}-shoulders">
+  ${riding ? `
+    <clipPath id="${id}-body"><path d="${BODY}"/></clipPath>
+    <path d="${BODY}" fill="${f("sweater", r.sweater)}"/>
+    <g clip-path="url(#${id}-body)">
+      <path d="M342,446 L422,480 C504,504 556,566 556,660 L410,660 C420,590 400,520 342,446 Z" fill="${r.sweaterShade}" opacity="${soft ? 0.35 : 0.5}"/>
+      <path d="M40,560 Q300,540 560,560 L560,574 Q300,554 40,574 Z" fill="${r.stripe}" opacity="0.55"/>
+    </g>
+    <path d="M150,498 L236,464 L244,482 L160,516 Z" fill="${r.loop}"/>
+    <path d="M450,498 L364,464 L356,482 L440,516 Z" fill="${r.loop}"/>
+    <circle cx="228" cy="476" r="5" fill="${r.loopBtn}"/><circle cx="372" cy="476" r="5" fill="${r.loopBtn}"/>
+    <rect x="196" y="512" width="70" height="16" rx="3" fill="${r.tape}" opacity="0.9"/>
+    <path d="M206,520 L256,520" stroke="${r.tapeLine}" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+    <path d="M354,506 L390,506 L390,530 Q390,548 372,556 Q354,548 354,530 Z" fill="${soft ? `url(#${id}-patch)` : r.patch}" stroke="${r.patchRing}" stroke-width="4" stroke-linejoin="round" ${sh2}/>
+    <path d="M362,522 L372,530 L382,522 M362,534 L372,542 L382,534" stroke="${r.patchRing}" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  ` : `
     <path d="M44,660 C44,566 96,504 178,480 L258,444 L300,504 L342,444 L422,480 C504,504 556,566 556,660 Z" fill="${f("jacket", c.jacket)}"/>
     <path d="M342,444 L422,480 C504,504 556,566 556,660 L410,660 C420,590 400,520 342,444 Z" fill="${c.jacketShade}" opacity="${soft ? 0.35 : 0.55}"/>
     <path d="M258,444 L300,532 L342,444 L326,432 L300,482 L274,432 Z" fill="${f("shirt", c.shirt)}"/>
@@ -61,12 +97,15 @@
     <circle cx="228" cy="474" r="5.5" fill="${c.button}"/><circle cx="372" cy="474" r="5.5" fill="${c.button}"/>
     <path d="M392,470 L420,482 L248,660 L208,660 Z" fill="${f("strap", c.strap)}" ${sh2}/>
     <path d="M406,478 L420,482 L248,660 L230,660 Z" fill="${c.strapShade}" opacity="${style === "duo" ? 0 : 0.6}"/>
+  `}
   </g>
   <g id="${id}-headg" ${sh}>
     <ellipse cx="394" cy="356" rx="42" ry="40" fill="${f("hair", c.hair)}"/>
     <path d="M378,334 Q396,326 414,336" stroke="${c.hairLight}" stroke-width="6" fill="none" stroke-linecap="round"/>
     <path d="M196,250 C190,300 196,350 214,384 L386,384 C404,350 410,300 404,250 Z" fill="${f("hair", c.hair)}"/>
     <path d="M264,380 L264,452 C264,470 336,470 336,452 L336,380 Z" fill="${f("neck", c.neck)}"/>
+    ${riding ? `<path d="M252,446 Q300,486 348,446 L360,462 Q300,512 240,462 Z" fill="${r.rib}"/>
+    <path d="M256,458 Q300,494 344,458" stroke="${r.sweater}" stroke-width="2.5" fill="none" opacity="0.7"/>` : ""}
     <ellipse cx="210" cy="318" rx="15" ry="25" fill="${c.ear}"/><ellipse cx="390" cy="318" rx="15" ry="25" fill="${c.ear}"/>
     <path d="M212,262 C212,214 388,214 388,262 L388,318 C388,380 346,422 300,422 C254,422 212,380 212,318 Z" fill="${f("skin", c.skin)}"/>
     <path d="M388,262 L388,318 C388,380 346,422 300,422 C336,410 366,372 370,318 L372,262 Z" fill="${c.skinShade}" opacity="${soft ? 0.35 : 0.5}"/>
@@ -84,6 +123,17 @@
     <path d="M283,377 Q300,394 317,377 Q300,386 283,377 Z" fill="${c.lipLow}"/>`}
     <path d="M214,262 C250,294 350,294 386,262 L386,284 C352,312 248,312 214,284 Z" fill="${c.skinShade}" opacity="${soft ? 0.55 : 0.6}" ${soft ? `filter="url(#${id}-blur)"` : ""}/>
     <g id="${id}-cap">
+    ${riding ? `
+      <path d="M212,280 Q222,352 262,404 Q282,424 300,428 Q318,424 338,404 Q378,352 388,280" stroke="${r.harness}" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.92"/>
+      <path d="M192,272 C184,196 236,150 300,150 C364,150 416,196 408,272 Q300,252 192,272 Z" fill="${soft ? `url(#${id}-helmet)` : r.helmet}"/>
+      <path d="M204,262 Q300,240 396,262 L392,284 Q300,262 208,284 Z" fill="${r.peak}"/>
+      <path d="M216,272 Q300,254 384,272" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round" opacity="${soft ? 0.18 : 0}"/>
+      <path d="M266,206 Q276,178 294,172 Q288,196 276,214 Z" fill="${r.vent}"/>
+      <path d="M334,206 Q324,178 306,172 Q312,196 324,214 Z" fill="${r.vent}"/>
+      <path d="M232,226 Q238,200 254,190 Q250,212 242,230 Z" fill="${r.vent}" opacity="0.9"/>
+      <path d="M368,226 Q362,200 346,190 Q350,212 358,230 Z" fill="${r.vent}" opacity="0.9"/>
+      ${soft ? `<ellipse cx="262" cy="178" rx="46" ry="16" fill="#FFFFFF" opacity="0.14" transform="rotate(-18 262 178)"/>` : ""}
+    ` : `
       <path d="M146,142 L190,216 L410,216 L454,142 Z" fill="${f("crown", c.crown)}"/>
       <path d="M352,142 L454,142 L410,216 L366,216 Z" fill="${c.crownShade}" opacity="${soft ? 0.3 : 0.55}"/>
       <ellipse cx="300" cy="142" rx="154" ry="34" fill="${f("crownTop", c.crownTop)}"/>
@@ -96,6 +146,7 @@
       ${soft ? `<ellipse cx="262" cy="132" rx="70" ry="12" fill="#FFFFFF" opacity="0.22"/>
       <path d="M214,250 C260,243 340,243 386,250" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.25"/>
       <path d="M452,146 C446,166 428,184 412,212" stroke="#FFC4CD" stroke-width="5" fill="none" opacity="0.4" stroke-linecap="round" filter="url(#${id}-blur)"/>` : ""}
+    `}
     </g>
 
   </g>
