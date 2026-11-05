@@ -1,0 +1,92 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    .g2-abs { position: absolute; }
+    #g2-h { left: 90px; right: 120px; top: 300px; text-align: center; font-weight: 900; font-size: 96px; line-height: 116px; white-space: nowrap; }
+    /* 7 duty tiles in two columns, RTL: right column 1–4 (spoken by the end of this gap), left column 5–7 (still to come) */
+    .g2-tile { position: absolute; width: 425px; height: 170px; border-radius: 34px; display: flex; align-items: center; gap: 14px; padding: 0 18px; direction: rtl;
+      background: linear-gradient(270deg, #182640, #111B2C); border: 3px solid rgba(174,182,196,0.38); box-shadow: 0 20px 44px rgba(0,0,0,0.38); }
+    .g2-tile.r { left: 535px; } .g2-tile.l { left: 90px; }
+    .g2-ic { flex: none; width: 84px; height: 84px; color: var(--ink-2); }
+    .g2-ic svg { width: 100%; height: 100%; }
+    .g2-lb { font-weight: 600; font-size: 52px; line-height: 1.12; color: var(--ink); text-align: right; }
+    .g2-tile.lit { border-color: var(--pink); box-shadow: 0 20px 44px rgba(0,0,0,0.38), 0 0 30px rgba(255,149,165,0.28); }
+    .g2-tile.lit .g2-ic { color: var(--pink); }
+    .g2-chk { position: absolute; left: -12px; top: -12px; width: 46px; height: 46px; border-radius: 50%; background: var(--pink); color: #0B1320; padding: 6px;
+      box-shadow: 0 0 16px rgba(255,149,165,0.7); }
+    .g2-chk svg { width: 100%; height: 100%; stroke-width: 15; }
+    .g2-draw { position: absolute; left: -3px; top: -3px; width: 425px; height: 170px; overflow: visible; }
+    .g2-draw rect { fill: none; stroke: var(--pink-lt); stroke-width: 5; }
+    .g2-burst { position: absolute; right: 10px; top: 33px; width: 104px; height: 104px; border-radius: 50%; border: 5px solid var(--pink); opacity: 0; }
+    #g2-t1 { top: 600px; } #g2-t2 { top: 790px; } #g2-t3 { top: 980px; } #g2-t4 { top: 1170px; }
+    #g2-t5 { top: 695px; } #g2-t6 { top: 885px; } #g2-t7 { top: 1075px; }
+  </style>
+  <div id="root" data-composition-id="g2" data-start="0" data-duration="2.3333" data-width="1080" data-height="1920">
+    <div class="pkg-scene">
+      <div class="pkg-bg" id="g2-bg"></div>
+      <div id="g2-zelhost"></div>
+      <div class="pkg-cam" id="g2-cam">
+        <div class="g2-abs" id="g2-h"><div>مهام الدركية</div><div>في <span class="accent">الفروسية</span></div></div>
+
+        <div class="g2-tile r lit" id="g2-t1"><div class="g2-ic" data-icon="rider"></div><div class="g2-lb">الدوريات الأمنية</div><div class="g2-chk" data-icon="check"></div></div>
+        <div class="g2-tile r lit" id="g2-t2"><div class="g2-ic" data-icon="leaf"></div><div class="g2-lb">حماية البيئة</div><div class="g2-chk" data-icon="check"></div></div>
+        <div class="g2-tile r" id="g2-t3"><div class="g2-ic" id="g2-i3" data-icon="magnifier"></div><div class="g2-lb">البحث</div>
+          <svg class="g2-draw" viewBox="0 0 425 170"><rect id="g2-d3" x="1.5" y="1.5" width="422" height="167" rx="33"/></svg><div class="g2-burst" id="g2-b3"></div><div class="g2-chk" id="g2-c3" data-icon="check"></div></div>
+        <div class="g2-tile r" id="g2-t4"><div class="g2-ic" id="g2-i4" data-icon="shield"></div><div class="g2-lb">حفظ النظام العام</div>
+          <svg class="g2-draw" viewBox="0 0 425 170"><rect id="g2-d4" x="1.5" y="1.5" width="422" height="167" rx="33"/></svg><div class="g2-burst" id="g2-b4"></div><div class="g2-chk" id="g2-c4" data-icon="check"></div></div>
+        <div class="g2-tile l" id="g2-t5"><div class="g2-ic" data-icon="cone"></div><div class="g2-lb">تدريب الخيول</div></div>
+        <div class="g2-tile l" id="g2-t6"><div class="g2-ic" data-icon="care"></div><div class="g2-lb">العناية بالفرس</div></div>
+        <div class="g2-tile l" id="g2-t7"><div class="g2-ic" data-icon="parade"></div><div class="g2-lb">المشاركة في الاستعراضات</div></div>
+      </div>
+      <div class="pkg-vignette"></div>
+      <div class="pkg-grain" id="g2-grain"></div>
+      <div class="pkg-bridge" id="g2-in" style="background-image: url('assets/bridge/f847.jpg')"></div>
+      <div class="pkg-bridge" id="g2-out" style="background-image: url('assets/bridge/f918.jpg')"></div>
+      <div class="pkg-flash" id="g2-flash"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const { F } = Pkg;
+      const root = document.querySelector('[data-composition-id="g2"]');
+      Pkg.mountIcons(root);
+      const tl = gsap.timeline({ paused: true });
+      const DUR = F(70); // F848–F917; local frame n = source frame 848 + n
+      Pkg.shell(tl, "g2", DUR, { exitFrames: 7 });
+
+      const PER = 2 * (422 + 167) - (8 - 2 * Math.PI) * 33;
+      gsap.set(["#g2-d3", "#g2-d4"], { strokeDasharray: PER, strokeDashoffset: PER });
+      gsap.set(["#g2-c3", "#g2-c4"], { scale: 0, opacity: 0 });
+
+      // entry: headline and all tiles land while the flash clears, so every label is readable from ~L8
+      tl.fromTo("#g2-h", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: F(8), ease: "expo.out" }, F(1));
+      const order = ["#g2-t1", "#g2-t2", "#g2-t3", "#g2-t4", "#g2-t5", "#g2-t6", "#g2-t7"];
+      order.forEach((s, i) => {
+        const dim = i >= 2;
+        tl.fromTo(s, { opacity: 0, y: 50, scale: 0.92 }, { opacity: dim ? 0.4 : 1, y: 0, scale: 1, duration: F(8), ease: "back.out(1.8)" }, F(2 + i));
+      });
+      // tile 2 «حماية البيئة» was just spoken: one lit pulse as it lands
+      tl.fromTo("#g2-t2", { boxShadow: "0 20px 44px rgba(0,0,0,0.38), 0 0 30px rgba(255,149,165,0.28)" },
+        { boxShadow: "0 20px 44px rgba(0,0,0,0.38), 0 0 70px rgba(255,149,165,0.85)", duration: F(4), ease: "sine.out", immediateRender: false }, F(8));
+      tl.to("#g2-t2", { boxShadow: "0 20px 44px rgba(0,0,0,0.38), 0 0 30px rgba(255,149,165,0.28)", duration: F(8), ease: "sine.in" }, F(12));
+      tl.fromTo("#g2-t2", { scale: 1 }, { scale: 1.04, duration: F(4), ease: "sine.out", immediateRender: false }, F(8));
+      tl.to("#g2-t2", { scale: 1, duration: F(6), ease: "sine.in" }, F(12));
+
+      // a tile lights on its spoken word: border draws, icon fills, burst, check dot
+      function light(n, f) {
+        tl.to("#g2-t" + n, { opacity: 1, scale: 1.05, duration: F(4), ease: "expo.out" }, F(f));
+        tl.to("#g2-t" + n, { scale: 1, duration: F(8), ease: "back.out(2)" }, F(f + 4));
+        tl.to("#g2-d" + n, { strokeDashoffset: 0, duration: F(9), ease: "power2.out" }, F(f));
+        tl.to("#g2-t" + n, { borderColor: "#FF95A5", boxShadow: "0 20px 44px rgba(0,0,0,0.38), 0 0 40px rgba(255,149,165,0.45)", duration: F(6) }, F(f + 3));
+        tl.to("#g2-i" + n, { color: "#FF95A5", scale: 1.15, duration: F(4), ease: "expo.out" }, F(f));
+        tl.to("#g2-i" + n, { scale: 1, duration: F(6), ease: "back.out(2.5)" }, F(f + 4));
+        tl.fromTo("#g2-b" + n, { opacity: 1, scale: 0.6 }, { opacity: 0, scale: 1.9, duration: F(10), ease: "expo.out", immediateRender: false }, F(f + 1));
+        tl.to("#g2-c" + n, { opacity: 1, scale: 1, duration: F(6), ease: "back.out(3)" }, F(f + 3));
+      }
+      light(3, 20); // «البحث» F868
+      light(4, 46); // «حفظ النظام العام» F894
+
+      window.__timelines["g2"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,330 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    .g4-abs { position: absolute; }
+    .g4-c { position: absolute; left: 90px; right: 120px; text-align: center; font-weight: 900; font-size: 96px; line-height: 116px; white-space: nowrap; }
+    .g4-win { -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%); }
+    .g4-win > div { position: absolute; inset: 0; transform-origin: 50% 100%; }
+    .g4-win svg { width: 100%; height: 100%; display: block; }
+
+    /* 4A: constellation of the 7 duties + 4 values around her, then the Gendarmerie logo */
+    #g4-ah { top: 300px; }
+    #g4-aglow { left: 240px; top: 660px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(255,149,165,0.24), rgba(255,149,165,0) 66%); }
+    #g4-awin { left: 390px; top: 790px; width: 300px; height: 334px; }
+    #g4-orbit { left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 540px 960px; }
+    #g4-lines { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+    #g4-lines line { stroke: var(--pink); stroke-width: 3; stroke-linecap: round; opacity: 0.55; }
+    .g4-bd { position: absolute; left: 0; top: 0; width: 104px; height: 104px; margin: -52px 0 0 -52px; border-radius: 50%; padding: 20px; color: var(--pink);
+      background: #141E2E; border: 3px solid rgba(255,149,165,0.75); box-shadow: 0 10px 26px rgba(0,0,0,0.4), 0 0 18px rgba(255,149,165,0.25); }
+    .g4-bd svg { width: 100%; height: 100%; }
+    #g4-halo { left: 230px; top: 560px; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(255,149,165,0.3), rgba(255,149,165,0) 65%); }
+    #g4-ring { left: 280px; top: 610px; width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,196,205,0) 46%, rgba(255,196,205,0.55) 50%, rgba(255,149,165,0.18) 58%, rgba(255,149,165,0) 70%); }
+    #g4-logo { left: 360px; top: 606px; width: 360px; height: 528px; }
+    .logo-shine { position: absolute; inset: 0; overflow: hidden; -webkit-mask-image: url("assets/logo.png"); mask-image: url("assets/logo.png"); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+
+    /* 4B: tribute */
+    #g4-bglow { left: 240px; top: 250px; width: 600px; height: 560px; border-radius: 50%; background: radial-gradient(ellipse, rgba(255,149,165,0.32), rgba(255,149,165,0) 66%); }
+    #g4-bwin { left: 370px; top: 330px; width: 340px; height: 380px; }
+    #g4-b1 { top: 760px; } #g4-b2 { top: 876px; }
+    #g4-b3 { top: 1088px; } #g4-b4 { top: 1204px; }
+    #g4-acc { left: 290px; width: 500px; top: 1010px; height: 50px; }
+    #g4-acc .ln { position: absolute; top: 23px; height: 4px; border-radius: 2px; }
+    #g4-accr { right: 0; width: 210px; background: linear-gradient(270deg, rgba(193,39,45,0), #C1272D); transform-origin: 0 50%; }
+    #g4-accg { left: 0; width: 210px; background: linear-gradient(90deg, rgba(0,98,51,0), #1F9A5A); transform-origin: 100% 50%; }
+    #g4-star { position: absolute; left: 225px; top: 0; width: 50px; height: 50px; overflow: visible; }
+    #g4-star path { fill: none; stroke: #1F9A5A; stroke-width: 4; stroke-linejoin: round; }
+    #g4-bswz { left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+    #g4-bsw { width: 46%; }
+
+    /* 4C: the question */
+    #g4-qw { left: 340px; top: 300px; width: 400px; height: 460px; }
+    #g4-q { position: absolute; inset: 0; transform-origin: 50% 70%; }
+    #g4-q .g { position: absolute; inset: 0; font-weight: 900; font-size: 400px; line-height: 460px; text-align: center; }
+    #g4-q .glow { color: var(--pink); filter: blur(28px); opacity: 0.6; }
+    #g4-q .face { color: transparent; background: linear-gradient(165deg, var(--pink-lt) 0%, var(--pink) 45%, var(--pink-dk) 100%); -webkit-background-clip: text; background-clip: text; }
+    #g4-crider { left: 150px; top: 470px; width: 160px; height: 160px; color: var(--pink); }
+    #g4-crider svg { width: 100%; height: 100%; }
+    #g4-c1, #g4-c2, #g4-c3 { font-size: 90px; line-height: 110px; }
+    #g4-c1 { top: 800px; } #g4-c2 { top: 910px; } #g4-c3 { top: 1020px; }
+    .g4-bub { position: absolute; width: 200px; height: 130px; }
+    .g4-bub .b { position: absolute; inset: 0; border-radius: 34px; background: rgba(20,30,46,0.95); border: 3px solid rgba(255,149,165,0.7); box-shadow: 0 16px 34px rgba(0,0,0,0.4); }
+    .g4-bub .tail { position: absolute; bottom: -18px; width: 34px; height: 34px; background: rgba(20,30,46,0.95); border-right: 3px solid rgba(255,149,165,0.7); border-bottom: 3px solid rgba(255,149,165,0.7); transform: rotate(45deg); }
+    .g4-bub i { position: absolute; top: 54px; width: 22px; height: 22px; border-radius: 50%; background: var(--pink); }
+    #g4-u1 { left: 690px; top: 1200px; } #g4-u2 { left: 160px; top: 1250px; } #g4-u3 { left: 430px; top: 1340px; }
+
+    /* 4D: CTA (reel 1 outro, compressed); the avatar is the brand overlay's, flying to the centre */
+    .g4-row { position: absolute; left: 90px; width: 870px; display: flex; align-items: center; gap: 40px; direction: rtl; transform-origin: 100% 0; }
+    .g4-tile { flex: none; width: 170px; height: 170px; border-radius: 40px; background: rgba(20,30,46,0.92); border: 4px solid rgba(255,149,165,0.7); color: var(--pink); padding: 30px; position: relative; }
+    .g4-tile svg { width: 100%; height: 100%; }
+    .g4-txt { font-weight: 900; font-size: 74px; line-height: 1.2; color: var(--ink); white-space: nowrap; }
+    #g4-r1 { top: 520px; } #g4-r2 { top: 800px; }
+    .g4-dot { position: absolute; top: 58px; width: 15px; height: 15px; border-radius: 50%; background: var(--pink); }
+    #g4-share-ar { position: absolute; inset: 30px; }
+    #g4-follow { left: 280px; top: 790px; width: 520px; height: 128px; border-radius: 70px; background: var(--pink); color: #0B1320; display: flex; align-items: center; justify-content: center; gap: 24px;
+      box-shadow: 0 16px 44px rgba(229,103,125,0.45); }
+    #g4-follow .ic { width: 76px; height: 76px; }
+    #g4-follow .ic svg { width: 100%; height: 100%; stroke-width: 10; }
+    #g4-follow .lb { font-weight: 900; font-size: 70px; line-height: 1; padding-bottom: 10px; }
+    #g4-done { position: absolute; inset: 0; border-radius: 70px; background: var(--pink-dk); border: 4px solid var(--pink-lt); color: #fff; display: flex; align-items: center; justify-content: center; gap: 18px; font-weight: 900; font-size: 66px; padding-bottom: 8px; }
+    #g4-done .ic { width: 70px; height: 70px; }
+    #g4-done .ic svg { width: 100%; height: 100%; stroke-width: 13; }
+    #g4-ripple { left: 470px; top: 784px; width: 140px; height: 140px; border-radius: 50%; border: 6px solid #FFF0F3; }
+    .g4-spark { position: absolute; width: 14px; height: 40px; border-radius: 7px; background: var(--pink); left: 533px; top: 834px; }
+    #g4-cursor { left: 540px; top: 850px; width: 92px; height: 110px; }
+    #g4-cursor svg { width: 100%; height: 100%; overflow: visible; }
+    #g4-social { left: 90px; width: 870px; top: 962px; height: 112px; overflow: hidden; }
+    .g4-sb { position: absolute; top: 0; width: 110px; height: 110px; border-radius: 50%; background: #FFFFFF; border: 4px solid var(--pink); display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.35); }
+    .g4-sb svg { width: 58px; height: 58px; }
+    #g4-fb { left: 240px; } #g4-tt { left: 395px; } #g4-ig { left: 550px; }
+    #g4-socsweep { position: absolute; top: -10%; bottom: -10%; width: 26%; left: -30%; opacity: 0;
+      background: linear-gradient(100deg, rgba(255,222,228,0) 0%, rgba(255,222,228,0.75) 50%, rgba(255,222,228,0) 100%); mix-blend-mode: screen; }
+  </style>
+  <div id="root" data-composition-id="g4" data-start="0" data-duration="20.3333" data-width="1080" data-height="1920" data-layout-allow-overlap>
+    <div class="pkg-scene">
+      <div class="pkg-bg" id="g4-bg"></div>
+      <div id="g4-zelhost"></div>
+      <div class="pkg-cam" id="g4-cam">
+        <div id="g4-shake" class="pkg-layer">
+          <!-- 4A -->
+          <div id="g4-A" class="pkg-layer">
+            <div class="g4-c" id="g4-ah"><div><span class="w" id="g4-a1">تنوع</span> <span class="w accent" id="g4-a2">المهارات</span></div><div><span class="w accent" id="g4-a3">والكفاءات</span></div></div>
+            <div class="g4-abs" id="g4-aglow"></div>
+            <div class="g4-abs" id="g4-orbit">
+              <svg id="g4-lines" viewBox="0 0 1080 1920"></svg>
+              <div class="g4-bd" data-icon="rider"></div><div class="g4-bd" data-icon="leaf"></div><div class="g4-bd" data-icon="magnifier"></div>
+              <div class="g4-bd" data-icon="shield"></div><div class="g4-bd" data-icon="cone"></div><div class="g4-bd" data-icon="care"></div>
+              <div class="g4-bd" data-icon="parade"></div><div class="g4-bd" data-icon="hourglass"></div><div class="g4-bd" data-icon="arm"></div>
+              <div class="g4-bd" data-icon="target"></div><div class="g4-bd" data-icon="chevrons"></div>
+            </div>
+            <div class="g4-abs g4-win" id="g4-awin"><div id="g4-abust"></div></div>
+            <div class="g4-abs" id="g4-halo"></div>
+            <div class="g4-abs" id="g4-ring"></div>
+            <div class="logo g4-abs" id="g4-logo"><img src="assets/logo.png" alt="" /><div class="logo-shine"><div class="sweep" id="g4-lsw"></div></div></div>
+          </div>
+          <!-- 4B -->
+          <div id="g4-B" class="pkg-layer">
+            <div class="g4-abs" id="g4-bglow"></div>
+            <div class="g4-abs g4-win" id="g4-bwin"><div id="g4-bbust"></div></div>
+            <div class="g4-c" id="g4-b1"><span class="w" id="g4-bw1">تحية</span> <span class="w" id="g4-bw2">تقدير</span> <span class="w" id="g4-bw3">لكل</span></div>
+            <div class="g4-c" id="g4-b2"><span class="w accent" id="g4-bw4">نساء</span> <span class="w accent" id="g4-bw5">الدرك</span> <span class="w accent" id="g4-bw6">الملكي</span></div>
+            <div class="g4-abs" id="g4-acc"><div class="ln" id="g4-accr"></div><div class="ln" id="g4-accg"></div>
+              <svg id="g4-star" viewBox="0 0 50 50"><path id="g4-starp" d="M25,3 L31.5,19 L48,19 L35,29.5 L40,46 L25,36 L10,46 L15,29.5 L2,19 L18.5,19 Z"/></svg></div>
+            <div class="g4-c" id="g4-b3"><span class="w" id="g4-bw7">في</span> <span class="w" id="g4-bw8">خدمة</span> <span class="w accent" id="g4-bw9">الوطن</span></div>
+            <div class="g4-c" id="g4-b4"><span class="w" id="g4-bw10">والمواطنين</span></div>
+            <div class="g4-abs" id="g4-bswz"><div class="sweep" id="g4-bsw"></div></div>
+          </div>
+          <!-- 4C -->
+          <div id="g4-C" class="pkg-layer">
+            <div class="g4-abs" id="g4-qw"><div id="g4-q"><div class="g glow" id="g4-qglow">؟</div><div class="g face">؟</div></div></div>
+            <div class="g4-abs" id="g4-crider" data-icon="rider"></div>
+            <div class="g4-c" id="g4-c1"><span class="w" id="g4-cw1">شنو</span> <span class="w" id="g4-cw2">رأيكم</span> <span class="w" id="g4-cw3">في</span> <span class="w" id="g4-cw4">حضور</span></div>
+            <div class="g4-c" id="g4-c2"><span class="w" id="g4-cw5">المرأة</span> <span class="w" id="g4-cw6">الدركية</span></div>
+            <div class="g4-c" id="g4-c3"><span class="w" id="g4-cw7">في</span> <span class="w" id="g4-cw8">مجال</span> <span class="w accent" id="g4-cw9">الفروسية؟</span></div>
+            <div class="g4-bub" id="g4-u1"><div class="tail" style="left:40px"></div><div class="b"></div><i style="left:52px"></i><i style="left:89px"></i><i style="left:126px"></i></div>
+            <div class="g4-bub" id="g4-u2"><div class="tail" style="right:40px"></div><div class="b"></div><i style="left:52px"></i><i style="left:89px"></i><i style="left:126px"></i></div>
+            <div class="g4-bub" id="g4-u3"><div class="tail" style="left:83px"></div><div class="b"></div><i style="left:52px"></i><i style="left:89px"></i><i style="left:126px"></i></div>
+          </div>
+          <!-- 4D -->
+          <div id="g4-D" class="pkg-layer">
+            <div class="g4-row" id="g4-r1">
+              <div class="g4-tile" id="g4-t1"><span data-icon="comment"></span>
+                <div class="g4-dot" id="g4-d1" style="left:56px"></div><div class="g4-dot" id="g4-d2" style="left:78px"></div><div class="g4-dot" id="g4-d3" style="left:100px"></div>
+              </div>
+              <div class="g4-txt"><div><span class="w" id="g4-dw1">خلّيو</span> <span class="w" id="g4-dw2">لينا</span> <span class="w" id="g4-dw3">آراءكم</span></div><div><span class="w" id="g4-dw4">في</span> <span class="w accent" id="g4-dw5">التعاليق</span></div></div>
+            </div>
+            <div class="g4-row" id="g4-r2">
+              <div class="g4-tile" id="g4-t2"><div id="g4-share-ar" data-icon="share"></div></div>
+              <div class="g4-txt"><span class="w" id="g4-dw6">بارتاجيو</span> <span class="w accent" id="g4-dw7">الفيديو</span></div>
+            </div>
+            <div class="g4-abs" id="g4-follow">
+              <div class="ic" data-icon="follow"></div><div class="lb">تابع</div>
+              <div id="g4-done"><div class="ic" data-icon="check"></div><div>متابَع</div></div>
+            </div>
+            <div class="g4-abs" id="g4-ripple"></div>
+            <div class="g4-spark" id="g4-s1"></div><div class="g4-spark" id="g4-s2"></div><div class="g4-spark" id="g4-s3"></div>
+            <div class="g4-spark" id="g4-s4"></div><div class="g4-spark" id="g4-s5"></div><div class="g4-spark" id="g4-s6"></div>
+            <div class="g4-abs" id="g4-social">
+              <div class="g4-sb" id="g4-fb"><svg viewBox="0 0 24 24"><path fill="#0866FF" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></div>
+              <div class="g4-sb" id="g4-tt"><svg viewBox="0 0 24 24"><path fill="#000000" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></div>
+              <div class="g4-sb" id="g4-ig"><svg viewBox="0 0 24 24"><path fill="#FF0069" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></div>
+              <div id="g4-socsweep"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- tapping finger, above the camera layer so it stays crisp -->
+      <div class="g4-abs" id="g4-cursor"><svg viewBox="0 0 100 120"><path d="M38,8 C44,8 48,12 48,18 L48,52 L52,52 C52,46 64,46 64,52 L64,56 C64,50 76,50 76,56 L76,60 C76,54 88,54 88,60 L88,86 C88,104 76,114 60,114 L50,114 C40,114 32,108 26,98 L12,72 C8,66 16,58 24,64 L28,68 L28,18 C28,12 32,8 38,8 Z" fill="#FFFFFF" stroke="#0B1320" stroke-width="5" stroke-linejoin="round"/></svg></div>
+      <div class="pkg-vignette"></div>
+      <div class="pkg-grain" id="g4-grain"></div>
+      <div class="pkg-bridge" id="g4-in" style="background-image: url('assets/bridge/f1387.jpg')"></div>
+      <div class="pkg-flash" id="g4-flash"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const { F } = Pkg;
+      const L = (n) => F(n); // local frame n = source frame 1388 + n
+      const root = document.querySelector('[data-composition-id="g4"]');
+      Pkg.mountIcons(root);
+      document.getElementById("g4-abust").innerHTML = Bust.svg("soft", "g4a", "riding");
+      document.getElementById("g4-bbust").innerHTML = Bust.svg("soft", "g4b", "riding");
+      const tl = gsap.timeline({ paused: true });
+      const DUR = F(610); // F1388–F1997, the last insert: holds to the final frame
+      Pkg.shell(tl, "g4", DUR, { exit: false });
+
+      // ---------- 4A (L0–L120): constellation, then the logo ----------
+      const CX = 540, CY = 960, RX = 370, RY = 345;
+      const bds = [...root.querySelectorAll(".g4-bd")];
+      const lines = document.getElementById("g4-lines");
+      const pos = bds.map((b, i) => {
+        const a = -Math.PI / 2 + (i * 2 * Math.PI) / bds.length;
+        return [CX + RX * Math.cos(a), CY + RY * Math.sin(a), a];
+      });
+      lines.innerHTML = pos.map(([x, y], i) => `<line id="g4-ln${i}" x1="${CX}" y1="${CY}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`).join("");
+      gsap.set(["#g4-a1", "#g4-a2", "#g4-a3", "#g4-B", "#g4-C", "#g4-D", "#g4-logo", "#g4-halo", "#g4-ring", "#g4-cursor"], { opacity: 0 });
+
+      tl.fromTo("#g4-aglow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: L(12), ease: "expo.out" }, L(2));
+      tl.fromTo("#g4-awin", { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: L(9), ease: "back.out(2)" }, L(3));
+      // the eleven icons from GAP 2 and GAP 3 fly in from beyond the frame and settle on the ring
+      bds.forEach((b, i) => {
+        const [x, y, a] = pos[i];
+        const fx = CX + Math.cos(a) * 1100, fy = CY + Math.sin(a) * 1100;
+        const ln = "#g4-ln" + i;
+        const len = Math.hypot(x - CX, y - CY);
+        gsap.set(ln, { strokeDasharray: len, strokeDashoffset: len });
+        tl.fromTo(b, { x: fx, y: fy, scale: 0.5, opacity: 0 }, { x, y, scale: 1, opacity: 1, duration: L(14), ease: "expo.out" }, L(4 + i * 1.5));
+        tl.to(ln, { strokeDashoffset: 0, duration: L(10), ease: "power2.out" }, L(12 + i * 1.5));
+      });
+      // slow orbit: the ring turns, each badge counter-turns to stay upright
+      tl.fromTo("#g4-orbit", { rotation: 0 }, { rotation: 16, duration: L(78), ease: "none", immediateRender: false }, L(4));
+      tl.fromTo(bds, { rotation: 0 }, { rotation: -16, duration: L(78), ease: "none", immediateRender: false }, L(4));
+      // تنوع L24 · المهارات L39 · والكفاءات L59 (the constellation pulses once)
+      [["#g4-a1", 24], ["#g4-a2", 39], ["#g4-a3", 59]].forEach(([s, f]) => Pkg.revealWord(tl, s, L(f), { dur: L(9) }));
+      tl.to(bds, { scale: 1.16, duration: L(4), ease: "sine.out", stagger: L(0.5) }, L(59));
+      tl.to(bds, { scale: 1, duration: L(8), ease: "back.out(2)", stagger: L(0.5) }, L(64));
+      tl.fromTo("#g4-lines line", { opacity: 0.55 }, { opacity: 1, duration: L(4), immediateRender: false }, L(59));
+      tl.to("#g4-lines line", { opacity: 0.55, duration: L(10) }, L(64));
+      // «داخل» L82: everything collapses into the centre
+      tl.to(bds, { x: CX, y: CY, scale: 0.15, opacity: 0, duration: L(10), ease: "expo.in", stagger: L(0.3) }, L(82));
+      tl.to("#g4-lines", { opacity: 0, duration: L(8) }, L(82));
+      tl.to("#g4-awin", { scale: 0.2, opacity: 0, duration: L(10), ease: "expo.in" }, L(83));
+      tl.to("#g4-aglow", { scale: 0.4, opacity: 0, duration: L(10), ease: "expo.in" }, L(83));
+      tl.to("#g4-ah", { opacity: 0, y: -40, filter: "blur(10px)", duration: L(9), ease: "power2.in" }, L(84));
+      // «المؤسسة» L93: the logo, unaltered (0.85 → 1, back-out), a pink sweep over it, hold, then out completely
+      tl.fromTo("#g4-halo", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: L(12), ease: "expo.out" }, L(92));
+      tl.fromTo("#g4-ring", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: L(12), ease: "expo.out" }, L(92));
+      tl.fromTo("#g4-logo", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: L(10), ease: "back.out(1.8)" }, L(93));
+      Pkg.sweep(tl, "#g4-lsw", L(101), L(10));
+      tl.to("#g4-ring", { scale: 1.08, opacity: 0.6, duration: L(14), ease: "sine.out" }, L(104));
+      tl.to(["#g4-logo", "#g4-halo", "#g4-ring"], { opacity: 0, scale: 1.04, duration: L(8), ease: "power2.in" }, L(112));
+
+      // ---------- 4B (L116–L329): tribute ----------
+      gsap.set(["#g4-bw1", "#g4-bw2", "#g4-bw3", "#g4-bw4", "#g4-bw5", "#g4-bw6", "#g4-bw7", "#g4-bw8", "#g4-bw9", "#g4-bw10"], { opacity: 0 });
+      gsap.set(["#g4-accr", "#g4-accg"], { scaleX: 0 });
+      const starLen = document.getElementById("g4-starp").getTotalLength();
+      gsap.set("#g4-starp", { strokeDasharray: starLen, strokeDashoffset: starLen });
+      tl.set("#g4-B", { opacity: 1 }, L(116));
+      tl.fromTo("#g4-bglow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: L(12), ease: "expo.out" }, L(116));
+      tl.fromTo("#g4-bwin", { opacity: 0, scale: 0.6, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: L(9), ease: "back.out(2)" }, L(117));
+      tl.to("#g4-bglow", { scale: 1.08, opacity: 0.8, duration: L(40), ease: "sine.inOut" }, L(140));
+      tl.to("#g4-bglow", { scale: 1, opacity: 1, duration: L(40), ease: "sine.inOut" }, L(180));
+      tl.to("#g4-bbust", { y: -6, duration: L(45), ease: "sine.inOut" }, L(130));
+      tl.to("#g4-bbust", { y: 0, duration: L(45), ease: "sine.inOut" }, L(175));
+      tl.to("#g4-bbust", { y: -6, duration: L(45), ease: "sine.inOut" }, L(220));
+      tl.to("#g4-bbust", { y: 0, duration: L(45), ease: "sine.inOut" }, L(265));
+      // تحية L123 · تقدير L137 · لكل L153 · نساء L166 · الدرك L178 · الملكي L187
+      [["#g4-bw1", 123], ["#g4-bw2", 137], ["#g4-bw3", 153], ["#g4-bw4", 166], ["#g4-bw5", 178], ["#g4-bw6", 187]].forEach(([s, f]) => Pkg.revealWord(tl, s, L(f), { dur: L(9) }));
+      // Moroccan accent: red and green lines open from a green star outline
+      tl.to("#g4-starp", { strokeDashoffset: 0, duration: L(12), ease: "power2.inOut" }, L(195));
+      tl.to(["#g4-accr", "#g4-accg"], { scaleX: 1, duration: L(12), ease: "expo.out" }, L(199));
+      tl.fromTo("#g4-star", { rotation: -30 }, { rotation: 0, duration: L(14), ease: "back.out(2)", immediateRender: false }, L(195));
+      // a soft glow breathes on «نساء الدرك الملكي» while «على ما يبذلنه من مجهود» is spoken
+      tl.fromTo("#g4-b2", { textShadow: "0 0 0px rgba(255,149,165,0)" }, { textShadow: "0 0 34px rgba(255,149,165,0.65)", duration: L(24), ease: "sine.inOut", immediateRender: false }, L(215));
+      tl.to("#g4-b2", { textShadow: "0 0 0px rgba(255,149,165,0)", duration: L(24), ease: "sine.inOut" }, L(239));
+      // في L264 · خدمة L268 · الوطن L278 · والمواطنين L295
+      [["#g4-bw7", 264], ["#g4-bw8", 268], ["#g4-bw9", 278], ["#g4-bw10", 295]].forEach(([s, f]) => Pkg.revealWord(tl, s, L(f), { dur: L(9) }));
+      Pkg.sweep(tl, "#g4-bsw", L(278), L(26));
+
+      // ---------- 4C (L330–L463): «ودابا» match-cut to a big «؟» ----------
+      gsap.set(["#g4-cw1", "#g4-cw2", "#g4-cw3", "#g4-cw4", "#g4-cw5", "#g4-cw6", "#g4-cw7", "#g4-cw8", "#g4-cw9", ".g4-bub", "#g4-crider"], { opacity: 0 });
+      tl.to("#g4-B", { opacity: 0, scale: 1.05, duration: L(3), ease: "power2.in" }, L(328));
+      tl.set("#g4-C", { opacity: 1 }, L(330));
+      tl.fromTo("#g4-q", { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: L(5), ease: "power3.in" }, L(330));
+      tl.fromTo("#g4-flash", { opacity: 0.45 }, { opacity: 0, duration: L(6), ease: "power2.out", immediateRender: false }, L(335));
+      [8, -6, 4, -2, 0].forEach((d, i) => tl.to("#g4-shake", { x: d, y: -d * 0.6, duration: L(1), ease: "none" }, L(335 + i)));
+      tl.to("#g4-q", { y: -10, duration: L(40), ease: "sine.inOut" }, L(342));
+      tl.to("#g4-q", { y: 0, duration: L(40), ease: "sine.inOut" }, L(382));
+      tl.to("#g4-q", { y: -10, duration: L(40), ease: "sine.inOut" }, L(422));
+      tl.fromTo("#g4-qglow", { opacity: 0.3 }, { opacity: 0.85, duration: L(6), ease: "sine.out", immediateRender: false }, L(335));
+      tl.to("#g4-qglow", { opacity: 0.55, duration: L(12), ease: "sine.inOut" }, L(341));
+      tl.fromTo("#g4-crider", { opacity: 0, scale: 0.5, x: 30 }, { opacity: 1, scale: 1, x: 0, duration: L(9), ease: "back.out(2)" }, L(342));
+      for (let f = 354; f < 452; f += 14) {
+        tl.to("#g4-crider", { y: -8, rotation: -3, duration: L(7), ease: "sine.out" }, L(f));
+        tl.to("#g4-crider", { y: 0, rotation: 0, duration: L(7), ease: "sine.in" }, L(f + 7));
+      }
+      // شنو L354 · رأيكم L360 · في L375 · حضور L380 · المرأة L390 · الدركية L400 · في L418 · مجال L423 · الفروسية L432
+      [["#g4-cw1", 354], ["#g4-cw2", 360], ["#g4-cw3", 375], ["#g4-cw4", 380], ["#g4-cw5", 390], ["#g4-cw6", 400], ["#g4-cw7", 418], ["#g4-cw8", 423], ["#g4-cw9", 432]]
+        .forEach(([s, f]) => Pkg.revealWord(tl, s, L(f), { dur: L(9) }));
+      // empty comment bubbles with typing dots invite an answer
+      ["#g4-u1", "#g4-u2", "#g4-u3"].forEach((s, i) => {
+        tl.fromTo(s, { opacity: 0, scale: 0.4, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: L(8), ease: "back.out(2.6)" }, L(438 + i * 4));
+        const dots = [...document.querySelectorAll(s + " i")];
+        for (let f = 444 + i * 4, k = 0; f < 462; f += 5, k++) {
+          tl.to(dots[k % 3], { y: -10, duration: L(2.5), ease: "sine.out" }, L(f));
+          tl.to(dots[k % 3], { y: 0, duration: L(2.5), ease: "sine.in" }, L(f + 2.5));
+        }
+      });
+
+      // ---------- 4D (L460–L609): CTA, then Follow ----------
+      gsap.set(["#g4-r1", "#g4-r2", "#g4-follow", "#g4-ripple", "#g4-done", ".g4-spark", "#g4-dw1", "#g4-dw2", "#g4-dw3", "#g4-dw4", "#g4-dw5", "#g4-dw6", "#g4-dw7", "#g4-fb", "#g4-tt", "#g4-ig"], { opacity: 0 });
+      tl.to("#g4-C", { opacity: 0, y: -80, filter: "blur(12px)", duration: L(7), ease: "power2.in" }, L(458));
+      tl.set("#g4-D", { opacity: 1 }, L(462));
+      // خلّيو L464 · لينا L473 · آراءكم L481 · في L494 · التعاليق L497
+      tl.fromTo("#g4-r1", { opacity: 0 }, { opacity: 1, duration: L(4) }, L(462));
+      tl.fromTo("#g4-t1", { scale: 0.5, rotation: -12 }, { scale: 1, rotation: 0, duration: L(10), ease: "back.out(2.4)" }, L(462));
+      [["#g4-dw1", 464], ["#g4-dw2", 473], ["#g4-dw3", 481], ["#g4-dw4", 494], ["#g4-dw5", 497]].forEach(([s, f]) => Pkg.revealWord(tl, s, L(f), { dur: L(9) }));
+      for (let f = 497, k = 0; f < 600; f += 6, k++) {
+        const d = ["#g4-d1", "#g4-d2", "#g4-d3"][k % 3];
+        tl.to(d, { y: -12, duration: L(3), ease: "sine.out" }, L(f));
+        tl.to(d, { y: 0, duration: L(3), ease: "sine.in" }, L(f + 3));
+      }
+      // وبارتاجيو L522 · الفيديو L541
+      tl.fromTo("#g4-r2", { opacity: 0 }, { opacity: 1, duration: L(4) }, L(520));
+      tl.fromTo("#g4-t2", { scale: 0.5, rotation: 12 }, { scale: 1, rotation: 0, duration: L(10), ease: "back.out(2.4)" }, L(520));
+      Pkg.revealWord(tl, "#g4-dw6", L(522), { dur: L(9) });
+      Pkg.revealWord(tl, "#g4-dw7", L(541), { dur: L(9) });
+      [526, 552, 578].forEach((f) => {
+        tl.to("#g4-share-ar", { y: -22, duration: L(6), ease: "power2.out" }, L(f));
+        tl.to("#g4-share-ar", { y: 0, duration: L(8), ease: "back.out(3)" }, L(f + 6));
+      });
+      // the two asks slide down and shrink under the Follow block while the avatar flies in (brand overlay, «باش» L556)
+      tl.to("#g4-r1", { y: 620, scale: 0.75, duration: L(12), ease: "expo.inOut" }, L(548));
+      tl.to("#g4-r2", { y: 500, scale: 0.75, duration: L(12), ease: "expo.inOut" }, L(549));
+      // «تابع» pops under the avatar; the finger taps it → «✓ متابَع» with a pink burst
+      tl.fromTo("#g4-follow", { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: L(9), ease: "back.out(2.4)" }, L(562));
+      tl.fromTo("#g4-cursor", { opacity: 0, x: 230, y: 260, rotation: 14 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: L(8), ease: "power3.out" }, L(564));
+      tl.to("#g4-cursor", { scale: 0.86, duration: L(3), ease: "power2.in" }, L(572));
+      tl.to("#g4-follow", { scale: 0.93, duration: L(3), ease: "power2.in" }, L(572));
+      tl.fromTo("#g4-ripple", { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 2.4, duration: L(14), ease: "expo.out", immediateRender: false }, L(574));
+      tl.to("#g4-cursor", { scale: 1, duration: L(4), ease: "power2.out" }, L(575));
+      tl.to("#g4-follow", { scale: 1, duration: L(8), ease: "back.out(3)" }, L(575));
+      tl.to("#g4-follow .lb, #g4-follow > .ic", { opacity: 0, duration: L(3) }, L(574));
+      tl.fromTo("#g4-done", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: L(6), ease: "back.out(2)" }, L(574));
+      [0, 60, 120, 180, 240, 300].forEach((a, i) => {
+        const r = (a * Math.PI) / 180;
+        tl.fromTo("#g4-s" + (i + 1), { opacity: 1, x: 0, y: 0, rotation: a + 90, scale: 0.6 },
+          { opacity: 0, x: Math.cos(r) * 250, y: Math.sin(r) * 110, scale: 1, duration: L(14), ease: "expo.out", immediateRender: false }, L(574));
+      });
+      tl.to("#g4-cursor", { opacity: 0, x: 120, y: 160, duration: L(8), ease: "power2.in" }, L(582));
+      // social row: Facebook, TikTok, Instagram, 3 frames apart (settled by L594 = F1982), then a pink sweep
+      ["#g4-fb", "#g4-tt", "#g4-ig"].forEach((s, i) =>
+        tl.fromTo(s, { opacity: 0, scale: 0.4, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: L(8), ease: "back.out(2.6)" }, L(580 + i * 3)));
+      tl.fromTo("#g4-socsweep", { xPercent: 0, opacity: 1 }, { xPercent: 520, duration: L(12), ease: "power2.inOut", immediateRender: false }, L(594));
+      tl.set("#g4-socsweep", { opacity: 0 }, L(606));
+
+      window.__timelines["g4"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" data-resolution="portrait"
+  data-composition-variables='[{"id":"layer","type":"enum","label":"Layer","default":"all","options":[{"value":"all","label":"Preview: footage, captions, inserts"},{"value":"inserts","label":"Inserts only (delivery)"},{"value":"captions","label":"Captions only, transparent (delivery)"}]}]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!-- Reel 2 «دور المرأة الدركية في مجال الفروسية»: footage, captions, the four inserts, the shared brand overlay and the
+         original audio. Same package as reel 1: assets/ links to reel-gendarmerie/hf/assets, brand.html is shared. -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <link rel="stylesheet" href="assets/package.css" />
+    <script src="assets/bust.js"></script>
+    <script src="assets/pkg.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #05080F; }
+      #root { width: 100%; height: 100%; position: relative; }
+      #footage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+      #captions { z-index: 5; }
+      #g1, #g2, #g3, #g4 { z-index: 10; }
+      #brand { z-index: 20; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="66.6" data-width="1080" data-height="1920">
+      <video id="footage" class="clip" src="assets/media/reel.mp4" muted data-start="0" data-duration="66.6" data-track-index="0"></video>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="66.6" data-track-index="1" data-track-kind="captions" data-width="1080" data-height="1920"></div>
+      <div id="g1" data-composition-id="g1" data-composition-src="compositions/g1.html" data-start="0" data-duration="4.3667" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="g2" data-composition-id="g2" data-composition-src="compositions/g2.html" data-start="28.2667" data-duration="2.3333" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="g3" data-composition-id="g3" data-composition-src="compositions/g3.html" data-start="36.6667" data-duration="5.4333" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="g4" data-composition-id="g4" data-composition-src="compositions/g4.html" data-start="46.2667" data-duration="20.3333" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="brand" data-composition-id="brand" data-composition-src="compositions/brand.html" data-variable-values='{"follow":60.4333}' data-start="4.3667" data-duration="62.2333" data-track-index="3" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <audio id="vo" src="assets/media/vo.m4a" data-start="0" data-duration="66.6" data-track-index="4"></audio>
+    </div>
+    <script>
+      // delivery layers: hide what the chosen layer leaves out (static, set once before any frame)
+      const layer = ((window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {}).layer || "all";
+      const off = { inserts: ["footage", "captions"], captions: ["footage", "g1", "g2", "g3", "g4"] }[layer] || [];
+      off.forEach((id) => (document.getElementById(id).style.opacity = "0"));
+      if (layer === "captions") document.documentElement.style.background = document.body.style.background = "transparent";
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

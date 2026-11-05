@@ -1,0 +1,124 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    .g1-abs { position: absolute; }
+    /* hero group: spotlight, equestrian bust, horse-head icon and «؟»; it match-moves up when the question starts */
+    #g1-hero { position: absolute; inset: 0; transform-origin: 540px 380px; }
+    #g1-spot { left: 90px; top: 330px; width: 900px; height: 900px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,149,165,0.22) 0%, rgba(255,149,165,0.08) 42%, rgba(255,149,165,0) 70%); }
+    #g1-win { left: 220px; top: 380px; width: 640px; height: 774px;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 80%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 80%, transparent 100%); }
+    #g1-bust { position: absolute; left: 0; top: 70px; width: 640px; height: 704px; transform-origin: 50% 100%; }
+    #g1-bust svg { width: 100%; height: 100%; display: block; }
+    #g1-horse { left: 70px; top: 600px; width: 250px; height: 250px; color: var(--pink); }
+    #g1-horse svg { width: 100%; height: 100%; filter: drop-shadow(0 0 14px rgba(255,149,165,0.45)); }
+    #g1-qw { left: 660px; top: 300px; width: 300px; height: 420px; transform: rotate(10deg); }
+    #g1-q { position: absolute; inset: 0; transform-origin: 40% 75%; }
+    #g1-q .g { position: absolute; inset: 0; font-family: var(--font-ar); font-weight: 900; font-size: 360px; line-height: 420px; text-align: center; }
+    #g1-q .glow { color: var(--pink); filter: blur(26px); opacity: 0.55; }
+    #g1-q .face { color: transparent; background: linear-gradient(165deg, var(--pink-lt) 0%, var(--pink) 45%, var(--pink-dk) 100%); -webkit-background-clip: text; background-clip: text; }
+    /* «سؤال اليوم»: big title, then a kicker above the question */
+    #g1-title { left: 90px; right: 120px; top: 1190px; height: 200px; display: flex; justify-content: center; gap: 40px; direction: rtl; transform-origin: 435px 0; }
+    .g1-t { position: relative; display: inline-block; font-weight: 900; font-size: 156px; line-height: 200px; white-space: nowrap; color: var(--ink); }
+    #g1-t2 { color: var(--pink); }
+    .g1-sw { position: absolute; inset: 0; color: transparent; background: linear-gradient(100deg, rgba(255,255,255,0) 38%, rgba(255,244,246,0.9) 50%, rgba(255,255,255,0) 62%);
+      background-size: 300% 100%; background-position: 100% 0; -webkit-background-clip: text; background-clip: text; opacity: 0; }
+    #g1-ul { position: absolute; left: 6px; right: 6px; bottom: 6px; height: 10px; border-radius: 5px; background: linear-gradient(90deg, var(--pink-dk), var(--pink)); transform-origin: 100% 50%; }
+    /* the question, three lines (line 1 of the script is wider than the safe zone at headline size) */
+    #g1-q1, #g1-q2, #g1-q3 { left: 90px; right: 120px; text-align: center; font-weight: 900; font-size: 94px; line-height: 114px; white-space: nowrap; }
+    #g1-q1 { top: 930px; } #g1-q2 { top: 1044px; } #g1-q3 { top: 1158px; }
+    #g1-q3 .accent { position: relative; display: inline-block; }
+    #g1-qul { position: absolute; left: 4px; right: 4px; bottom: 4px; height: 9px; border-radius: 5px; background: linear-gradient(90deg, var(--pink-dk), var(--pink)); transform-origin: 100% 50%; }
+    #g1-hsweep { left: 90px; width: 870px; top: 930px; height: 360px; overflow: hidden; }
+  </style>
+  <div id="root" data-composition-id="g1" data-start="0" data-duration="4.3667" data-width="1080" data-height="1920">
+    <div class="pkg-scene">
+      <div class="pkg-bg" id="g1-bg"></div>
+      <div id="g1-zelhost"></div>
+      <div class="pkg-cam" id="g1-cam">
+        <div id="g1-hero">
+          <div class="g1-abs" id="g1-spot"></div>
+          <div class="g1-abs" id="g1-win"><div id="g1-bust"></div></div>
+          <div class="g1-abs" id="g1-horse" data-icon="horse"></div>
+          <div class="g1-abs" id="g1-qw"><div id="g1-q"><div class="g glow" id="g1-qglow">؟</div><div class="g face">؟</div></div></div>
+        </div>
+        <div class="g1-abs" id="g1-title">
+          <div class="g1-t" id="g1-t1">سؤال<div class="g1-sw" id="g1-s1">سؤال</div></div>
+          <div class="g1-t" id="g1-t2">اليوم<div class="g1-sw" id="g1-s2">اليوم</div><div id="g1-ul"></div></div>
+        </div>
+        <div class="g1-abs" id="g1-q1"><span class="w" id="g1-w1">شنو</span> <span class="w" id="g1-w2">هو</span> <span class="w" id="g1-w3">دور</span></div>
+        <div class="g1-abs" id="g1-q2"><span class="w" id="g1-w4">المرأة</span> <span class="w" id="g1-w5">الدركية</span></div>
+        <div class="g1-abs" id="g1-q3">في مجال <span class="accent">الفروسية؟<span id="g1-qul"></span></span></div>
+        <div class="g1-abs" id="g1-hsweep"><div class="sweep" id="g1-sw"></div></div>
+      </div>
+      <div class="pkg-vignette"></div>
+      <div class="pkg-grain" id="g1-grain"></div>
+      <div class="pkg-bridge" id="g1-out" style="background-image: url('assets/bridge/f131.jpg')"></div>
+      <div class="pkg-flash" id="g1-flash"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const { F } = Pkg;
+      const root = document.querySelector('[data-composition-id="g1"]');
+      Pkg.mountIcons(root);
+      document.getElementById("g1-bust").innerHTML = Bust.svg("soft", "g1b", "riding");
+      const tl = gsap.timeline({ paused: true });
+      const DUR = F(131); // F0–F130; exit whip F124–F130 into the footage at F131
+      Pkg.shell(tl, "g1", DUR, { entry: false, push: [1.03, 1.08], exitFrames: 7 });
+
+      gsap.set(["#g1-ul", "#g1-qul"], { scaleX: 0 });
+      gsap.set(["#g1-w1", "#g1-w2", "#g1-w3", "#g1-w4", "#g1-w5"], { opacity: 0 });
+      gsap.set("#g1-q3", { clipPath: "inset(-20% -10% -20% 100%)" });
+
+      // F0 is not empty: the spotlight is up and the bust is already rising through its mask
+      tl.fromTo("#g1-spot", { opacity: 0.5, scale: 0.9 }, { opacity: 1, scale: 1, duration: F(14), ease: "expo.out" }, 0);
+      tl.fromTo("#g1-bust", { y: 120, scale: 0.95, filter: "blur(3px)" }, { y: 0, scale: 1, filter: "blur(0px)", duration: F(16), ease: "expo.out" }, 0);
+      // slow breathing so the hold never sits still
+      tl.to("#g1-bust", { scale: 1.012, duration: F(30), ease: "sine.inOut" }, F(18));
+      tl.to("#g1-bust", { scale: 1, duration: F(30), ease: "sine.inOut" }, F(48));
+
+      // horse-head line icon draws itself on (F8–F28), then its eye and nostril appear
+      const paths = [...document.querySelectorAll("#g1-horse path")];
+      paths.forEach((p, i) => {
+        const L = p.getTotalLength();
+        // hidden until its draw starts: a round cap would otherwise show as a dot at the path's start
+        gsap.set(p, { strokeDasharray: L, strokeDashoffset: L, opacity: 0 });
+        tl.set(p, { opacity: 1 }, F(8 + i * 3));
+        tl.to(p, { strokeDashoffset: 0, duration: F(18), ease: "power2.inOut" }, F(8 + i * 3));
+      });
+      tl.fromTo("#g1-horse circle", { opacity: 0 }, { opacity: 1, duration: F(4) }, F(26));
+      tl.fromTo("#g1-horse", { y: 0 }, { y: -10, duration: F(40), ease: "sine.inOut", immediateRender: false }, F(28));
+
+      // «؟» pops (0 → 1.12 → 1) turning −12° → 0°, with a light blur and a glow pulse, then floats
+      tl.fromTo("#g1-q", { scale: 0, rotation: -12, filter: "blur(6px)" }, { scale: 1.12, rotation: 0, filter: "blur(0px)", duration: F(6), ease: "expo.out" }, F(18));
+      tl.to("#g1-q", { scale: 1, duration: F(5), ease: "back.out(2)" }, F(24));
+      tl.fromTo("#g1-qglow", { opacity: 0.3 }, { opacity: 0.9, duration: F(5), ease: "sine.out" }, F(22));
+      tl.to("#g1-qglow", { opacity: 0.55, duration: F(8), ease: "sine.inOut" }, F(27));
+      tl.to("#g1-q", { y: -10, duration: F(40), ease: "sine.inOut" }, F(30));
+
+      // «سؤال» (F40) and «اليوم» (F47): right-to-left wipes with a slight settle, then the underline
+      tl.fromTo("#g1-t1", { clipPath: "inset(-20% -2% -20% 100%)", scale: 1.06 }, { clipPath: "inset(-20% -2% -20% -2%)", scale: 1, duration: F(8), ease: "expo.out" }, F(40));
+      tl.fromTo("#g1-t2", { clipPath: "inset(-20% -2% -20% 100%)", scale: 1.06 }, { clipPath: "inset(-20% -2% -20% -2%)", scale: 1, duration: F(8), ease: "expo.out" }, F(47));
+      tl.to("#g1-ul", { scaleX: 1, duration: F(7), ease: "expo.out" }, F(52));
+      tl.set(["#g1-s1", "#g1-s2"], { opacity: 1 }, F(56));
+      tl.fromTo(["#g1-s1", "#g1-s2"], { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: F(7), ease: "power2.inOut", immediateRender: false }, F(56));
+      tl.set(["#g1-s1", "#g1-s2"], { opacity: 0 }, F(63));
+
+      // match-move in the pause before «شنو» (F75): the hero group and the title shrink up into a header
+      tl.to("#g1-hero", { scale: 0.62, y: -60, duration: F(12), ease: "expo.inOut" }, F(64));
+      tl.to("#g1-title", { scale: 0.55, y: -390, duration: F(12), ease: "expo.inOut" }, F(64));
+
+      // the question, on its words: شنو F75 · هو F82 · دور F91 · المرأة F98 · الدركية F109
+      [["#g1-w1", 75], ["#g1-w2", 82], ["#g1-w3", 91], ["#g1-w4", 98], ["#g1-w5", 109]].forEach(([s, f]) =>
+        Pkg.revealWord(tl, s, F(f), { dy: 34, dur: F(9) }));
+      // «في مجال الفروسية؟» is spoken after the gap (F129–F144): it wipes in as one line, complete by F115
+      tl.to("#g1-q3", { clipPath: "inset(-20% -10% -20% -10%)", duration: F(5), ease: "expo.out" }, F(110));
+      tl.set("#g1-q3", { clipPath: "none" }, F(115));
+      tl.to("#g1-qul", { scaleX: 1, duration: F(7), ease: "expo.out" }, F(113));
+      Pkg.sweep(tl, "#g1-sw", F(112), F(8));
+
+      window.__timelines["g1"] = tl;
+    })();
+  </script>
+</template>
